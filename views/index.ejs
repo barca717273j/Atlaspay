@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtlasPay</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/logo.png" alt="AtlasPay" class="logo">
+            <h1>AtlasPay</h1>
+            <p>Pague de forma rápida, segura e moderna</p>
+        </header>
+
+        <main>
+            <form id="paymentForm" action="/create-payment" method="POST">
+                <input type="text" name="name" placeholder="Seu nome" required>
+                <input type="email" name="email" placeholder="Seu email" required>
+                <input type="number" name="amount" placeholder="Valor (R$)" required>
+                <button type="submit">Pagar Agora</button>
+            </form>
+        </main>
+
+        <footer>
+            <p>© 2025 AtlasPay - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>
