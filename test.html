@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Teste AtlasPay</title>
+</head>
+<body>
+  <h2>Teste AtlasPay</h2>
+
+  <input id="amount" type="number" placeholder="Valor"><br><br>
+  <input id="description" type="text" placeholder="Descrição"><br><br>
+
+  <button onclick="pagar()">Criar Pagamento</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    function pagar() {
+      fetch("https://atlaspay.onrender.com/create-payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount: document.getElementById("amount").value,
+          description: document.getElementById("description").value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById("result").textContent = err;
+      });
+    }
+  </script>
+</body>
+</html>
