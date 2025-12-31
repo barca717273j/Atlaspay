@@ -1,48 +1,145 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>AtlasPay</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>AtlasPay • Gateway de Pagamentos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, Arial, sans-serif;
+    }
+
     body {
-      background: #000;
+      background: #0a0a0a;
       color: #fff;
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    header span {
+      color: #999;
+      font-size: 13px;
+    }
+
+    main {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 40px 20px;
     }
-    .box {
+
+    .card {
       width: 100%;
-      max-width: 360px;
-      text-align: center;
+      max-width: 420px;
+      background: #111;
+      border: 1px solid #1f1f1f;
+      border-radius: 12px;
+      padding: 28px;
     }
-    input, button {
+
+    .card h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 24px;
+    }
+
+    label {
+      font-size: 13px;
+      color: #ccc;
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+
+    input {
       width: 100%;
       padding: 14px;
-      margin-top: 12px;
-      border-radius: 6px;
-      border: none;
+      background: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
     }
+
+    input::placeholder {
+      color: #666;
+    }
+
     button {
+      margin-top: 24px;
+      width: 100%;
+      padding: 16px;
       background: #fff;
       color: #000;
-      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      padding: 30px 10px;
     }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>AtlasPay</h1>
-    <p>Gateway moderna e segura</p>
 
-    <input placeholder="Nome">
-    <input placeholder="Email">
-    <input placeholder="Valor">
+<header>
+  <h1>AtlasPay</h1>
+  <span>Gateway de Pagamentos</span>
+</header>
 
-    <button>Pagar</button>
+<main>
+  <div class="card">
+    <h2>Pagamento seguro</h2>
+    <p>Transações rápidas, taxas justas e transparência total.</p>
+
+    <label>Nome completo</label>
+    <input placeholder="Ex: João da Silva">
+
+    <label>Email</label>
+    <input placeholder="email@exemplo.com">
+
+    <label>Valor</label>
+    <input placeholder="R$ 0,00">
+
+    <button>Continuar pagamento</button>
   </div>
+</main>
+
+<footer>
+  © 2025 AtlasPay • Transparência e segurança em primeiro lugar
+</footer>
+
 </body>
 </html>
