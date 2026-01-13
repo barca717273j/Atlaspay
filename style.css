@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #0b0b0b;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 380px;
+  padding: 20px;
+}
+
+.logo-area {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  width: 70px;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.brand span {
+  color: #3b82f6;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-top: 8px;
+}
+
+.card {
+  background: #fff;
+  color: #000;
+  border-radius: 14px;
+  padding: 25px;
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #f1f1f1;
+  font-size: 15px;
+}
+
+.card button {
+  width: 100%;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.card button:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
+
+.switch {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.switch a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.terms {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.terms a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+/* FORÇA DA SENHA */
+.password-strength {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+#strengthBar {
+  height: 100%;
+  width: 0%;
+  background: red;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+#strengthText {
+  font-size: 12px;
+  color: red;
+}
