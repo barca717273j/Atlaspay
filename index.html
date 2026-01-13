@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AtlasPay</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- LOGO -->
+    <div class="logo-area">
+      <img src="logo.png" alt="AtlasPay" class="logo"/>
+      <h1 class="brand">Atlas<span>Pay</span></h1>
+      <p class="subtitle">
+        A plataforma de pagamentos e produtos digitais feita para quem constrói negócios de verdade.
+      </p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+      <!-- CRIAR CONTA -->
+      <div id="signup">
+        <h2>Criar conta</h2>
+
+        <input type="email" placeholder="Seu e-mail" id="signupEmail"/>
+        <input type="password" placeholder="Crie uma senha" id="signupPassword"/>
+
+        <!-- FORÇA DA SENHA -->
+        <div class="password-strength">
+          <div id="strengthBar"></div>
+        </div>
+        <small id="strengthText">Senha fraca</small>
+
+        <button id="signupBtn">Criar conta</button>
+
+        <p class="switch">
+          Já tem conta?
+          <a href="#" onclick="toggle()">Entrar</a>
+        </p>
+
+        <p class="terms">
+          Ao criar uma conta, você concorda com nossos
+          <a href="#">Termos de Uso</a> e
+          <a href="#">Política de Privacidade</a>.
+        </p>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="login" class="hidden">
+        <h2>Entrar</h2>
+
+        <input type="email" placeholder="Seu e-mail"/>
+        <input type="password" placeholder="Sua senha"/>
+
+        <button>Entrar</button>
+
+        <p class="switch">
+          Não tem conta?
+          <a href="#" onclick="toggle()">Criar conta</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
