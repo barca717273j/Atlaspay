@@ -16,34 +16,48 @@
   </div>
 
   <!-- REGISTRO -->
-  <form id="registerForm" class="card active">
-    <h2>Crie sua conta</h2>
-    <p>Informe seus dados para continuar</p>
+  <form id="registerForm">
 
-    <input type="text" placeholder="Nome completo" required>
-    <input type="email" placeholder="E-mail" required>
+  <input type="text" placeholder="Nome completo" required>
 
+  <input type="email" placeholder="E-mail" required>
+
+  <input type="tel" placeholder="Celular com DDD" required>
+
+  <div class="password-field">
     <input type="password" id="password" placeholder="Senha" required>
+    <span id="togglePass">👁</span>
+  </div>
 
-    <div class="strength">
-      <div id="strengthBar"></div>
-    </div>
-    <span id="strengthText">Senha fraca</span>
+  <div class="strength">
+    <div class="bar"></div>
+  </div>
+  <small id="strengthText">Digite uma senha segura</small>
 
+  <div class="password-field">
     <input type="password" placeholder="Confirmar senha" required>
+  </div>
 
-    <label class="terms">
-      <input type="checkbox" id="terms">
-      <span>Concordo com os <a href="#">Termos</a> e <a href="#">Privacidade</a></span>
-    </label>
+  <label class="terms">
+    <input type="checkbox" id="terms">
+    <span>
+      Li e aceito os
+      <a href="#">Termos de uso</a>
+      e a
+      <a href="#">Política de privacidade</a>
+    </span>
+  </label>
 
-    <button type="submit" id="registerBtn" disabled>Criar conta grátis</button>
+  <button type="submit" id="registerBtn" disabled>
+    Criar conta grátis
+  </button>
 
-    <p class="switch">
-      Já tem conta?
-      <a href="#" onclick="toggleForms()">Entrar agora</a>
-    </p>
-  </form>
+  <p class="switch">
+    Já possui conta?
+    <a href="#" id="goLogin">Entrar</a>
+  </p>
+</form>
+
 
   <!-- LOGIN -->
   <form id="loginForm" class="card">
