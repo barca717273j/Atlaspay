@@ -1,186 +1,130 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: Inter, Arial, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #050b18, #0c1e3a);
-  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #050b18, #0b1e3d);
+  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .container {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
 }
 
 .logo {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .logo img {
   width: 60px;
+  margin-bottom: 10px;
 }
 
 .logo h1 {
-  color: #fff;
-  margin-top: 8px;
-  font-size: 22px;
+  margin: 0;
+  font-size: 26px;
+  color: #000;
 }
 
-.card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  display: none;
-  animation: fade 0.4s ease;
+.logo h1 span {
+  color: #0a66ff;
 }
 
-.card.active {
-  display: block;
-}
-
-h2 {
-  font-size: 22px;
-  margin-bottom: 6px;
-}
-
-p {
+.slogan {
   font-size: 14px;
-  color: #666;
-  margin-bottom: 16px;
+  color: #555;
 }
 
-input {
+form input {
   width: 100%;
   padding: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  font-size: 14px;
+  font-size: 15px;
 }
 
-input:focus {
+form input:focus {
   outline: none;
-  border-color: #3fa9f5;
-}
-
-.strength {
-  height: 6px;
-  background: #eee;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-
-#strengthBar {
-  height: 100%;
-  width: 0;
-  transition: 0.3s;
-}
-
-#strengthText {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.terms {
-  font-size: 13px;
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.terms a {
-  color: #3fa9f5;
-  text-decoration: none;
+  border-color: #0a66ff;
 }
 
 button {
   width: 100%;
   padding: 14px;
+  background: #0a66ff;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #3fa9f5, #2563eb);
+  border-radius: 8px;
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(63,169,245,0.4);
+  box-shadow: 0 8px 20px rgba(10,102,255,.4);
 }
 
-button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.switch {
-  text-align: center;
-  margin-top: 16px;
-  font-size: 14px;
-}
-
-.switch a {
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.forgot {
-  font-size: 13px;
-  color: #2563eb;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 14px;
-}
-
-@keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* CENTRALIZAÇÃO MAIS PREMIUM */
-.container {
+.links {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
-/* LOGO MAIS FORTE */
-.logo h1 {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: .5px;
-  color: #005eff; /* MESMO AZUL DO BOTÃO */
+.links a {
+  font-size: 13px;
+  color: #0a66ff;
+  text-decoration: none;
 }
 
-/* TERMOS ALINHADOS */
 .terms {
   display: flex;
-  align-items: flex-start;
   gap: 8px;
-  line-height: 1.4;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #555;
 }
 
-/* INPUT CELULAR IGUAL EMAIL */
-input[type="tel"] {
-  font-size: 15px;
+.terms a {
+  color: #0a66ff;
+  text-decoration: none;
 }
 
-/* CARD MAIS “EMPRESA GRANDE” */
-.card {
-  border: 1px solid rgba(0,0,0,.05);
+/* PASSWORD STRENGTH */
+.strength {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.strength span {
+  flex: 1;
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+.strength span.active.red { background: #ff3b3b; }
+.strength span.active.orange { background: #ff9800; }
+.strength span.active.green { background: #4caf50; }
+
+#strengthText {
+  font-size: 12px;
+  margin-top: 4px;
 }
