@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Atlaspay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">
+    <img src="logo.png" alt="Atlaspay">
+  </div>
+
+  <h2 id="title">Entrar na Atlaspay</h2>
+
+  <form id="form">
+    <input type="email" placeholder="E-mail" required>
+    <input type="password" placeholder="Senha" required>
+
+    <div id="extra-field" style="display:none;">
+      <input type="text" placeholder="Nome completo">
+    </div>
+
+    <button type="submit">Continuar</button>
+  </form>
+
+  <p class="toggle">
+    <span id="toggle-text">Não tem conta?</span>
+    <a href="#" onclick="toggleForm()">Criar conta</a>
+  </p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
