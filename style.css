@@ -152,3 +152,35 @@ button:disabled {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* CENTRALIZAÇÃO MAIS PREMIUM */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOGO MAIS FORTE */
+.logo h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: #005eff; /* MESMO AZUL DO BOTÃO */
+}
+
+/* TERMOS ALINHADOS */
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+/* INPUT CELULAR IGUAL EMAIL */
+input[type="tel"] {
+  font-size: 15px;
+}
+
+/* CARD MAIS “EMPRESA GRANDE” */
+.card {
+  border: 1px solid rgba(0,0,0,.05);
+}
