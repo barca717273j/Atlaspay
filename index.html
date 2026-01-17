@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>AtlasPay</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="logo">
+    <img src="logo.png" alt="AtlasPay">
+    <h1>AtlasPay</h1>
+  </div>
+
+  <!-- REGISTRO -->
+  <form id="registerForm" class="card active">
+    <h2>Crie sua conta</h2>
+    <p>Informe seus dados para continuar</p>
+
+    <input type="text" placeholder="Nome completo" required>
+    <input type="email" placeholder="E-mail" required>
+
+    <input type="password" id="password" placeholder="Senha" required>
+
+    <div class="strength">
+      <div id="strengthBar"></div>
+    </div>
+    <span id="strengthText">Senha fraca</span>
+
+    <input type="password" placeholder="Confirmar senha" required>
+
+    <label class="terms">
+      <input type="checkbox" id="terms">
+      <span>Concordo com os <a href="#">Termos</a> e <a href="#">Privacidade</a></span>
+    </label>
+
+    <button type="submit" id="registerBtn" disabled>Criar conta grátis</button>
+
+    <p class="switch">
+      Já tem conta?
+      <a href="#" onclick="toggleForms()">Entrar agora</a>
+    </p>
+  </form>
+
+  <!-- LOGIN -->
+  <form id="loginForm" class="card">
+    <h2>Entrar</h2>
+    <p>Acesse sua conta AtlasPay</p>
+
+    <input type="email" placeholder="E-mail" required>
+    <input type="password" placeholder="Senha" required>
+
+    <a href="#" class="forgot">Esqueceu a senha?</a>
+
+    <button>Entrar</button>
+
+    <p class="switch">
+      Não tem conta?
+      <a href="#" onclick="toggleForms()">Criar agora</a>
+    </p>
+  </form>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
