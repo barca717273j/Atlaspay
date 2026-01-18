@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AtlasPay — Criar conta</title>
+<title>AtlasPay</title>
 
 <style>
 :root{
   --blue1:#0e0774;
   --blue2:#1d0e99;
   --card:#0f153d;
+  --input:#141b5e;
+  --border:#2a33a3;
   --text:#ffffff;
-  --muted:#aab0ff;
+  --muted:#b9c0ff;
 }
 
-*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system}
+*{box-sizing:border-box;font-family:Inter,system-ui}
 
 body{
   margin:0;
@@ -30,29 +32,21 @@ body{
   width:100%;
   max-width:420px;
   background:var(--card);
-  border-radius:16px;
-  padding:32px;
-  box-shadow:0 40px 80px rgba(0,0,0,.35);
-  animation:fadeUp .6s ease;
-}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:none}
+  border-radius:18px;
+  padding:34px;
+  box-shadow:0 40px 90px rgba(0,0,0,.4);
 }
 
 .logo{
   text-align:center;
-  font-size:42px;
+  font-size:34px;
   font-weight:800;
-  letter-spacing:2px;
-  margin-bottom:16px;
+  letter-spacing:1px;
+  margin-bottom:18px;
 }
 
 .logo span{
-  background:linear-gradient(135deg,#5f6bff,#9aa6ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  color:#7f8bff;
 }
 
 h1{
@@ -65,25 +59,30 @@ h1{
   text-align:center;
   color:var(--muted);
   font-size:14px;
-  margin-bottom:24px;
+  margin-bottom:26px;
 }
 
-.field{margin-bottom:14px}
+.field{margin-bottom:16px}
 
 label{
   display:block;
   font-size:13px;
   margin-bottom:6px;
+  color:#d4d8ff;
 }
 
 input{
   width:100%;
-  padding:12px 14px;
-  border-radius:10px;
-  border:none;
-  background:#111755;
+  padding:13px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--input);
   color:#fff;
-  outline:none;
+  font-size:14px;
+}
+
+input::placeholder{
+  color:#8f96ff;
 }
 
 .password-wrapper{
@@ -92,22 +91,14 @@ input{
 
 .eye{
   position:absolute;
-  right:12px;
+  right:14px;
   top:50%;
   transform:translateY(-50%);
-  width:20px;
-  height:20px;
+  width:22px;
+  height:14px;
+  border:2px solid #9aa6ff;
+  border-radius:14px;
   cursor:pointer;
-  opacity:.8;
-}
-
-.eye::before{
-  content:'';
-  display:block;
-  width:20px;
-  height:12px;
-  border:2px solid #aab0ff;
-  border-radius:12px;
 }
 
 .eye::after{
@@ -117,7 +108,7 @@ input{
   left:8px;
   width:4px;
   height:4px;
-  background:#aab0ff;
+  background:#9aa6ff;
   border-radius:50%;
   transition:.3s;
 }
@@ -142,18 +133,18 @@ input{
   transition:.3s;
 }
 
+.weak{background:#ff4d4d}
+.medium{background:#ffb84d}
+.strong{background:#4dff88}
+
 .strength-text{
   font-size:12px;
   margin-top:4px;
 }
 
-.weak{background:#ff4d4d}
-.medium{background:#ffb84d}
-.strong{background:#4dff88}
-
 .terms{
   font-size:13px;
-  margin:16px 0;
+  margin:18px 0;
   display:flex;
   gap:8px;
 }
@@ -162,8 +153,8 @@ button{
   width:100%;
   padding:14px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#2f3bff,#6b78ff);
+  border-radius:14px;
+  background:linear-gradient(135deg,#3949ff,#7a88ff);
   color:#fff;
   font-size:15px;
   cursor:pointer;
@@ -178,6 +169,7 @@ button{
 .footer a{
   color:#9aa6ff;
   text-decoration:none;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -186,20 +178,22 @@ button{
 
 <div class="card">
 
-  <div class="logo"><span>A</span>tlasPay</div>
+<div class="logo"><span>A</span>tlasPay</div>
 
-  <h1>Criar conta</h1>
-  <div class="subtitle">Crie sua conta e comece agora</div>
+<h1 id="title">Criar conta</h1>
+<div class="subtitle" id="subtitle">Crie sua conta e comece agora</div>
+
+<div id="register">
 
   <div class="field">
     <label>Email</label>
-    <input type="email">
+    <input type="email" placeholder="seu@email.com">
   </div>
 
   <div class="field">
     <label>Senha</label>
     <div class="password-wrapper">
-      <input type="password" id="password">
+      <input type="password" id="password" placeholder="Crie uma senha">
       <div class="eye" id="eye" onclick="togglePassword()"></div>
     </div>
     <div class="strength"><span id="bar"></span></div>
@@ -208,58 +202,68 @@ button{
 
   <div class="field">
     <label>Confirmar senha</label>
-    <input type="password">
+    <input type="password" placeholder="Repita a senha">
   </div>
 
   <div class="terms">
     <input type="checkbox" id="terms">
-    <label>
-      Li e aceito os <b>Termos de Uso</b> e a <b>Política de Privacidade</b> da AtlasPay,
-      incluindo uso de dados, segurança e responsabilidade da plataforma.
-    </label>
+    <label>Li e aceito os Termos de Uso e a Política de Privacidade da AtlasPay.</label>
   </div>
 
   <button onclick="checkTerms()">Criar conta</button>
 
-  <div class="footer">
-    Já tenho uma conta na AtlasPay?
-    <a href="#">Acessar agora</a>
+</div>
+
+<div id="login" style="display:none">
+
+  <div class="field">
+    <label>Email</label>
+    <input type="email" placeholder="seu@email.com">
   </div>
+
+  <div class="field">
+    <label>Senha</label>
+    <input type="password" placeholder="Sua senha">
+  </div>
+
+  <button>Entrar</button>
+
+</div>
+
+<div class="footer">
+  <span id="toggleText">Já tenho uma conta na AtlasPay?</span>
+  <a onclick="toggleAuth()">Acessar agora</a>
+</div>
 
 </div>
 
 <script>
-const pass = document.getElementById("password");
-const bar = document.getElementById("bar");
-const text = document.getElementById("strengthText");
-const eye = document.getElementById("eye");
+const pass=document.getElementById("password");
+const bar=document.getElementById("bar");
+const text=document.getElementById("strengthText");
+const eye=document.getElementById("eye");
 
 pass.addEventListener("input",()=>{
-  const v = pass.value.length;
-  if(v < 6){
-    bar.style.width="33%";
-    bar.className="weak";
-    text.textContent="Senha fraca";
-  }else if(v < 10){
-    bar.style.width="66%";
-    bar.className="medium";
-    text.textContent="Senha média";
-  }else{
-    bar.style.width="100%";
-    bar.className="strong";
-    text.textContent="Senha forte";
-  }
+  const v=pass.value.length;
+  if(v<6){bar.style.width="33%";bar.className="weak";text.textContent="Senha fraca";}
+  else if(v<10){bar.style.width="66%";bar.className="medium";text.textContent="Senha média";}
+  else{bar.style.width="100%";bar.className="strong";text.textContent="Senha forte";}
 });
 
 function togglePassword(){
-  pass.type = pass.type === "password" ? "text" : "password";
+  pass.type=pass.type==="password"?"text":"password";
   eye.classList.toggle("closed");
 }
 
 function checkTerms(){
-  if(!document.getElementById("terms").checked){
-    alert("Você precisa aceitar os Termos de Uso.");
-  }
+  if(!terms.checked) alert("Aceite os Termos de Uso para continuar.");
+}
+
+function toggleAuth(){
+  register.style.display=register.style.display==="none"?"block":"none";
+  login.style.display=login.style.display==="none"?"block":"none";
+  title.textContent=login.style.display==="block"?"Entrar":"Criar conta";
+  subtitle.textContent=login.style.display==="block"?"Acesse sua conta":"Crie sua conta e comece agora";
 }
 </script>
 
