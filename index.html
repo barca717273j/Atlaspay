@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AtlasPay</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0A2FFF, #6FA8FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .logo img {
+      width: 110px;
+      height: auto;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 22px;
+      color: #000;
+    }
+
+    p.sub {
+      margin: 0 0 24px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #000;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .switch {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .switch span {
+      color: #0A2FFF;
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="AtlasPay.jpg" alt="AtlasPay Logo">
+    </div>
+
+    <!-- CADASTRO -->
+    <div id="register">
+      <h2>Criar conta</h2>
+      <p class="sub">Comece agora na AtlasPay</p>
+
+      <form>
+        <input type="text" placeholder="Nome completo" />
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Senha" />
+        <button type="button">Criar conta</button>
+      </form>
+
+      <div class="switch" onclick="showLogin()">
+        Já tem uma conta? <span>Acessar</span>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login" class="hidden">
+      <h2>Entrar</h2>
+      <p class="sub">Acesse sua conta AtlasPay</p>
+
+      <form>
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Senha" />
+        <button type="button">Entrar</button>
+      </form>
+
+      <div class="switch" onclick="showRegister()">
+        Não tem conta? <span>Criar agora</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showLogin() {
+      document.getElementById("register").classList.add("hidden");
+      document.getElementById("login").classList.remove("hidden");
+    }
+
+    function showRegister() {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("register").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
