@@ -196,6 +196,33 @@
       Já possui uma conta? <a href="#">Acessar</a>
     </div>
   </div>
+<script>
+  const toggleLink = document.getElementById('toggle-auth');
+  const title = document.getElementById('form-title');
+  const submitBtn = document.getElementById('submit-btn');
+  const nameField = document.getElementById('name-field');
+  const confirmPassword = document.getElementById('confirm-password');
+
+  let isLogin = false;
+
+  toggleLink.addEventListener('click', () => {
+    isLogin = !isLogin;
+
+    if (isLogin) {
+      title.innerText = 'Acesse sua conta';
+      submitBtn.innerText = 'Entrar';
+      toggleLink.innerText = 'Criar conta';
+      nameField.style.display = 'none';
+      confirmPassword.style.display = 'none';
+    } else {
+      title.innerText = 'Crie sua conta';
+      submitBtn.innerText = 'Criar conta grátis';
+      toggleLink.innerText = 'Acessar';
+      nameField.style.display = 'block';
+      confirmPassword.style.display = 'block';
+    }
+  });
+</script>
 
 </body>
 </html>
