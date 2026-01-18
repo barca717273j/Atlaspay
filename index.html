@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>AtlasPay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a2cff, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .logo-area {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo-area img {
+      width: 72px;
+      margin-bottom: 12px;
+    }
+
+    .logo-area h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .logo-area p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .auth-card h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .auth-card span {
+      font-size: 14px;
+      color: #64748b;
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      font-size: 14px;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #475569;
+      margin: 12px 0 20px;
+    }
+
+    .terms a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(37,99,235,0.35);
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .footer a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="logo-area">
+      <!-- Logo será colocada aqui -->
+      <img src="logo.png" alt="AtlasPay Logo">
+      <h1>AtlasPay</h1>
+      <p>Plataforma de pagamentos</p>
+    </div>
+
+    <h2>Crie sua conta</h2>
+    <span>Informe seus dados para continuar.</span>
+
+    <div class="field">
+      <label>Nome completo</label>
+      <input type="text" placeholder="Insira seu nome completo">
+    </div>
+
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" placeholder="Insira seu e-mail">
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" placeholder="Insira sua senha">
+    </div>
+
+    <div class="field">
+      <label>Confirmar senha</label>
+      <input type="password" placeholder="Insira sua senha">
+    </div>
+
+    <div class="terms">
+      <input type="checkbox">
+      <span>Ao criar conta, concordo com os <a href="#">Termos</a> e <a href="#">Política</a></span>
+    </div>
+
+    <button>Criar conta grátis</button>
+
+    <div class="footer">
+      Já possui uma conta? <a href="#">Acessar</a>
+    </div>
+  </div>
+
+</body>
+</html>
