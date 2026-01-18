@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>AtlasPay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="brand">
+        <div class="logo-circle">A</div>
+        <span>AtlasPay</span>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" id="tab-register">Criar conta</button>
+        <button class="tab" id="tab-login">Entrar</button>
+      </div>
+
+      <form id="register-form" class="form active">
+        <input type="text" placeholder="Nome completo" />
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Senha" id="password" />
+        <div class="strength" id="strength">Força da senha</div>
+
+        <label class="terms">
+          <input type="checkbox" />
+          Aceito os termos de uso
+        </label>
+
+        <button class="primary">Criar conta</button>
+      </form>
+
+      <form id="login-form" class="form">
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Senha" />
+        <button class="primary">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
