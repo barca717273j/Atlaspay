@@ -9,7 +9,6 @@
 :root{
   --blue1:#0e0774;
   --blue2:#1d0e99;
-  --bg:#0b0f2a;
   --card:#0f153d;
   --text:#ffffff;
   --muted:#aab0ff;
@@ -43,14 +42,17 @@ body{
 }
 
 .logo{
-  display:flex;
-  justify-content:center;
-  margin-bottom:20px;
+  text-align:center;
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:16px;
 }
 
-.logo svg{
-  width:120px;
-  height:auto;
+.logo span{
+  background:linear-gradient(135deg,#5f6bff,#9aa6ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 h1{
@@ -66,9 +68,7 @@ h1{
   margin-bottom:24px;
 }
 
-.field{
-  margin-bottom:14px;
-}
+.field{margin-bottom:14px}
 
 label{
   display:block;
@@ -90,13 +90,41 @@ input{
   position:relative;
 }
 
-.toggle{
+.eye{
   position:absolute;
   right:12px;
   top:50%;
   transform:translateY(-50%);
+  width:20px;
+  height:20px;
   cursor:pointer;
-  opacity:.7;
+  opacity:.8;
+}
+
+.eye::before{
+  content:'';
+  display:block;
+  width:20px;
+  height:12px;
+  border:2px solid #aab0ff;
+  border-radius:12px;
+}
+
+.eye::after{
+  content:'';
+  position:absolute;
+  top:4px;
+  left:8px;
+  width:4px;
+  height:4px;
+  background:#aab0ff;
+  border-radius:50%;
+  transition:.3s;
+}
+
+.eye.closed::after{
+  transform:scaleX(4) rotate(45deg);
+  height:2px;
 }
 
 .strength{
@@ -114,23 +142,21 @@ input{
   transition:.3s;
 }
 
-.weak{background:#ff4d4d}
-.medium{background:#ffb84d}
-.strong{background:#4dff88}
-
 .strength-text{
   font-size:12px;
   margin-top:4px;
 }
 
+.weak{background:#ff4d4d}
+.medium{background:#ffb84d}
+.strong{background:#4dff88}
+
 .terms{
-  display:flex;
-  gap:8px;
   font-size:13px;
   margin:16px 0;
+  display:flex;
+  gap:8px;
 }
-
-.terms input{width:auto}
 
 button{
   width:100%;
@@ -141,10 +167,7 @@ button{
   color:#fff;
   font-size:15px;
   cursor:pointer;
-  transition:.3s;
 }
-
-button:hover{transform:translateY(-1px)}
 
 .footer{
   text-align:center;
@@ -163,17 +186,10 @@ button:hover{transform:translateY(-1px)}
 
 <div class="card">
 
-  <div class="logo">
-    <!-- LOGO SVG QUE VOCÊ ENVIOU -->
-    <svg viewBox="0 0 500 550" xmlns="http://www.w3.org/2000/svg">
-      <path d="M251.5 15L35.5 442.5H127L158.5 379L251.5 187L315 316C280 325 240 345 198 405L219 442.5H245C275 395 315 375 365 370L400 442.5H491.5L251.5 15Z" fill="#ffffff"/>
-      <path d="M198 405C240 345 280 325 315 316L345 375C300 380 250 405 219 442.5L198 405Z" fill="#ffffff"/>
-      <path d="M142 490C190 410 270 390 330 395L355 442.5C290 445 230 465 185 520L142 490Z" fill="#ffffff"/>
-    </svg>
-  </div>
+  <div class="logo"><span>A</span>tlasPay</div>
 
-  <h1>Criar conta na AtlasPay</h1>
-  <div class="subtitle">Comece a vender e receber online</div>
+  <h1>Criar conta</h1>
+  <div class="subtitle">Crie sua conta e comece agora</div>
 
   <div class="field">
     <label>Email</label>
@@ -184,7 +200,7 @@ button:hover{transform:translateY(-1px)}
     <label>Senha</label>
     <div class="password-wrapper">
       <input type="password" id="password">
-      <div class="toggle" onclick="togglePassword()">👁</div>
+      <div class="eye" id="eye" onclick="togglePassword()"></div>
     </div>
     <div class="strength"><span id="bar"></span></div>
     <div class="strength-text" id="strengthText"></div>
@@ -197,15 +213,16 @@ button:hover{transform:translateY(-1px)}
 
   <div class="terms">
     <input type="checkbox" id="terms">
-    <label for="terms">
-      Li e aceito os <b>Termos de Uso</b> e a <b>Política de Privacidade</b> da AtlasPay.
+    <label>
+      Li e aceito os <b>Termos de Uso</b> e a <b>Política de Privacidade</b> da AtlasPay,
+      incluindo uso de dados, segurança e responsabilidade da plataforma.
     </label>
   </div>
 
-  <button>Criar conta</button>
+  <button onclick="checkTerms()">Criar conta</button>
 
   <div class="footer">
-    Já tem uma conta na AtlasPay?
+    Já tenho uma conta na AtlasPay?
     <a href="#">Acessar agora</a>
   </div>
 
@@ -215,15 +232,16 @@ button:hover{transform:translateY(-1px)}
 const pass = document.getElementById("password");
 const bar = document.getElementById("bar");
 const text = document.getElementById("strengthText");
+const eye = document.getElementById("eye");
 
 pass.addEventListener("input",()=>{
   const v = pass.value.length;
   if(v < 6){
-    bar.style.width="30%";
+    bar.style.width="33%";
     bar.className="weak";
     text.textContent="Senha fraca";
   }else if(v < 10){
-    bar.style.width="60%";
+    bar.style.width="66%";
     bar.className="medium";
     text.textContent="Senha média";
   }else{
@@ -235,6 +253,13 @@ pass.addEventListener("input",()=>{
 
 function togglePassword(){
   pass.type = pass.type === "password" ? "text" : "password";
+  eye.classList.toggle("closed");
+}
+
+function checkTerms(){
+  if(!document.getElementById("terms").checked){
+    alert("Você precisa aceitar os Termos de Uso.");
+  }
 }
 </script>
 
