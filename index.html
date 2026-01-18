@@ -2,50 +2,54 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AtlasPay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
 body{
   min-height:100vh;
-  background:#f4f5f7;
+  background:linear-gradient(135deg,#0a2fff,#6fa8ff);
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
 }
-.card{
+.container{
   width:100%;
   max-width:420px;
   background:#fff;
-  border-radius:20px;
-  box-shadow:0 30px 70px rgba(0,0,0,.18);
-  padding:32px;
+  border-radius:22px;
+  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  padding:36px;
+  animation:fade .4s ease;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
 }
 .logo{
-  width:92px;
-  margin:0 auto 12px;
+  display:flex;
+  justify-content:center;
+  margin-bottom:22px;
 }
+.logo svg{width:110px}
 h1{
   text-align:center;
-  font-size:24px;
-  font-weight:700;
+  font-size:22px;
+  margin-bottom:22px;
 }
-p.sub{
-  text-align:center;
-  color:#666;
-  margin:6px 0 22px;
+.field{
+  margin-bottom:16px;
+  position:relative;
 }
-.field{margin-bottom:14px;position:relative}
-input{
+.field input{
   width:100%;
-  padding:15px;
+  padding:14px 42px 14px 14px;
   border-radius:12px;
-  border:1px solid #ccc;
-  font-size:15px;
+  border:1px solid #ddd;
+  font-size:14px;
 }
-input:focus{outline:none;border-color:#000}
 .eye{
   position:absolute;
   right:14px;
@@ -53,66 +57,90 @@ input:focus{outline:none;border-color:#000}
   transform:translateY(-50%);
   cursor:pointer;
 }
-.strength{
-  margin-top:6px;
-  font-size:13px;
-  font-weight:600;
-}
-.weak{color:red}
-.medium{color:orange}
-.strong{color:green}
 button{
   width:100%;
-  padding:16px;
+  padding:14px;
   border:none;
   border-radius:14px;
-  background:#000;
+  background:#0a2fff;
   color:#fff;
-  font-size:16px;
-  font-weight:700;
+  font-size:15px;
+  font-weight:600;
   cursor:pointer;
-  opacity:.4;
+  transition:.25s;
 }
-button.active{opacity:1}
-.terms{
-  font-size:13px;
-  color:#444;
-  margin:14px 0;
-}
-.terms a{color:#000;font-weight:600;text-decoration:none}
-.switch{
+button:active{transform:scale(.97)}
+.alt{
+  margin-top:14px;
   text-align:center;
-  margin-top:18px;
-  font-size:14px;
+  font-size:13px;
 }
-.switch a{
-  color:#000;
-  font-weight:700;
+.alt span{
+  color:#0a2fff;
   cursor:pointer;
+  font-weight:600;
+}
+.terms{
+  display:flex;
+  align-items:center;
+  font-size:12px;
+  margin:14px 0;
+  gap:8px;
+}
+.terms a{
+  color:#0a2fff;
   text-decoration:none;
 }
 .hidden{display:none}
+.strength{font-size:12px;margin-top:6px}
+.weak{color:#c00}
+.medium{color:#e6a400}
+.strong{color:#0a2fff}
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<!-- LOGO SVG AJUSTADA -->
 <div class="logo">
 <svg viewBox="0 0 400 400">
   <path d="M200 40L40 340H110L200 180L290 340H360L200 40Z" fill="black"/>
-  <path d="M135 285L170 300L160 315L120 300Z" fill="white"/>
-  <path d="M180 260L215 275L205 295L165 275Z" fill="white"/>
-  <path d="M225 235L260 250L250 270L210 250Z" fill="white"/>
+  <path d="M125 295L165 315L155 330L115 310Z" fill="white"/>
+  <path d="M155 255L195 275L185 295L145 275Z" fill="white"/>
+  <path d="M245 255L285 275L275 295L235 275Z" fill="white"/>
+  <path d="M275 295L315 315L305 330L265 310Z" fill="white"/>
 </svg>
 </div>
 
-<!-- CADASTRO -->
-<div id="register">
-<h1>Crie sua conta</h1>
-<p class="sub">Informe seus dados para continuar</p>
+<!-- LOGIN -->
+<div id="login">
+<h1>Entrar</h1>
+
+<div class="field">
+<input type="email" placeholder="E-mail">
+</div>
+
+<div class="field">
+<input type="password" id="loginPass" placeholder="Senha">
+<span class="eye" onclick="toggle('loginPass')">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+<circle cx="12" cy="12" r="3"/>
+<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
+</svg>
+</span>
+</div>
+
+<button>Entrar</button>
+
+<div class="alt">
+Não tem conta? <span onclick="goRegister()">Criar conta</span>
+</div>
+</div>
+
+<!-- REGISTRO -->
+<div id="register" class="hidden">
+<h1>Criar conta</h1>
 
 <div class="field">
 <input type="text" placeholder="Nome completo">
@@ -124,44 +152,24 @@ button.active{opacity:1}
 
 <div class="field">
 <input type="password" id="pass" placeholder="Senha" oninput="strength(this.value)">
-<span class="eye" onclick="toggle('pass')">👁️</span>
-<div id="strengthText" class="strength"></div>
-</div>
-
-<div class="field">
-<input type="password" id="confirm" placeholder="Confirmar senha">
-<span class="eye" onclick="toggle('confirm')">👁️</span>
+<span class="eye" onclick="toggle('pass')">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+<circle cx="12" cy="12" r="3"/>
+<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
+</svg>
+</span>
+<div class="strength" id="strengthText"></div>
 </div>
 
 <div class="terms">
-<input type="checkbox" id="terms" onclick="enable()">  
-Ao criar a conta, você concorda com nossos <a href="#">Termos de uso</a> e <a href="#">Política de privacidade</a>.
+<input type="checkbox" id="terms" onchange="enable()">
+<label>Aceito os <a href="#">Termos de Uso</a></label>
 </div>
 
-<button id="btn">Criar conta</button>
+<button id="btn" disabled>Criar conta</button>
 
-<div class="switch">
-Já tem uma conta na AtlasPay? <a onclick="goLogin()">Acesse agora</a>
-</div>
-</div>
-
-<!-- LOGIN -->
-<div id="login" class="hidden">
-<h1>Acesse sua conta</h1>
-<p class="sub">Entre na AtlasPay</p>
-
-<div class="field">
-<input type="email" placeholder="E-mail">
-</div>
-
-<div class="field">
-<input type="password" placeholder="Senha">
-</div>
-
-<button class="active">Entrar</button>
-
-<div class="switch">
-Não tem conta? <a onclick="goRegister()">Criar agora</a>
+<div class="alt">
+Já tem conta? <span onclick="goLogin()">Entrar</span>
 </div>
 </div>
 
@@ -179,15 +187,15 @@ function strength(v){
   else t.innerHTML='<span class="strong">Senha forte</span>';
 }
 function enable(){
-  document.getElementById("btn").classList.toggle("active",terms.checked);
-}
-function goLogin(){
-  register.classList.add("hidden");
-  login.classList.remove("hidden");
+  btn.disabled=!terms.checked;
 }
 function goRegister(){
   login.classList.add("hidden");
   register.classList.remove("hidden");
+}
+function goLogin(){
+  register.classList.add("hidden");
+  login.classList.remove("hidden");
 }
 </script>
 
