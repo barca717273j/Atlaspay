@@ -7,110 +7,99 @@
 
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0a2cff, #0f172a);
+      background: linear-gradient(135deg, #0A2FFF, #6FA8FF);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .auth-card {
+    .card {
       width: 100%;
       max-width: 420px;
       background: #ffffff;
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
     }
 
-    .logo-area {
-      text-align: center;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 24px;
     }
 
-    .logo-area img {
-      width: 72px;
-      margin-bottom: 12px;
-    }
-
-    .logo-area h1 {
+    .brand-name {
       font-size: 22px;
-      font-weight: 600;
-      color: #0f172a;
+      font-weight: 700;
+      color: #0B0E14;
     }
 
-    .logo-area p {
-      font-size: 14px;
-      color: #64748b;
-      margin-top: 4px;
-    }
-
-    .auth-card h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-      color: #0f172a;
-    }
-
-    .auth-card span {
-      font-size: 14px;
-      color: #64748b;
-      display: block;
-      margin-bottom: 24px;
-    }
-
-    .field {
-      margin-bottom: 16px;
-    }
-
-    .field label {
-      font-size: 14px;
-      color: #0f172a;
+    h1 {
+      font-size: 24px;
       margin-bottom: 6px;
-      display: block;
+      color: #0B0E14;
     }
 
-    .field input {
+    p {
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #6B7280;
+      font-size: 14px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
       width: 100%;
       padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid #D1D5DB;
+      margin-bottom: 16px;
+      font-size: 14px;
     }
 
-    .field input:focus {
+    input:focus {
       outline: none;
-      border-color: #2563eb;
+      border-color: #2563EB;
     }
 
     .terms {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
       font-size: 13px;
-      color: #475569;
-      margin: 12px 0 20px;
+      color: #374151;
+      margin-bottom: 20px;
     }
 
     .terms a {
-      color: #2563eb;
+      color: #2563EB;
       text-decoration: none;
+      font-weight: 500;
     }
 
     button {
       width: 100%;
       padding: 14px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: none;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
+      background: linear-gradient(135deg, #0A2FFF, #6FA8FF);
       color: white;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -118,111 +107,113 @@
 
     button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 30px rgba(37,99,235,0.35);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
-    .footer {
-      margin-top: 18px;
+    .toggle {
       text-align: center;
+      margin-top: 20px;
       font-size: 14px;
-      color: #475569;
+      color: #374151;
     }
 
-    .footer a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
+    .toggle span {
+      color: #2563EB;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="auth-card"> 
-<div class="logo">
-  <svg width="72" height="72" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="atlasGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#0A2FFF"/>
-        <stop offset="100%" stop-color="#6FA8FF"/>
-      </linearGradient>
-    </defs>
+  <div class="card">
 
-    <path d="M250 80L100 420H180L250 250L320 420H400L250 80Z" fill="url(#atlasGradient)"/>
-    <path d="M210 380C260 360 300 320 330 260L250 230C230 290 200 340 160 360L210 380Z" fill="#0B0E14"/>
-    <path d="M230 320C260 310 280 280 295 245L250 225C240 255 225 285 200 300L230 320Z" fill="#0B0E14"/>
-    <path d="M345 350L415 350L385 420H315L345 350Z" fill="url(#atlasGradient)"/>
-  </svg>
+    <!-- LOGO EMBUTIDA -->
+    <div class="logo">
+      <svg width="44" height="44" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <path d="M250 80L100 420H180L250 250L320 420H400L250 80Z" fill="#0B0E14"/>
+        <path d="M210 380C260 360 300 320 330 260L250 230C230 290 200 340 160 360L210 380Z" fill="white"/>
+        <path d="M230 320C260 310 280 280 295 245L250 225C240 255 225 285 200 300L230 320Z" fill="white"/>
+        <path d="M345 350L415 350L385 420H315L345 350Z" fill="#0B0E14"/>
+      </svg>
 
-  <span class="brand-name">AtlasPay</span>
-</div>
-  <span class="brand-name">AtlasPay</span>
-</div>
-
-      <h1>AtlasPay</h1>
-      <p>Plataforma de pagamentos</p>
+      <span class="brand-name">AtlasPay</span>
     </div>
 
-    <h2>Crie sua conta</h2>
-    <span>Informe seus dados para continuar.</span>
+    <!-- TÍTULO -->
+    <h1 id="form-title">Crie sua conta</h1>
+    <p>Informe seus dados para continuar.</p>
 
-    <div class="field">
-      <label>Nome completo</label>
-      <input type="text" placeholder="Insira seu nome completo">
-    </div>
+    <!-- FORMULÁRIO -->
+    <form>
+      <div id="name-field">
+        <label>Nome completo</label>
+        <input type="text" placeholder="Insira seu nome completo">
+      </div>
 
-    <div class="field">
       <label>E-mail</label>
       <input type="email" placeholder="Insira seu e-mail">
-    </div>
 
-    <div class="field">
       <label>Senha</label>
       <input type="password" placeholder="Insira sua senha">
+
+      <div id="confirm-password">
+        <label>Confirmar senha</label>
+        <input type="password" placeholder="Confirme sua senha">
+      </div>
+
+      <div class="terms">
+        <input type="checkbox">
+        <span>
+          Ao criar conta, concordo com os
+          <a href="#">Termos de uso</a> e
+          <a href="#">Política de privacidade</a>
+        </span>
+      </div>
+
+      <button id="submit-btn" type="button">Criar conta grátis</button>
+    </form>
+
+    <!-- TOGGLE -->
+    <div class="toggle">
+      Já possui uma conta? <span id="toggle-auth">Acessar</span>
     </div>
 
-    <div class="field">
-      <label>Confirmar senha</label>
-      <input type="password" placeholder="Insira sua senha">
-    </div>
-
-    <div class="terms">
-      <input type="checkbox">
-      <span>Ao criar conta, concordo com os <a href="#">Termos</a> e <a href="#">Política</a></span>
-    </div>
-
-    <button>Criar conta grátis</button>
-
-    <div class="footer">
-      Já possui uma conta? <a href="#">Acessar</a>
-    </div>
   </div>
-<script>
-  const toggleLink = document.getElementById('toggle-auth');
-  const title = document.getElementById('form-title');
-  const submitBtn = document.getElementById('submit-btn');
-  const nameField = document.getElementById('name-field');
-  const confirmPassword = document.getElementById('confirm-password');
 
-  let isLogin = false;
+  <!-- SCRIPT REAL -->
+  <script>
+    const toggle = document.getElementById('toggle-auth');
+    const title = document.getElementById('form-title');
+    const submit = document.getElementById('submit-btn');
+    const nameField = document.getElementById('name-field');
+    const confirmPassword = document.getElementById('confirm-password');
 
-  toggleLink.addEventListener('click', () => {
-    isLogin = !isLogin;
+    let login = false;
 
-    if (isLogin) {
-      title.innerText = 'Acesse sua conta';
-      submitBtn.innerText = 'Entrar';
-      toggleLink.innerText = 'Criar conta';
-      nameField.style.display = 'none';
-      confirmPassword.style.display = 'none';
-    } else {
-      title.innerText = 'Crie sua conta';
-      submitBtn.innerText = 'Criar conta grátis';
-      toggleLink.innerText = 'Acessar';
-      nameField.style.display = 'block';
-      confirmPassword.style.display = 'block';
-    }
-  });
-</script>
+    toggle.onclick = () => {
+      login = !login;
+
+      if (login) {
+        title.innerText = 'Acesse sua conta';
+        submit.innerText = 'Entrar';
+        toggle.innerText = 'Criar conta';
+        nameField.classList.add('hidden');
+        confirmPassword.classList.add('hidden');
+      } else {
+        title.innerText = 'Crie sua conta';
+        submit.innerText = 'Criar conta grátis';
+        toggle.innerText = 'Acessar';
+        nameField.classList.remove('hidden');
+        confirmPassword.classList.remove('hidden');
+      }
+    };
+  </script>
 
 </body>
 </html>
