@@ -9,7 +9,10 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#0a2fff,#6fa8ff);
+  background:
+    radial-gradient(80% 60% at 20% 10%, #1b3cff55, transparent),
+    radial-gradient(60% 50% at 80% 90%, #4f7cff55, transparent),
+    linear-gradient(135deg,#050b2c,#0a2fff);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -20,29 +23,27 @@ body{
   max-width:420px;
   background:#fff;
   border-radius:22px;
-  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  box-shadow:0 50px 120px rgba(0,0,0,.45);
   padding:36px;
-  animation:fade .4s ease;
+  animation:fade .45s ease;
 }
 @keyframes fade{
-  from{opacity:0;transform:translateY(14px)}
+  from{opacity:0;transform:translateY(16px)}
   to{opacity:1;transform:none}
 }
 .logo{
   display:flex;
   justify-content:center;
-  margin-bottom:22px;
+  margin-bottom:24px;
 }
 .logo svg{width:110px}
 h1{
   text-align:center;
   font-size:22px;
   margin-bottom:22px;
+  color:#0a2fff;
 }
-.field{
-  margin-bottom:16px;
-  position:relative;
-}
+.field{margin-bottom:16px;position:relative}
 .field input{
   width:100%;
   padding:14px 42px 14px 14px;
@@ -50,7 +51,7 @@ h1{
   border:1px solid #ddd;
   font-size:14px;
 }
-.eye{
+.toggle{
   position:absolute;
   right:14px;
   top:50%;
@@ -62,7 +63,7 @@ button{
   padding:14px;
   border:none;
   border-radius:14px;
-  background:#0a2fff;
+  background:linear-gradient(135deg,#0a2fff,#3f6cff);
   color:#fff;
   font-size:15px;
   font-weight:600;
@@ -75,11 +76,25 @@ button:active{transform:scale(.97)}
   text-align:center;
   font-size:13px;
 }
-.alt span{
-  color:#0a2fff;
-  cursor:pointer;
-  font-weight:600;
+.alt span{color:#0a2fff;cursor:pointer;font-weight:600}
+.hidden{display:none}
+
+.strength-bar{
+  height:6px;
+  border-radius:6px;
+  background:#eee;
+  overflow:hidden;
+  margin-top:8px;
 }
+.strength-fill{
+  height:100%;
+  width:0%;
+  transition:.3s;
+}
+.weak{background:#e53935;width:33%}
+.medium{background:#fbc02d;width:66%}
+.strong{background:#0a2fff;width:100%}
+
 .terms{
   display:flex;
   align-items:center;
@@ -87,15 +102,7 @@ button:active{transform:scale(.97)}
   margin:14px 0;
   gap:8px;
 }
-.terms a{
-  color:#0a2fff;
-  text-decoration:none;
-}
-.hidden{display:none}
-.strength{font-size:12px;margin-top:6px}
-.weak{color:#c00}
-.medium{color:#e6a400}
-.strong{color:#0a2fff}
+.terms a{color:#0a2fff;text-decoration:none}
 </style>
 </head>
 
@@ -105,11 +112,17 @@ button:active{transform:scale(.97)}
 
 <div class="logo">
 <svg viewBox="0 0 400 400">
-  <path d="M200 40L40 340H110L200 180L290 340H360L200 40Z" fill="black"/>
-  <path d="M125 295L165 315L155 330L115 310Z" fill="white"/>
-  <path d="M155 255L195 275L185 295L145 275Z" fill="white"/>
-  <path d="M245 255L285 275L275 295L235 275Z" fill="white"/>
-  <path d="M275 295L315 315L305 330L265 310Z" fill="white"/>
+  <!-- A principal -->
+  <path d="M200 40L40 340H110L200 180L290 340H360L200 40Z" fill="url(#grad)"/>
+  <!-- Arcos -->
+  <path d="M125 260C170 230 230 230 275 260" stroke="#ffffffcc" stroke-width="10" fill="none"/>
+  <path d="M115 290C165 260 235 260 285 290" stroke="#ffffff99" stroke-width="10" fill="none"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a2fff"/>
+      <stop offset="100%" stop-color="#4f7cff"/>
+    </linearGradient>
+  </defs>
 </svg>
 </div>
 
@@ -123,12 +136,12 @@ button:active{transform:scale(.97)}
 
 <div class="field">
 <input type="password" id="loginPass" placeholder="Senha">
-<span class="eye" onclick="toggle('loginPass')">
+<div class="toggle" onclick="toggle('loginPass')">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
 <circle cx="12" cy="12" r="3"/>
-<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
 </svg>
-</span>
+</div>
 </div>
 
 <button>Entrar</button>
@@ -152,13 +165,15 @@ Não tem conta? <span onclick="goRegister()">Criar conta</span>
 
 <div class="field">
 <input type="password" id="pass" placeholder="Senha" oninput="strength(this.value)">
-<span class="eye" onclick="toggle('pass')">
+<div class="toggle" onclick="toggle('pass')">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
 <circle cx="12" cy="12" r="3"/>
-<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
 </svg>
-</span>
-<div class="strength" id="strengthText"></div>
+</div>
+<div class="strength-bar">
+<div id="bar" class="strength-fill"></div>
+</div>
 </div>
 
 <div class="terms">
@@ -181,22 +196,14 @@ function toggle(id){
   i.type=i.type==="password"?"text":"password";
 }
 function strength(v){
-  const t=document.getElementById("strengthText");
-  if(v.length<6)t.innerHTML='<span class="weak">Senha fraca</span>';
-  else if(v.length<10)t.innerHTML='<span class="medium">Senha média</span>';
-  else t.innerHTML='<span class="strong">Senha forte</span>';
+  const b=document.getElementById("bar");
+  if(v.length<6){b.className="strength-fill weak"}
+  else if(v.length<10){b.className="strength-fill medium"}
+  else{b.className="strength-fill strong"}
 }
-function enable(){
-  btn.disabled=!terms.checked;
-}
-function goRegister(){
-  login.classList.add("hidden");
-  register.classList.remove("hidden");
-}
-function goLogin(){
-  register.classList.add("hidden");
-  login.classList.remove("hidden");
-}
+function enable(){btn.disabled=!terms.checked}
+function goRegister(){login.classList.add("hidden");register.classList.remove("hidden")}
+function goLogin(){register.classList.add("hidden");login.classList.remove("hidden")}
 </script>
 
 </body>
