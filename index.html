@@ -19,10 +19,7 @@
   --green:#22c55e;
 }
 
-*{
-  box-sizing:border-box;
-  font-family:Inter,system-ui,sans-serif;
-}
+*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
 
 body{
   margin:0;
@@ -43,55 +40,25 @@ body{
   padding:32px;
 }
 
-.logo{
-  text-align:center;
-  margin-bottom:28px;
-}
-
+.logo{text-align:center;margin-bottom:28px;}
 .logo-icon{
-  width:48px;
-  height:48px;
-  margin:0 auto 10px;
+  width:48px;height:48px;margin:0 auto 10px;
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
-
-.logo h1{
-  margin:0;
-  font-size:22px;
-  font-weight:700;
-  color:var(--text);
-}
-
-.logo p{
-  margin-top:4px;
-  font-size:13px;
-  color:var(--muted);
-}
+.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
+.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
 
 .field{margin-bottom:16px;}
-
-label{
-  font-size:13px;
-  color:var(--text);
-  display:block;
-  margin-bottom:6px;
-}
+label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
 
 .input-wrap{position:relative;}
-
 input{
   width:100%;
   padding:12px 44px 12px 12px;
   border-radius:10px;
   border:1px solid var(--border);
   font-size:14px;
-  background:#ffffff;
-}
-
-input:focus{
-  border-color:var(--primary);
-  outline:none;
 }
 
 .eye{
@@ -103,13 +70,12 @@ input:focus{
   width:20px;
   height:20px;
 }
-
 .eye svg{fill:#475569;}
 
 .strength{
-  font-size:12px;
-  font-weight:600;
   margin-top:6px;
+  font-size:12px;
+  font-weight:700;
 }
 .fraca{color:var(--red);}
 .media{color:var(--orange);}
@@ -118,7 +84,7 @@ input:focus{
 .terms{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:6px; /* <<< AJUSTE AQUI */
   font-size:12px;
   color:#334155;
   margin:18px 0;
@@ -127,6 +93,7 @@ input:focus{
 .terms input{
   width:16px;
   height:16px;
+  margin:0;
 }
 
 .terms a{
@@ -141,7 +108,7 @@ button{
   border:none;
   border-radius:12px;
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  color:#ffffff;
+  color:#fff;
   font-weight:700;
   cursor:pointer;
 }
@@ -151,12 +118,7 @@ button{
   text-align:center;
   font-size:13px;
 }
-
-.switch a{
-  color:var(--primary);
-  font-weight:700;
-  cursor:pointer;
-}
+.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
 
 .hidden{display:none;}
 </style>
@@ -172,7 +134,6 @@ button{
     <p>Plataforma de pagamentos digitais</p>
   </div>
 
-  <!-- CADASTRO -->
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
@@ -188,9 +149,9 @@ button{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="pass">
-        <span class="eye" onclick="toggle('pass',this)">
+        <span class="eye" onclick="togglePass('pass', this)">
           <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7-4-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
         </span>
       </div>
@@ -201,9 +162,9 @@ button{
       <label>Confirmar senha</label>
       <div class="input-wrap">
         <input type="password" id="confirm">
-        <span class="eye" onclick="toggle('confirm',this)">
+        <span class="eye" onclick="togglePass('confirm', this)">
           <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7-4-7-11-7z"/>
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
         </span>
       </div>
@@ -211,10 +172,7 @@ button{
 
     <div class="terms">
       <input type="checkbox">
-      <span>
-        Concordo com os <a href="#">Termos de Uso</a> e a
-        <a href="#">Política de Privacidade</a>
-      </span>
+      <span>Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a></span>
     </div>
 
     <button>Criar conta</button>
@@ -225,7 +183,6 @@ button{
     </div>
   </div>
 
-  <!-- LOGIN -->
   <div id="login" class="hidden">
     <div class="field">
       <label>E-mail</label>
@@ -236,9 +193,9 @@ button{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="loginPass">
-        <span class="eye" onclick="toggle('loginPass',this)">
+        <span class="eye" onclick="togglePass('loginPass', this)">
           <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7-4-7-11-7z"/>
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
         </span>
       </div>
@@ -255,16 +212,15 @@ button{
 </div>
 
 <script>
-function toggle(id,el){
-  const i=document.getElementById(id);
-  i.type=i.type==='password'?'text':'password';
+function togglePass(id, el){
+  const input=document.getElementById(id);
+  input.type = input.type === 'password' ? 'text' : 'password';
 }
 
 function showLogin(){
   register.classList.add('hidden');
   login.classList.remove('hidden');
 }
-
 function showRegister(){
   login.classList.add('hidden');
   register.classList.remove('hidden');
