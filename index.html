@@ -280,6 +280,101 @@ pass.addEventListener('input',()=>{
   }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const supabaseUrl = "COLE_AQUI_SUA_PROJECT_URL";
+  const supabaseKey = "COLE_AQUI_SUA_ANON_KEY";
+
+  const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
+
+  // MOSTRAR / ESCONDER SENHA (SEM EMOJI)
+  function toggleSenha() {
+    const input = document.getElementById("password");
+    input.type = input.type === "password" ? "text" : "password";
+  }
+
+  // FORÇA DA SENHA
+  function verificarForca() {
+    const senha = document.getElementById("password").value;
+    const barra = document.getElementById("strengthBar");
+    const texto = document.getElementById("strengthText");
+
+    if (!barra || !texto) return;
+
+    if (senha.length < 6) {
+      barra.style.width = "33%";
+      barra.style.background = "red";
+      texto.innerText = "Senha fraca";
+    } else if (senha.length < 10) {
+      barra.style.width = "66%";
+      barra.style.background = "orange";
+      texto.innerText = "Senha média";
+    } else {
+      barra.style.width = "100%";
+      barra.style.background = "green";
+      texto.innerText = "Senha forte";
+    }
+  }
+
+  // CRIAR CONTA
+  async function criarConta() {
+    const nome = document.getElementById("fullName").value;
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("password").value;
+    const termos = document.getElementById("terms").checked;
+
+    if (!termos) {
+      alert("Aceite os termos de uso");
+      return;
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: senha
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Conta criada com sucesso!");
+  }
+
+  // LOGIN
+  async function login() {
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("password").value;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: senha
+    });
+
+    if (error) {
+      alert("Email ou senha inválidos");
+      return;
+    }
+
+    alert("Login realizado!");
+  }
+
+  // ESQUECEU SENHA
+  async function esqueceuSenha() {
+    const email = document.getElementById("email").value;
+    if (!email) {
+      alert("Digite seu email");
+      return;
+    }
+
+    await supabase.auth.resetPasswordForEmail(email);
+    alert("Email de recuperação enviado");
+  }
+</script>
 
 </body>
 </html>
