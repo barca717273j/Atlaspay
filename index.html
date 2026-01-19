@@ -67,27 +67,39 @@ input{
   top:50%;
   transform:translateY(-50%);
   cursor:pointer;
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
+  transition:transform .25s ease;
 }
 .eye svg{fill:#475569;}
+.eye.open{transform:translateY(-50%) scale(1.1);}
 
-.strength{
+.strength-bar{
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
   margin-top:6px;
+}
+.strength-fill{
+  height:100%;
+  width:0%;
+  transition:width .3s ease, background .3s ease;
+}
+
+.strength-text{
   font-size:12px;
   font-weight:700;
+  margin-top:4px;
 }
-.fraca{color:var(--red);}
-.media{color:var(--orange);}
-.forte{color:var(--green);}
 
 .terms{
   display:flex;
   align-items:center;
-  gap:6px; /* <<< AJUSTE AQUI */
+  gap:6px;
   font-size:12px;
   color:#334155;
-  margin:18px 0;
+  margin:14px 0;
 }
 
 .terms input{
@@ -137,25 +149,29 @@ button{
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
-      <input type="text">
+      <input type="text" placeholder="Digite seu nome completo">
     </div>
 
     <div class="field">
       <label>E-mail</label>
-      <input type="email">
+      <input type="email" placeholder="Digite seu e-mail aqui">
     </div>
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="pass">
+        <input type="password" id="pass" placeholder="Crie sua melhor senha">
         <span class="eye" onclick="togglePass('pass', this)">
           <svg viewBox="0 0 24 24">
             <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
         </span>
       </div>
-      <div id="strength" class="strength"></div>
+
+      <div class="strength-bar">
+        <div id="strengthFill" class="strength-fill"></div>
+      </div>
+      <div id="strengthText" class="strength-text"></div>
     </div>
 
     <div class="field">
@@ -186,13 +202,13 @@ button{
   <div id="login" class="hidden">
     <div class="field">
       <label>E-mail</label>
-      <input type="email">
+      <input type="email" placeholder="Digite seu e-mail aqui">
     </div>
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="loginPass">
+        <input type="password" id="loginPass" placeholder="Digite sua senha">
         <span class="eye" onclick="togglePass('loginPass', this)">
           <svg viewBox="0 0 24 24">
             <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
@@ -214,7 +230,9 @@ button{
 <script>
 function togglePass(id, el){
   const input=document.getElementById(id);
-  input.type = input.type === 'password' ? 'text' : 'password';
+  const open=input.type==='password';
+  input.type=open?'text':'password';
+  el.classList.toggle('open', open);
 }
 
 function showLogin(){
@@ -227,19 +245,26 @@ function showRegister(){
 }
 
 const pass=document.getElementById('pass');
-const strength=document.getElementById('strength');
+const fill=document.getElementById('strengthFill');
+const text=document.getElementById('strengthText');
 
 pass.addEventListener('input',()=>{
   const v=pass.value;
   if(v.length<6){
-    strength.textContent='Senha fraca';
-    strength.className='strength fraca';
+    fill.style.width='33%';
+    fill.style.background='var(--red)';
+    text.textContent='Senha fraca';
+    text.style.color='var(--red)';
   }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    strength.textContent='Senha forte';
-    strength.className='strength forte';
+    fill.style.width='100%';
+    fill.style.background='var(--green)';
+    text.textContent='Senha forte';
+    text.style.color='var(--green)';
   }else{
-    strength.textContent='Senha média';
-    strength.className='strength media';
+    fill.style.width='66%';
+    fill.style.background='var(--orange)';
+    text.textContent='Senha média';
+    text.style.color='var(--orange)';
   }
 });
 </script>
