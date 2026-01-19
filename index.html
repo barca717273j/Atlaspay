@@ -1,66 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>AtlasPay</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AtlasPay — Criar conta</title>
 
 <style>
+:root{
+  --blue1:#0e0774;
+  --blue2:#1d0e99;
+  --bg:#0e0774;
+  --card:#ffffff;
+  --text:#0b0b0b;
+  --muted:#6b7280;
+  --border:#d1d5db;
+  --red:#ef4444;
+  --orange:#f59e0b;
+  --green:#22c55e;
+}
+
 *{
   box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body{
   margin:0;
   min-height:100vh;
-  background:linear-gradient(135deg,#0e0774,#1d0e99);
+  background:var(--bg);
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
 .container{
   width:100%;
-  max-width:430px;
-  background:#ffffff;
-  border-radius:24px;
-  padding:36px 34px;
-  box-shadow:0 40px 120px rgba(0,0,0,.35);
-  animation:fade .35s ease;
+  max-width:420px;
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  padding:32px;
+  animation:fadeUp .6s ease;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(18px)}
-  to{opacity:1;transform:none}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 /* LOGO */
 .logo{
   display:flex;
+  align-items:center;
   justify-content:center;
-  margin-bottom:20px;
+  gap:10px;
+  margin-bottom:28px;
 }
 
-.logo svg{
-  width:64px;
+.logo-icon{
+  width:42px;
+  height:42px;
+  background:linear-gradient(135deg,var(--blue1),var(--blue2));
+  clip-path:polygon(50% 0%, 0% 100%, 22% 100%, 50% 45%, 78% 100%, 100% 100%);
 }
 
-/* TITULOS */
-h1{
-  text-align:center;
+.logo-text{
   font-size:22px;
-  margin:0;
+  font-weight:700;
+  color:#111;
 }
 
-.sub{
+/* TABS */
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:24px;
+}
+
+.tab{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
   text-align:center;
-  font-size:14px;
-  color:#666;
-  margin:6px 0 26px;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--muted);
 }
 
-/* CAMPOS */
+.tab.active{
+  background:linear-gradient(135deg,var(--blue1),var(--blue2));
+  color:#fff;
+}
+
+/* FORM */
+form{
+  display:none;
+}
+
+form.active{
+  display:block;
+}
+
 .field{
   margin-bottom:16px;
 }
@@ -68,93 +109,98 @@ h1{
 label{
   display:block;
   font-size:13px;
-  color:#222;
   margin-bottom:6px;
+  color:#374151;
+}
+
+.input-wrap{
+  position:relative;
 }
 
 input{
   width:100%;
-  padding:14px 46px 14px 14px;
-  border-radius:12px;
-  border:1px solid #d6d6d6;
-  font-size:15px;
-  background:#fafafa;
+  padding:12px 44px 12px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:14px;
+  outline:none;
 }
 
 input:focus{
-  outline:none;
-  border-color:#1d0e99;
-  background:#fff;
+  border-color:var(--blue2);
 }
 
-/* SENHA */
-.pass-box{
-  position:relative;
-}
-
+/* EYE ICON */
 .eye{
   position:absolute;
-  right:14px;
+  right:12px;
   top:50%;
   transform:translateY(-50%);
+  width:20px;
+  height:20px;
   cursor:pointer;
+  opacity:.6;
 }
 
-/* FORÇA */
-.force{
-  font-size:12px;
+.eye:hover{opacity:1;}
+
+/* PASSWORD STRENGTH */
+.strength{
   margin-top:6px;
+  font-size:12px;
+  font-weight:600;
 }
 
-.fraca{color:#d32f2f}
-.media{color:#f57c00}
-.forte{color:#388e3c}
+.strength.fraca{color:var(--red);}
+.strength.media{color:var(--orange);}
+.strength.forte{color:var(--green);}
 
-/* TERMOS */
+/* TERMS */
 .terms{
   display:flex;
-  gap:10px;
-  font-size:13px;
-  color:#444;
+  gap:8px;
+  font-size:12px;
+  color:#374151;
   margin:18px 0;
 }
 
 .terms a{
-  color:#1d0e99;
+  color:var(--blue2);
   text-decoration:none;
+  font-weight:600;
 }
 
-/* BOTÃO */
+/* BUTTON */
 button{
   width:100%;
-  padding:15px;
+  padding:14px;
   border:none;
-  border-radius:14px;
-  background:#1d0e99;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--blue1),var(--blue2));
   color:#fff;
-  font-size:16px;
-  font-weight:500;
+  font-weight:700;
+  font-size:15px;
   cursor:pointer;
-  transition:.25s;
 }
 
-button:hover{filter:brightness(1.1)}
-button:active{transform:scale(.97)}
-button:disabled{opacity:.5;cursor:not-allowed}
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
 
-/* SWITCH */
+/* FOOT LINKS */
 .switch{
+  margin-top:18px;
   text-align:center;
-  margin-top:20px;
-  font-size:14px;
+  font-size:13px;
 }
 
-.switch span{
-  color:#1d0e99;
+.switch a{
+  color:var(--blue2);
+  font-weight:700;
   cursor:pointer;
+  text-decoration:none;
 }
-
-.hidden{display:none}
 </style>
 </head>
 
@@ -162,118 +208,123 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 <div class="container">
 
-<div class="logo">
-<!-- LOGO A FINTECH -->
-<svg viewBox="0 0 100 120">
-<path d="M50 5L10 110H28L50 55L72 110H90L50 5Z" fill="#0e0774"/>
-<path d="M30 80L50 60L70 80" stroke="#1d0e99" stroke-width="6" fill="none"/>
-</svg>
-</div>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <div class="logo-text">AtlasPay</div>
+  </div>
 
-<!-- CADASTRO -->
-<div id="register">
-<h1>Criar conta</h1>
-<p class="sub">Crie sua conta na AtlasPay</p>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('register')">Criar conta</div>
+    <div class="tab" onclick="showTab('login')">Entrar</div>
+  </div>
 
-<div class="field">
-<label>Email</label>
-<input type="email" placeholder="seu@email.com">
-</div>
+  <!-- REGISTER -->
+  <form id="register" class="active">
+    <div class="field">
+      <label>Nome</label>
+      <input type="text" placeholder="Seu nome completo">
+    </div>
 
-<div class="field pass-box">
-<label>Senha</label>
-<input id="senha" type="password" oninput="forca(this.value)">
-<div class="eye" onclick="toggle('senha',this)">
-<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
-<circle cx="12" cy="12" r="3"/>
-<path d="M2 12s4-7 10-7 10 7 10 7"/>
-</svg>
-</div>
-<div id="force" class="force"></div>
-</div>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" placeholder="seu@email.com">
+    </div>
 
-<div class="field pass-box">
-<label>Confirmar senha</label>
-<input id="confirmar" type="password">
-<div class="eye" onclick="toggle('confirmar',this)">
-<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
-<circle cx="12" cy="12" r="3"/>
-<path d="M2 12s4-7 10-7 10 7 10 7"/>
-</svg>
-</div>
-</div>
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" id="password">
+        <svg class="eye" onclick="togglePassword('password')" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <div id="strength" class="strength"></div>
+    </div>
 
-<div class="terms">
-<input type="checkbox" id="terms" onchange="check()">
-<label for="terms">
-Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
-</label>
-</div>
+    <div class="field">
+      <label>Confirmar senha</label>
+      <div class="input-wrap">
+        <input type="password" id="confirm">
+        <svg class="eye" onclick="togglePassword('confirm')" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+    </div>
 
-<button id="btn" disabled>Criar conta</button>
+    <div class="terms">
+      <input type="checkbox" id="terms">
+      <span>
+        Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
+      </span>
+    </div>
 
-<div class="switch">
-Já tenho uma conta na AtlasPay?
-<span onclick="goLogin()">Acessar agora</span>
-</div>
-</div>
+    <button id="createBtn" disabled>Criar conta</button>
 
-<!-- LOGIN -->
-<div id="login" class="hidden">
-<h1>Acessar conta</h1>
-<p class="sub">Entre na sua AtlasPay</p>
+    <div class="switch">
+      Já tenho uma conta? <a onclick="showTab('login')">Acessar agora</a>
+    </div>
+  </form>
 
-<div class="field">
-<label>Email</label>
-<input type="email">
-</div>
+  <!-- LOGIN -->
+  <form id="login">
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" placeholder="seu@email.com">
+    </div>
 
-<div class="field pass-box">
-<label>Senha</label>
-<input type="password">
-<div class="eye">
-<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
-<circle cx="12" cy="12" r="3"/>
-<path d="M2 12s4-7 10-7 10 7 10 7"/>
-</svg>
-</div>
-</div>
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password">
+        <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+    </div>
 
-<button>Entrar</button>
-
-<div class="switch">
-Não tem conta? <span onclick="goRegister()">Criar agora</span>
-</div>
-</div>
+    <button>Acessar conta</button>
+  </form>
 
 </div>
 
 <script>
-function toggle(id,el){
-  const i=document.getElementById(id);
-  i.type=i.type==="password"?"text":"password";
+function showTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('form').forEach(f=>f.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="${tab}"]`).classList.add('active');
+  document.getElementById(tab).classList.add('active');
 }
 
-function forca(v){
-  const f=document.getElementById("force");
-  if(v.length<6) f.innerHTML='<span class="fraca">Senha fraca</span>';
-  else if(v.length<10) f.innerHTML='<span class="media">Senha média</span>';
-  else f.innerHTML='<span class="forte">Senha forte</span>';
+function togglePassword(id){
+  const input=document.getElementById(id);
+  input.type=input.type==='password'?'text':'password';
 }
 
-function check(){
+const pass=document.getElementById('password');
+const strength=document.getElementById('strength');
+const terms=document.getElementById('terms');
+const btn=document.getElementById('createBtn');
+
+pass.addEventListener('input',()=>{
+  const v=pass.value;
+  if(v.length<6){
+    strength.textContent='Senha fraca';
+    strength.className='strength fraca';
+  }else if(/[A-Z]/.test(v) && /\d/.test(v)){
+    strength.textContent='Senha forte';
+    strength.className='strength forte';
+  }else{
+    strength.textContent='Senha média';
+    strength.className='strength media';
+  }
+});
+
+terms.addEventListener('change',()=>{
   btn.disabled=!terms.checked;
-}
-
-function goLogin(){
-  register.classList.add("hidden");
-  login.classList.remove("hidden");
-}
-
-function goRegister(){
-  login.classList.add("hidden");
-  register.classList.remove("hidden");
-}
+});
 </script>
 
 </body>
