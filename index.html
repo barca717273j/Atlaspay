@@ -9,7 +9,7 @@
 :root{
   --blue1:#0e0774;
   --blue2:#1d0e99;
-  --card:#ffffff;
+  --white:#ffffff;
   --text:#0b0b0b;
   --muted:#6b7280;
   --border:#d1d5db;
@@ -18,24 +18,28 @@
   --green:#22c55e;
 }
 
-*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
+*{
+  box-sizing:border-box;
+  font-family:Inter,system-ui,sans-serif;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  background:linear-gradient(135deg,var(--blue1),var(--blue2));
+  background:#ffffff;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:24px;
 }
 
 .container{
   width:100%;
   max-width:420px;
-  background:var(--card);
+  background:#ffffff;
   border-radius:16px;
-  box-shadow:0 30px 60px rgba(0,0,0,.3);
+  border:1px solid #e5e7eb;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
   padding:32px;
 }
 
@@ -45,9 +49,9 @@ body{
 }
 
 .logo-icon{
-  width:44px;
-  height:44px;
-  margin:0 auto 8px;
+  width:46px;
+  height:46px;
+  margin:0 auto 10px;
   background:linear-gradient(135deg,var(--blue1),var(--blue2));
   clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
@@ -56,15 +60,18 @@ body{
   margin:0;
   font-size:22px;
   font-weight:700;
+  color:var(--text);
 }
 
 .logo p{
-  margin:4px 0 0;
+  margin-top:4px;
   font-size:13px;
   color:var(--muted);
 }
 
-.field{margin-bottom:16px;}
+.field{
+  margin-bottom:16px;
+}
 
 label{
   font-size:13px;
@@ -73,17 +80,22 @@ label{
   margin-bottom:6px;
 }
 
-.input-wrap{position:relative;}
+.input-wrap{
+  position:relative;
+}
 
 input{
   width:100%;
-  padding:12px;
+  padding:12px 40px 12px 12px;
   border-radius:10px;
   border:1px solid var(--border);
   font-size:14px;
 }
 
-input:focus{border-color:var(--blue2);outline:none;}
+input:focus{
+  border-color:var(--blue2);
+  outline:none;
+}
 
 .eye{
   position:absolute;
@@ -96,7 +108,12 @@ input:focus{border-color:var(--blue2);outline:none;}
 
 .eye:hover{opacity:1;}
 
-.strength{font-size:12px;font-weight:600;margin-top:6px;}
+.strength{
+  font-size:12px;
+  font-weight:600;
+  margin-top:6px;
+}
+
 .fraca{color:var(--red);}
 .media{color:var(--orange);}
 .forte{color:var(--green);}
@@ -110,7 +127,15 @@ input:focus{border-color:var(--blue2);outline:none;}
   margin:18px 0;
 }
 
-.terms a{color:var(--blue2);font-weight:600;text-decoration:none;}
+.terms input{
+  margin-top:3px;
+}
+
+.terms a{
+  color:var(--blue2);
+  font-weight:600;
+  text-decoration:none;
+}
 
 button{
   width:100%;
@@ -118,7 +143,7 @@ button{
   border:none;
   border-radius:12px;
   background:linear-gradient(135deg,var(--blue1),var(--blue2));
-  color:#fff;
+  color:#ffffff;
   font-weight:700;
   cursor:pointer;
 }
@@ -129,7 +154,11 @@ button{
   font-size:13px;
 }
 
-.switch a{color:var(--blue2);font-weight:700;cursor:pointer;}
+.switch a{
+  color:var(--blue2);
+  font-weight:700;
+  cursor:pointer;
+}
 
 .hidden{display:none;}
 </style>
@@ -148,15 +177,22 @@ button{
   <!-- CADASTRO -->
   <div id="register">
     <div class="field">
+      <label>Nome completo</label>
+      <input type="text" placeholder="Seu nome completo">
+    </div>
+
+    <div class="field">
       <label>E-mail</label>
-      <input type="email">
+      <input type="email" placeholder="seu@email.com">
     </div>
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="pass">
-        <span class="eye" onclick="toggle('pass')">👁</span>
+        <span class="eye" onclick="toggle('pass')">
+          👁️
+        </span>
       </div>
       <div id="strength" class="strength"></div>
     </div>
@@ -165,19 +201,23 @@ button{
       <label>Confirmar senha</label>
       <div class="input-wrap">
         <input type="password" id="confirm">
-        <span class="eye" onclick="toggle('confirm')">👁</span>
+        <span class="eye" onclick="toggle('confirm')">👁️</span>
       </div>
     </div>
 
     <div class="terms">
-      <input type="checkbox" id="terms">
-      <span>Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a></span>
+      <input type="checkbox">
+      <span>
+        Concordo com os <a href="#">Termos de Uso</a> e a
+        <a href="#">Política de Privacidade</a>
+      </span>
     </div>
 
     <button>Criar conta</button>
 
     <div class="switch">
-      Já tenho uma conta na AtlasPay? <a onclick="showLogin()">Acesse agora</a>
+      Já tenho uma conta na AtlasPay?
+      <a onclick="showLogin()">Acesse agora</a>
     </div>
   </div>
 
@@ -192,14 +232,15 @@ button{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="loginPass">
-        <span class="eye" onclick="toggle('loginPass')">👁</span>
+        <span class="eye" onclick="toggle('loginPass')">👁️</span>
       </div>
     </div>
 
     <button>Entrar</button>
 
     <div class="switch">
-      Não tenho uma conta na AtlasPay? <a onclick="showRegister()">Criar agora</a>
+      Não tenho uma conta na AtlasPay?
+      <a onclick="showRegister()">Criar agora</a>
     </div>
   </div>
 
@@ -212,13 +253,13 @@ function toggle(id){
 }
 
 function showLogin(){
-  document.getElementById('register').classList.add('hidden');
-  document.getElementById('login').classList.remove('hidden');
+  register.classList.add('hidden');
+  login.classList.remove('hidden');
 }
 
 function showRegister(){
-  document.getElementById('login').classList.add('hidden');
-  document.getElementById('register').classList.remove('hidden');
+  login.classList.add('hidden');
+  register.classList.remove('hidden');
 }
 
 const pass=document.getElementById('pass');
@@ -226,9 +267,16 @@ const strength=document.getElementById('strength');
 
 pass.addEventListener('input',()=>{
   const v=pass.value;
-  if(v.length<6){strength.textContent='Senha fraca';strength.className='strength fraca';}
-  else if(/[A-Z]/.test(v)&&/\d/.test(v)){strength.textContent='Senha forte';strength.className='strength forte';}
-  else{strength.textContent='Senha média';strength.className='strength media';}
+  if(v.length<6){
+    strength.textContent='Senha fraca';
+    strength.className='strength fraca';
+  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
+    strength.textContent='Senha forte';
+    strength.className='strength forte';
+  }else{
+    strength.textContent='Senha média';
+    strength.className='strength media';
+  }
 });
 </script>
 
