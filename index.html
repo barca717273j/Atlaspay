@@ -2,175 +2,146 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AtlasPay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --blue1:#0e0774;
-  --blue2:#1d0e99;
-  --card:#0f153d;
-  --input:#141b5e;
-  --border:#2a33a3;
-  --text:#ffffff;
-  --muted:#b9c0ff;
-}
-
-*{box-sizing:border-box;font-family:Inter,system-ui}
+*{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
 
 body{
   margin:0;
   min-height:100vh;
+  background:linear-gradient(135deg,#0e0774,#1d0e99);
   display:flex;
-  align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,var(--blue1),var(--blue2));
-  color:var(--text);
+  align-items:center;
 }
 
 .card{
   width:100%;
   max-width:420px;
-  background:var(--card);
-  border-radius:18px;
-  padding:34px;
-  box-shadow:0 40px 90px rgba(0,0,0,.4);
+  background:#fff;
+  border-radius:22px;
+  padding:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:none}
 }
 
 .logo{
-  text-align:center;
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:1px;
+  display:flex;
+  justify-content:center;
   margin-bottom:18px;
 }
 
-.logo span{
-  color:#7f8bff;
-}
-
-h1{
+h2{
   text-align:center;
-  font-size:22px;
-  margin-bottom:6px;
+  margin:0 0 6px;
 }
 
 .subtitle{
   text-align:center;
-  color:var(--muted);
+  color:#666;
   font-size:14px;
-  margin-bottom:26px;
+  margin-bottom:22px;
 }
 
-.field{margin-bottom:16px}
+.field{
+  margin-bottom:14px;
+}
 
 label{
   display:block;
   font-size:13px;
   margin-bottom:6px;
-  color:#d4d8ff;
+  color:#333;
 }
 
 input{
   width:100%;
-  padding:13px 14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--input);
-  color:#fff;
-  font-size:14px;
+  padding:12px 44px 12px 12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
 }
 
-input::placeholder{
-  color:#8f96ff;
+input:focus{
+  outline:none;
+  border-color:#1d0e99;
 }
 
-.password-wrapper{
+.password-box{
   position:relative;
 }
 
 .eye{
   position:absolute;
-  right:14px;
+  right:12px;
   top:50%;
   transform:translateY(-50%);
-  width:22px;
-  height:14px;
-  border:2px solid #9aa6ff;
-  border-radius:14px;
   cursor:pointer;
 }
 
-.eye::after{
-  content:'';
-  position:absolute;
-  top:4px;
-  left:8px;
-  width:4px;
-  height:4px;
-  background:#9aa6ff;
-  border-radius:50%;
-  transition:.3s;
-}
-
-.eye.closed::after{
-  transform:scaleX(4) rotate(45deg);
-  height:2px;
-}
-
 .strength{
-  height:6px;
-  border-radius:6px;
-  background:#2a2f70;
-  overflow:hidden;
+  font-size:12px;
   margin-top:6px;
 }
 
-.strength span{
-  display:block;
-  height:100%;
-  width:0%;
-  transition:.3s;
-}
-
-.weak{background:#ff4d4d}
-.medium{background:#ffb84d}
-.strong{background:#4dff88}
-
-.strength-text{
-  font-size:12px;
-  margin-top:4px;
-}
+.fraca{color:#e53935}
+.media{color:#fb8c00}
+.forte{color:#43a047}
 
 .terms{
-  font-size:13px;
-  margin:18px 0;
   display:flex;
+  align-items:flex-start;
   gap:8px;
+  font-size:13px;
+  margin:16px 0;
+  color:#444;
+}
+
+.terms a{
+  color:#1d0e99;
+  text-decoration:none;
 }
 
 button{
   width:100%;
   padding:14px;
   border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#3949ff,#7a88ff);
+  border-radius:12px;
+  background:#1d0e99;
   color:#fff;
-  font-size:15px;
+  font-size:16px;
   cursor:pointer;
+  transition:.25s;
 }
 
-.footer{
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+.switch{
   text-align:center;
+  font-size:14px;
   margin-top:18px;
-  font-size:13px;
 }
 
-.footer a{
-  color:#9aa6ff;
-  text-decoration:none;
+.switch span{
+  color:#1d0e99;
   cursor:pointer;
 }
+
+.hidden{display:none}
 </style>
 </head>
 
@@ -178,92 +149,115 @@ button{
 
 <div class="card">
 
-<div class="logo"><span>A</span>tlasPay</div>
+<div class="logo">
+<!-- LOGO SIMPLES TEMPORÁRIA (pode trocar depois sem quebrar nada) -->
+<svg width="70" viewBox="0 0 100 120">
+<path d="M50 5L10 110H28L50 55L72 110H90L50 5Z" fill="#1d0e99"/>
+</svg>
+</div>
 
-<h1 id="title">Criar conta</h1>
-<div class="subtitle" id="subtitle">Crie sua conta e comece agora</div>
-
+<!-- CADASTRO -->
 <div id="register">
+<h2>Criar conta</h2>
+<p class="subtitle">Crie sua conta na AtlasPay</p>
 
-  <div class="field">
-    <label>Email</label>
-    <input type="email" placeholder="seu@email.com">
-  </div>
-
-  <div class="field">
-    <label>Senha</label>
-    <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Crie uma senha">
-      <div class="eye" id="eye" onclick="togglePassword()"></div>
-    </div>
-    <div class="strength"><span id="bar"></span></div>
-    <div class="strength-text" id="strengthText"></div>
-  </div>
-
-  <div class="field">
-    <label>Confirmar senha</label>
-    <input type="password" placeholder="Repita a senha">
-  </div>
-
-  <div class="terms">
-    <input type="checkbox" id="terms">
-    <label>Li e aceito os Termos de Uso e a Política de Privacidade da AtlasPay.</label>
-  </div>
-
-  <button onclick="checkTerms()">Criar conta</button>
-
+<div class="field">
+<label>Email</label>
+<input type="email" placeholder="seu@email.com">
 </div>
 
-<div id="login" style="display:none">
-
-  <div class="field">
-    <label>Email</label>
-    <input type="email" placeholder="seu@email.com">
-  </div>
-
-  <div class="field">
-    <label>Senha</label>
-    <input type="password" placeholder="Sua senha">
-  </div>
-
-  <button>Entrar</button>
-
+<div class="field password-box">
+<label>Senha</label>
+<input id="senha" type="password" oninput="verForca(this.value)">
+<div class="eye" onclick="toggleSenha('senha')">
+<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<circle cx="12" cy="12" r="3"/>
+<path d="M2 12s4-7 10-7 10 7 10 7"/>
+</svg>
+</div>
+<div id="forca" class="strength"></div>
 </div>
 
-<div class="footer">
-  <span id="toggleText">Já tenho uma conta na AtlasPay?</span>
-  <a onclick="toggleAuth()">Acessar agora</a>
+<div class="field password-box">
+<label>Confirmar senha</label>
+<input id="confirma" type="password">
+<div class="eye" onclick="toggleSenha('confirma')">
+<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<circle cx="12" cy="12" r="3"/>
+<path d="M2 12s4-7 10-7 10 7 10 7"/>
+</svg>
+</div>
+</div>
+
+<div class="terms">
+<input type="checkbox" id="termos" onchange="checkTermos()">
+<label for="termos">
+Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
+</label>
+</div>
+
+<button id="btnCriar" disabled>Criar conta</button>
+
+<div class="switch">
+Já tenho uma conta na AtlasPay? <span onclick="mostrarLogin()">Acessar agora</span>
+</div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="hidden">
+<h2>Acessar conta</h2>
+<p class="subtitle">Entre na sua conta AtlasPay</p>
+
+<div class="field">
+<label>Email</label>
+<input type="email">
+</div>
+
+<div class="field password-box">
+<label>Senha</label>
+<input type="password">
+<div class="eye">
+<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<circle cx="12" cy="12" r="3"/>
+<path d="M2 12s4-7 10-7 10 7 10 7"/>
+</svg>
+</div>
+</div>
+
+<button>Entrar</button>
+
+<div class="switch">
+Não tem conta? <span onclick="mostrarCadastro()">Criar agora</span>
+</div>
 </div>
 
 </div>
 
 <script>
-const pass=document.getElementById("password");
-const bar=document.getElementById("bar");
-const text=document.getElementById("strengthText");
-const eye=document.getElementById("eye");
-
-pass.addEventListener("input",()=>{
-  const v=pass.value.length;
-  if(v<6){bar.style.width="33%";bar.className="weak";text.textContent="Senha fraca";}
-  else if(v<10){bar.style.width="66%";bar.className="medium";text.textContent="Senha média";}
-  else{bar.style.width="100%";bar.className="strong";text.textContent="Senha forte";}
-});
-
-function togglePassword(){
-  pass.type=pass.type==="password"?"text":"password";
-  eye.classList.toggle("closed");
+function toggleSenha(id){
+  const i=document.getElementById(id);
+  i.type=i.type==="password"?"text":"password";
 }
 
-function checkTerms(){
-  if(!terms.checked) alert("Aceite os Termos de Uso para continuar.");
+function verForca(v){
+  const f=document.getElementById("forca");
+  if(v.length<6) f.innerHTML='<span class="fraca">Senha fraca</span>';
+  else if(v.length<10) f.innerHTML='<span class="media">Senha média</span>';
+  else f.innerHTML='<span class="forte">Senha forte</span>';
 }
 
-function toggleAuth(){
-  register.style.display=register.style.display==="none"?"block":"none";
-  login.style.display=login.style.display==="none"?"block":"none";
-  title.textContent=login.style.display==="block"?"Entrar":"Criar conta";
-  subtitle.textContent=login.style.display==="block"?"Acesse sua conta":"Crie sua conta e comece agora";
+function checkTermos(){
+  document.getElementById("btnCriar").disabled=!termos.checked;
+}
+
+function mostrarLogin(){
+  register.classList.add("hidden");
+  login.classList.remove("hidden");
+}
+
+function mostrarCadastro(){
+  login.classList.add("hidden");
+  register.classList.remove("hidden");
 }
 </script>
 
