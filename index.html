@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AtlasPay — Criar conta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AtlasPay</title>
 
 <style>
 :root{
   --blue1:#0e0774;
   --blue2:#1d0e99;
-  --bg:#0e0774;
   --card:#ffffff;
   --text:#0b0b0b;
   --muted:#6b7280;
@@ -19,15 +18,12 @@
   --green:#22c55e;
 }
 
-*{
-  box-sizing:border-box;
-  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
 
 body{
   margin:0;
   min-height:100vh;
-  background:var(--bg);
+  background:linear-gradient(135deg,var(--blue1),var(--blue2));
   display:flex;
   align-items:center;
   justify-content:center;
@@ -39,108 +35,83 @@ body{
   max-width:420px;
   background:var(--card);
   border-radius:16px;
-  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  box-shadow:0 30px 60px rgba(0,0,0,.3);
   padding:32px;
-  animation:fadeUp .6s ease;
 }
 
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* LOGO */
 .logo{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+  text-align:center;
   margin-bottom:28px;
 }
 
 .logo-icon{
-  width:42px;
-  height:42px;
+  width:44px;
+  height:44px;
+  margin:0 auto 8px;
   background:linear-gradient(135deg,var(--blue1),var(--blue2));
-  clip-path:polygon(50% 0%, 0% 100%, 22% 100%, 50% 45%, 78% 100%, 100% 100%);
+  clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
 
-.logo-text{
+.logo h1{
+  margin:0;
   font-size:22px;
   font-weight:700;
-  color:#111;
 }
 
-/* FORM */
-.field{
-  margin-bottom:16px;
+.logo p{
+  margin:4px 0 0;
+  font-size:13px;
+  color:var(--muted);
 }
+
+.field{margin-bottom:16px;}
 
 label{
-  display:block;
   font-size:13px;
-  margin-bottom:6px;
   color:#374151;
+  display:block;
+  margin-bottom:6px;
 }
 
-.input-wrap{
-  position:relative;
-}
+.input-wrap{position:relative;}
 
 input{
   width:100%;
-  padding:12px 44px 12px 12px;
+  padding:12px;
   border-radius:10px;
   border:1px solid var(--border);
   font-size:14px;
-  outline:none;
 }
 
-input:focus{
-  border-color:var(--blue2);
-}
+input:focus{border-color:var(--blue2);outline:none;}
 
-/* EYE ICON */
 .eye{
   position:absolute;
   right:12px;
   top:50%;
   transform:translateY(-50%);
-  width:20px;
-  height:20px;
   cursor:pointer;
   opacity:.6;
 }
 
 .eye:hover{opacity:1;}
 
-/* PASSWORD STRENGTH */
-.strength{
-  margin-top:6px;
-  font-size:12px;
-  font-weight:600;
-}
+.strength{font-size:12px;font-weight:600;margin-top:6px;}
+.fraca{color:var(--red);}
+.media{color:var(--orange);}
+.forte{color:var(--green);}
 
-.strength.fraca{color:var(--red);}
-.strength.media{color:var(--orange);}
-.strength.forte{color:var(--green);}
-
-/* TERMS */
 .terms{
   display:flex;
+  align-items:flex-start;
   gap:8px;
   font-size:12px;
   color:#374151;
   margin:18px 0;
 }
 
-.terms a{
-  color:var(--blue2);
-  text-decoration:none;
-  font-weight:600;
-}
+.terms a{color:var(--blue2);font-weight:600;text-decoration:none;}
 
-/* BUTTON */
 button{
   width:100%;
   padding:14px;
@@ -149,28 +120,18 @@ button{
   background:linear-gradient(135deg,var(--blue1),var(--blue2));
   color:#fff;
   font-weight:700;
-  font-size:15px;
   cursor:pointer;
 }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-/* FOOT LINKS */
 .switch{
   margin-top:18px;
   text-align:center;
   font-size:13px;
 }
 
-.switch a{
-  color:var(--blue2);
-  font-weight:700;
-  cursor:pointer;
-  text-decoration:none;
-}
+.switch a{color:var(--blue2);font-weight:700;cursor:pointer;}
+
+.hidden{display:none;}
 </style>
 </head>
 
@@ -180,29 +141,22 @@ button:disabled{
 
   <div class="logo">
     <div class="logo-icon"></div>
-    <div class="logo-text">AtlasPay</div>
+    <h1>AtlasPay</h1>
+    <p>Plataforma de pagamentos digitais</p>
   </div>
 
   <!-- CADASTRO -->
-  <form id="register">
-    <div class="field">
-      <label>Nome</label>
-      <input type="text" placeholder="Seu nome completo">
-    </div>
-
+  <div id="register">
     <div class="field">
       <label>E-mail</label>
-      <input type="email" placeholder="seu@email.com">
+      <input type="email">
     </div>
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="password">
-        <svg class="eye" onclick="togglePassword('password')" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
+        <input type="password" id="pass">
+        <span class="eye" onclick="toggle('pass')">👁</span>
       </div>
       <div id="strength" class="strength"></div>
     </div>
@@ -211,56 +165,70 @@ button:disabled{
       <label>Confirmar senha</label>
       <div class="input-wrap">
         <input type="password" id="confirm">
-        <svg class="eye" onclick="togglePassword('confirm')" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
+        <span class="eye" onclick="toggle('confirm')">👁</span>
       </div>
     </div>
 
     <div class="terms">
       <input type="checkbox" id="terms">
-      <span>
-        Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
-      </span>
+      <span>Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a></span>
     </div>
 
-    <button id="createBtn" disabled>Criar conta</button>
+    <button>Criar conta</button>
 
     <div class="switch">
-      Já tenho uma conta na AtlasPay? <a href="#">Acesse agora</a>
+      Já tenho uma conta na AtlasPay? <a onclick="showLogin()">Acesse agora</a>
     </div>
-  </form>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login" class="hidden">
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email">
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" id="loginPass">
+        <span class="eye" onclick="toggle('loginPass')">👁</span>
+      </div>
+    </div>
+
+    <button>Entrar</button>
+
+    <div class="switch">
+      Não tenho uma conta na AtlasPay? <a onclick="showRegister()">Criar agora</a>
+    </div>
+  </div>
 
 </div>
 
 <script>
-function togglePassword(id){
-  const input=document.getElementById(id);
-  input.type=input.type==='password'?'text':'password';
+function toggle(id){
+  const i=document.getElementById(id);
+  i.type=i.type==='password'?'text':'password';
 }
 
-const pass=document.getElementById('password');
+function showLogin(){
+  document.getElementById('register').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+}
+
+function showRegister(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('register').classList.remove('hidden');
+}
+
+const pass=document.getElementById('pass');
 const strength=document.getElementById('strength');
-const terms=document.getElementById('terms');
-const btn=document.getElementById('createBtn');
 
 pass.addEventListener('input',()=>{
   const v=pass.value;
-  if(v.length<6){
-    strength.textContent='Senha fraca';
-    strength.className='strength fraca';
-  }else if(/[A-Z]/.test(v) && /\d/.test(v)){
-    strength.textContent='Senha forte';
-    strength.className='strength forte';
-  }else{
-    strength.textContent='Senha média';
-    strength.className='strength media';
-  }
-});
-
-terms.addEventListener('change',()=>{
-  btn.disabled=!terms.checked;
+  if(v.length<6){strength.textContent='Senha fraca';strength.className='strength fraca';}
+  else if(/[A-Z]/.test(v)&&/\d/.test(v)){strength.textContent='Senha forte';strength.className='strength forte';}
+  else{strength.textContent='Senha média';strength.className='strength media';}
 });
 </script>
 
