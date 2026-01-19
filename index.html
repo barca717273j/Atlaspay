@@ -69,10 +69,11 @@ input{
   cursor:pointer;
   width:22px;
   height:22px;
-  transition:transform .25s ease;
+  transition:opacity .25s ease, transform .25s ease;
 }
 .eye svg{fill:#475569;}
-.eye.open{transform:translateY(-50%) scale(1.1);}
+.eye.open{transform:translateY(-50%) scale(1.15);opacity:1;}
+.eye.closed{opacity:.6;}
 
 .strength-bar{
   height:6px;
@@ -106,6 +107,10 @@ input{
   width:16px;
   height:16px;
   margin:0;
+}
+
+.terms span{
+  line-height:1.2;
 }
 
 .terms a{
@@ -161,7 +166,7 @@ button{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="pass" placeholder="Crie sua melhor senha">
-        <span class="eye" onclick="togglePass('pass', this)">
+        <span class="eye closed" onclick="togglePass('pass', this)">
           <svg viewBox="0 0 24 24">
             <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
@@ -175,10 +180,10 @@ button{
     </div>
 
     <div class="field">
-       <input type="password" id="pass" placeholder="Confirme sua senha">
+      <label>Confirmar senha</label>
       <div class="input-wrap">
-        <input type="password" id="confirm">
-        <span class="eye" onclick="togglePass('confirm', this)">
+        <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
+        <span class="eye closed" onclick="togglePass('confirm', this)">
           <svg viewBox="0 0 24 24">
             <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
@@ -188,13 +193,13 @@ button{
 
     <div class="terms">
       <input type="checkbox">
-      <span>Concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a></span>
+      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
     </div>
 
     <button>Criar conta</button>
 
     <div class="switch">
-      Já tem uma conta na AtlasPay?
+      Já tenho uma conta na AtlasPay?
       <a onclick="showLogin()">Acesse agora</a>
     </div>
   </div>
@@ -209,7 +214,7 @@ button{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="loginPass" placeholder="Digite sua senha">
-        <span class="eye" onclick="togglePass('loginPass', this)">
+        <span class="eye closed" onclick="togglePass('loginPass', this)">
           <svg viewBox="0 0 24 24">
             <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
           </svg>
@@ -220,7 +225,7 @@ button{
     <button>Entrar</button>
 
     <div class="switch">
-      Não tem uma conta na AtlasPay?
+      Não tenho uma conta na AtlasPay?
       <a onclick="showRegister()">Criar agora</a>
     </div>
   </div>
@@ -233,6 +238,7 @@ function togglePass(id, el){
   const open=input.type==='password';
   input.type=open?'text':'password';
   el.classList.toggle('open', open);
+  el.classList.toggle('closed', !open);
 }
 
 function showLogin(){
