@@ -6,7 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+*{
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+}
 
 body{
   margin:0;
@@ -17,91 +20,103 @@ body{
   align-items:center;
 }
 
-.card{
+.container{
   width:100%;
-  max-width:420px;
-  background:#fff;
-  border-radius:22px;
-  padding:32px;
-  box-shadow:0 30px 80px rgba(0,0,0,.35);
-  animation:fade .4s ease;
+  max-width:430px;
+  background:#ffffff;
+  border-radius:24px;
+  padding:36px 34px;
+  box-shadow:0 40px 120px rgba(0,0,0,.35);
+  animation:fade .35s ease;
 }
 
 @keyframes fade{
-  from{opacity:0;transform:translateY(15px)}
+  from{opacity:0;transform:translateY(18px)}
   to{opacity:1;transform:none}
 }
 
+/* LOGO */
 .logo{
   display:flex;
   justify-content:center;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
-h2{
-  text-align:center;
-  margin:0 0 6px;
+.logo svg{
+  width:64px;
 }
 
-.subtitle{
+/* TITULOS */
+h1{
   text-align:center;
-  color:#666;
+  font-size:22px;
+  margin:0;
+}
+
+.sub{
+  text-align:center;
   font-size:14px;
-  margin-bottom:22px;
+  color:#666;
+  margin:6px 0 26px;
 }
 
+/* CAMPOS */
 .field{
-  margin-bottom:14px;
+  margin-bottom:16px;
 }
 
 label{
   display:block;
   font-size:13px;
+  color:#222;
   margin-bottom:6px;
-  color:#333;
 }
 
 input{
   width:100%;
-  padding:12px 44px 12px 12px;
-  border-radius:10px;
-  border:1px solid #ccc;
+  padding:14px 46px 14px 14px;
+  border-radius:12px;
+  border:1px solid #d6d6d6;
   font-size:15px;
+  background:#fafafa;
 }
 
 input:focus{
   outline:none;
   border-color:#1d0e99;
+  background:#fff;
 }
 
-.password-box{
+/* SENHA */
+.pass-box{
   position:relative;
 }
 
 .eye{
   position:absolute;
-  right:12px;
+  right:14px;
   top:50%;
   transform:translateY(-50%);
   cursor:pointer;
 }
 
-.strength{
+/* FORÇA */
+.force{
   font-size:12px;
   margin-top:6px;
 }
 
-.fraca{color:#e53935}
-.media{color:#fb8c00}
-.forte{color:#43a047}
+.fraca{color:#d32f2f}
+.media{color:#f57c00}
+.forte{color:#388e3c}
 
+/* TERMOS */
 .terms{
   display:flex;
-  align-items:flex-start;
-  gap:8px;
+  gap:10px;
   font-size:13px;
-  margin:16px 0;
   color:#444;
+  margin:18px 0;
 }
 
 .terms a{
@@ -109,31 +124,29 @@ input:focus{
   text-decoration:none;
 }
 
+/* BOTÃO */
 button{
   width:100%;
-  padding:14px;
+  padding:15px;
   border:none;
-  border-radius:12px;
+  border-radius:14px;
   background:#1d0e99;
   color:#fff;
   font-size:16px;
+  font-weight:500;
   cursor:pointer;
   transition:.25s;
 }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
+button:hover{filter:brightness(1.1)}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.5;cursor:not-allowed}
 
-button:active{
-  transform:scale(.97);
-}
-
+/* SWITCH */
 .switch{
   text-align:center;
+  margin-top:20px;
   font-size:14px;
-  margin-top:18px;
 }
 
 .switch span{
@@ -147,42 +160,43 @@ button:active{
 
 <body>
 
-<div class="card">
+<div class="container">
 
 <div class="logo">
-<!-- LOGO SIMPLES TEMPORÁRIA (pode trocar depois sem quebrar nada) -->
-<svg width="70" viewBox="0 0 100 120">
-<path d="M50 5L10 110H28L50 55L72 110H90L50 5Z" fill="#1d0e99"/>
+<!-- LOGO A FINTECH -->
+<svg viewBox="0 0 100 120">
+<path d="M50 5L10 110H28L50 55L72 110H90L50 5Z" fill="#0e0774"/>
+<path d="M30 80L50 60L70 80" stroke="#1d0e99" stroke-width="6" fill="none"/>
 </svg>
 </div>
 
 <!-- CADASTRO -->
 <div id="register">
-<h2>Criar conta</h2>
-<p class="subtitle">Crie sua conta na AtlasPay</p>
+<h1>Criar conta</h1>
+<p class="sub">Crie sua conta na AtlasPay</p>
 
 <div class="field">
 <label>Email</label>
 <input type="email" placeholder="seu@email.com">
 </div>
 
-<div class="field password-box">
+<div class="field pass-box">
 <label>Senha</label>
-<input id="senha" type="password" oninput="verForca(this.value)">
-<div class="eye" onclick="toggleSenha('senha')">
-<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<input id="senha" type="password" oninput="forca(this.value)">
+<div class="eye" onclick="toggle('senha',this)">
+<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
 <circle cx="12" cy="12" r="3"/>
 <path d="M2 12s4-7 10-7 10 7 10 7"/>
 </svg>
 </div>
-<div id="forca" class="strength"></div>
+<div id="force" class="force"></div>
 </div>
 
-<div class="field password-box">
+<div class="field pass-box">
 <label>Confirmar senha</label>
-<input id="confirma" type="password">
-<div class="eye" onclick="toggleSenha('confirma')">
-<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<input id="confirmar" type="password">
+<div class="eye" onclick="toggle('confirmar',this)">
+<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
 <circle cx="12" cy="12" r="3"/>
 <path d="M2 12s4-7 10-7 10 7 10 7"/>
 </svg>
@@ -190,34 +204,35 @@ button:active{
 </div>
 
 <div class="terms">
-<input type="checkbox" id="termos" onchange="checkTermos()">
-<label for="termos">
+<input type="checkbox" id="terms" onchange="check()">
+<label for="terms">
 Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a>.
 </label>
 </div>
 
-<button id="btnCriar" disabled>Criar conta</button>
+<button id="btn" disabled>Criar conta</button>
 
 <div class="switch">
-Já tenho uma conta na AtlasPay? <span onclick="mostrarLogin()">Acessar agora</span>
+Já tenho uma conta na AtlasPay?
+<span onclick="goLogin()">Acessar agora</span>
 </div>
 </div>
 
 <!-- LOGIN -->
 <div id="login" class="hidden">
-<h2>Acessar conta</h2>
-<p class="subtitle">Entre na sua conta AtlasPay</p>
+<h1>Acessar conta</h1>
+<p class="sub">Entre na sua AtlasPay</p>
 
 <div class="field">
 <label>Email</label>
 <input type="email">
 </div>
 
-<div class="field password-box">
+<div class="field pass-box">
 <label>Senha</label>
 <input type="password">
 <div class="eye">
-<svg width="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2">
+<svg viewBox="0 0 24 24" width="22" fill="none" stroke="#555" stroke-width="2">
 <circle cx="12" cy="12" r="3"/>
 <path d="M2 12s4-7 10-7 10 7 10 7"/>
 </svg>
@@ -227,35 +242,35 @@ Já tenho uma conta na AtlasPay? <span onclick="mostrarLogin()">Acessar agora</s
 <button>Entrar</button>
 
 <div class="switch">
-Não tem conta? <span onclick="mostrarCadastro()">Criar agora</span>
+Não tem conta? <span onclick="goRegister()">Criar agora</span>
 </div>
 </div>
 
 </div>
 
 <script>
-function toggleSenha(id){
+function toggle(id,el){
   const i=document.getElementById(id);
   i.type=i.type==="password"?"text":"password";
 }
 
-function verForca(v){
-  const f=document.getElementById("forca");
+function forca(v){
+  const f=document.getElementById("force");
   if(v.length<6) f.innerHTML='<span class="fraca">Senha fraca</span>';
   else if(v.length<10) f.innerHTML='<span class="media">Senha média</span>';
   else f.innerHTML='<span class="forte">Senha forte</span>';
 }
 
-function checkTermos(){
-  document.getElementById("btnCriar").disabled=!termos.checked;
+function check(){
+  btn.disabled=!terms.checked;
 }
 
-function mostrarLogin(){
+function goLogin(){
   register.classList.add("hidden");
   login.classList.remove("hidden");
 }
 
-function mostrarCadastro(){
+function goRegister(){
   login.classList.add("hidden");
   register.classList.remove("hidden");
 }
