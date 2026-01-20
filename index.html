@@ -1,392 +1,249 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AtlasPay</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{
-  --bg:#0b1020;
-  --card:#f8fafc;
-  --primary:#1d0e99;
-  --primary-dark:#0e0774;
-  --text:#0f172a;
-  --muted:#64748b;
-  --border:#cbd5e1;
-  --red:#ef4444;
-  --orange:#f59e0b;
-  --green:#22c55e;
+:root {
+  --azul1:#0e0774;
+  --azul2:#1d0e99;
+  --bg:#f4f6fb;
+  --texto:#1c1c1c;
 }
-
-*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
-
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{
   margin:0;
+  background:linear-gradient(135deg,var(--azul1),var(--azul2));
   min-height:100vh;
-  background:var(--bg);
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:24px;
+  align-items:center;
 }
-
-.container{
+.card{
+  background:#fff;
   width:100%;
   max-width:420px;
-  background:var(--card);
-  border-radius:18px;
-  box-shadow:0 40px 80px rgba(0,0,0,.35);
-  padding:32px;
+  border-radius:14px;
+  padding:28px;
 }
-
-.logo{text-align:center;margin-bottom:28px;}
-.logo-icon{
-  width:48px;height:48px;margin:0 auto 10px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
+.logo{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
 }
-.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
-.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
-
-.field{margin-bottom:16px;}
-label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
-
-.input-wrap{position:relative;}
-input{
-  width:100%;
-  padding:12px 44px 12px 12px;
-  border-radius:10px;
-  border:1px solid var(--border);
+.logo svg{
+  width:72px;
+}
+h1{
+  margin:0;
+  font-size:22px;
+}
+.subtitle{
+  font-size:14px;
+  color:#666;
+}
+label{
+  display:block;
+  margin-top:14px;
   font-size:14px;
 }
-
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+.password-wrapper{
+  position:relative;
+}
 .eye{
   position:absolute;
   right:12px;
   top:50%;
   transform:translateY(-50%);
   cursor:pointer;
-  width:22px;
-  height:22px;
-  transition:opacity .25s ease, transform .25s ease;
 }
-.eye svg{fill:#475569;}
-.eye.open{transform:translateY(-50%) scale(1.15);opacity:1;}
-.eye.closed{opacity:.6;}
-
-.strength-bar{
-  height:6px;
-  background:#e5e7eb;
-  border-radius:6px;
-  overflow:hidden;
+.eye svg{width:22px;fill:#555}
+.strength{
+  display:flex;
+  gap:6px;
   margin-top:6px;
 }
-.strength-fill{
-  height:100%;
-  width:0%;
-  transition:width .3s ease, background .3s ease;
+.bar{
+  flex:1;
+  height:6px;
+  background:#ddd;
+  border-radius:6px;
 }
-
-.strength-text{
-  font-size:12px;
-  font-weight:700;
-  margin-top:4px;
-}
-
 .terms{
   display:flex;
   align-items:center;
-  gap:6px;
-  font-size:12px;
-  color:#334155;
-  margin:14px 0;
+  gap:8px;
+  margin-top:14px;
+  font-size:14px;
 }
-
-.terms input{
-  width:16px;
-  height:16px;
-  margin:0;
-}
-
-.terms span{
-  line-height:1.2;
-}
-
-.terms a{
-  color:var(--primary);
-  font-weight:600;
-  text-decoration:none;
-}
-
 button{
+  margin-top:18px;
   width:100%;
   padding:14px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--azul1),var(--azul2));
   color:#fff;
-  font-weight:700;
+  font-size:16px;
   cursor:pointer;
 }
-
 .switch{
-  margin-top:18px;
   text-align:center;
-  font-size:13px;
+  margin-top:14px;
+  font-size:14px;
 }
-.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
-
-.hidden{display:none;}
+.switch span{
+  color:var(--azul2);
+  cursor:pointer;
+  font-weight:600;
+}
+.hidden{display:none}
+.error{
+  margin-top:10px;
+  color:#c00;
+  font-size:14px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
   <div class="logo">
-    <div class="logo-icon"></div>
+    <!-- LOGO INTEGRADA (INLINE) -->
+    <svg viewBox="0 0 500 550">
+      <path d="M251.5 15L35.5 442.5H127L158.5 379L251.5 187L315 316L400 442.5H491.5L251.5 15Z" fill="url(#g)"/>
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#0e0774"/>
+          <stop offset="100%" stop-color="#1d0e99"/>
+        </linearGradient>
+      </defs>
+    </svg>
     <h1>AtlasPay</h1>
-    <p>Plataforma de pagamentos digitais</p>
+    <div class="subtitle">Plataforma de pagamentos digitais</div>
   </div>
 
+  <!-- CADASTRO -->
   <div id="register">
-    <div class="field">
-      <label>Nome completo</label>
-      <input type="text" placeholder="Digite seu nome completo">
-    </div>
+    <label>Nome completo</label>
+    <input id="name" placeholder="Digite seu nome completo"/>
 
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" placeholder="Digite seu e-mail aqui">
-    </div>
+    <label>E-mail</label>
+    <input id="email" placeholder="Digite seu e-mail"/>
 
-    <div class="field">
-      <label>Senha</label>
-      <div class="input-wrap">
-        <input type="password" id="pass" placeholder="Crie sua melhor senha">
-        <span class="eye closed" onclick="togglePass('pass', this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
-          </svg>
-        </span>
-      </div>
-
-      <div class="strength-bar">
-        <div id="strengthFill" class="strength-fill"></div>
-      </div>
-      <div id="strengthText" class="strength-text"></div>
-    </div>
-
-    <div class="field">
-      <label>Confirmar senha</label>
-      <div class="input-wrap">
-        <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
-        <span class="eye closed" onclick="togglePass('confirm', this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
-          </svg>
-        </span>
+    <label>Senha</label>
+    <div class="password-wrapper">
+      <input id="password" type="password" placeholder="Crie sua melhor senha" oninput="checkStrength()"/>
+      <div class="eye" onclick="togglePassword('password',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 5C7 5 3 12 3 12s4 7 9 7 9-7 9-7-4-7-9-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
       </div>
     </div>
+
+    <div class="strength">
+      <div class="bar" id="b1"></div>
+      <div class="bar" id="b2"></div>
+      <div class="bar" id="b3"></div>
+    </div>
+
+    <label>Confirmar senha</label>
+    <input id="confirm" type="password" placeholder="Confirme sua senha"/>
 
     <div class="terms">
-      <input type="checkbox">
-      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
+      <input type="checkbox" id="terms"/>
+      <span>Concordo com os <b>Termos de Uso</b> e <b>Política de Privacidade</b></span>
     </div>
-<button onclick="criarConta()">Criar conta</button>
-    <div class="switch">
-      Já tem uma conta na AtlasPay?
-      <a onclick="showLogin()">Acesse agora</a>
-    </div>
+
+    <button onclick="register()">Criar conta</button>
+    <div class="switch">Já tem conta? <span onclick="toggle()">Acesse agora</span></div>
+    <div class="error" id="error"></div>
   </div>
 
+  <!-- LOGIN -->
   <div id="login" class="hidden">
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" placeholder="Digite seu e-mail aqui">
-    </div>
+    <label>E-mail</label>
+    <input id="loginEmail" placeholder="Digite seu e-mail"/>
 
-    <div class="field">
-      <label>Senha</label>
-      <div class="input-wrap">
-        <input type="password" id="loginPass" placeholder="Digite sua senha">
-        <span class="eye closed" onclick="togglePass('loginPass', this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
-          </svg>
-        </span>
+    <label>Senha</label>
+    <div class="password-wrapper">
+      <input id="loginPassword" type="password"/>
+      <div class="eye" onclick="togglePassword('loginPassword',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 5C7 5 3 12 3 12s4 7 9 7 9-7 9-7-4-7-9-7z"/></svg>
       </div>
     </div>
 
-    <button>Entrar</button>
-<div style="text-align:right; margin-top:6px;">
-  <a href="#"
-     style="font-size:12px; color:#1d0e99; font-weight:600; text-decoration:none;">
-    Esqueceu a senha?
-  </a>
-</div>
-
-    <div class="switch">
-      Não tem uma conta na AtlasPay?
-      <a onclick="showRegister()">Criar agora</a>
-    </div>
+    <button onclick="login()">Entrar</button>
+    <div class="switch">Não tem conta? <span onclick="toggle()">Crie agora</span></div>
+    <div class="error" id="loginError"></div>
   </div>
 
 </div>
 
 <script>
-function togglePass(id, el){
-  const input=document.getElementById(id);
-  const open=input.type==='password';
-  input.type=open?'text':'password';
-  el.classList.toggle('open', open);
-  el.classList.toggle('closed', !open);
+const SUPABASE_URL = "COLE_AQUI_SUA_URL";
+const SUPABASE_ANON_KEY = "COLE_AQUI_SUA_ANON_KEY";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function toggle(){
+  document.getElementById("register").classList.toggle("hidden");
+  document.getElementById("login").classList.toggle("hidden");
 }
 
-function showLogin(){
-  register.classList.add('hidden');
-  login.classList.remove('hidden');
-}
-function showRegister(){
-  login.classList.add('hidden');
-  register.classList.remove('hidden');
+function togglePassword(id,el){
+  const i=document.getElementById(id);
+  i.type=i.type==="password"?"text":"password";
 }
 
-const pass=document.getElementById('pass');
-const fill=document.getElementById('strengthFill');
-const text=document.getElementById('strengthText');
+function checkStrength(){
+  const p=document.getElementById("password").value;
+  const b1=document.getElementById("b1");
+  const b2=document.getElementById("b2");
+  const b3=document.getElementById("b3");
+  b1.style.background=b2.style.background=b3.style.background="#ddd";
+  if(p.length>=6)b1.style.background="red";
+  if(p.length>=8)b2.style.background="orange";
+  if(p.length>=10)b3.style.background="green";
+}
 
-pass.addEventListener('input',()=>{
-  const v=pass.value;
-  if(v.length<6){
-    fill.style.width='33%';
-    fill.style.background='var(--red)';
-    text.textContent='Senha fraca';
-    text.style.color='var(--red)';
-  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    fill.style.width='100%';
-    fill.style.background='var(--green)';
-    text.textContent='Senha forte';
-    text.style.color='var(--green)';
-  }else{
-    fill.style.width='66%';
-    fill.style.background='var(--orange)';
-    text.textContent='Senha média';
-    text.style.color='var(--orange)';
-  }
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+async function register(){
+  const error=document.getElementById("error");
+  error.innerText="";
+  if(!terms.checked)return error.innerText="Aceite os termos para continuar.";
+  if(password.value!==confirm.value)return error.innerText="As senhas não coincidem.";
 
-<script>
-  const supabaseUrl = "https://vkfuvijagxwkmuposbya.supabase.co";
-  const supabaseKey = "R4eccwStxVRDYpEX";
+  const { error:err } = await supabase.auth.signUp({
+    email: email.value,
+    password: password.value,
+    options:{ data:{ name: name.value } }
+  });
 
-  const supabase = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-  );
+  if(err) error.innerText=err.message;
+  else alert("Conta criada com sucesso!");
+}
 
-  // MOSTRAR / ESCONDER SENHA (SEM EMOJI)
-  function toggleSenha() {
-    const input = document.getElementById("password");
-    input.type = input.type === "password" ? "text" : "password";
-  }
-
-  // FORÇA DA SENHA
-  function verificarForca() {
-    const senha = document.getElementById("password").value;
-    const barra = document.getElementById("strengthBar");
-    const texto = document.getElementById("strengthText");
-
-    if (!barra || !texto) return;
-
-    if (senha.length < 6) {
-      barra.style.width = "33%";
-      barra.style.background = "red";
-      texto.innerText = "Senha fraca";
-    } else if (senha.length < 10) {
-      barra.style.width = "66%";
-      barra.style.background = "orange";
-      texto.innerText = "Senha média";
-    } else {
-      barra.style.width = "100%";
-      barra.style.background = "green";
-      texto.innerText = "Senha forte";
-    }
-  }
-
-  // CRIAR CONTA
-  async function criarConta() {
-    const nome = document.getElementById("fullName").value;
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("password").value;
-    const termos = document.getElementById("terms").checked;
-
-    if (!termos) {
-      alert("Aceite os termos de uso");
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email: email,
-      password: senha
-    });
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    alert("Conta criada com sucesso!");
-  }
-
-  // LOGIN
-  async function login() {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("password").value;
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: senha
-    });
-
-    if (error) {
-      alert("Email ou senha inválidos");
-      return;
-    }
-
-    alert("Login realizado!");
-  }
-
-  // ESQUECEU SENHA
-  async function esqueceuSenha() {
-    const email = document.getElementById("email").value;
-    if (!email) {
-      alert("Digite seu email");
-      return;
-    }
-
-    await supabase.auth.resetPasswordForEmail(email);
-    alert("Email de recuperação enviado");
-  }
-</script>
-<script>
-  function criarConta() {
-    alert("Clique funcionou. Agora é sistema real.");
-  }
-</script>
-<script>
-  function criarConta() {
-    console.log("Botão clicado");
-    alert("Sistema ativo. Próximo passo: salvar dados.");
-  }
-</script>
-<script>
-function criarConta() {
-  alert("Botão conectado. Próximo passo: backend real.");
+async function login(){
+  const e=document.getElementById("loginError");
+  e.innerText="";
+  const { error } = await supabase.auth.signInWithPassword({
+    email: loginEmail.value,
+    password: loginPassword.value
+  });
+  if(error)e.innerText=error.message;
+  else alert("Login realizado!");
 }
 </script>
 
