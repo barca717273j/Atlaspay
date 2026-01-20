@@ -176,8 +176,21 @@ button{
       <input type="checkbox" id="terms">
       <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
     </div>
+<script>
+function criarConta(){
+  const termos = document.getElementById('terms');
 
-    <button onclick="criarConta()">Criar conta</button>
+  if(!termos.checked){
+    alert('Você precisa aceitar os Termos de Uso e a Política de Privacidade para criar a conta.');
+    return;
+  }
+
+  // A PARTIR DAQUI a conta pode ser criada
+  // depois a gente liga com backend real
+  alert('Conta criada com sucesso (simulação)');
+}
+</script>
+
 
     <div class="switch">
       Já tenho uma conta na AtlasPay?
