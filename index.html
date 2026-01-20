@@ -9,10 +9,8 @@
 :root{
   --bg:#0b1020;
   --card:#f8fafc;
-
   --primary:#16a085;
   --primary-dark:#0e6655;
-
   --text:#0f172a;
   --muted:#64748b;
   --border:#cbd5e1;
@@ -20,7 +18,9 @@
   --orange:#f59e0b;
   --green:#22c55e;
 }
+
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
+
 body{
   margin:0;
   min-height:100vh;
@@ -30,6 +30,7 @@ body{
   justify-content:center;
   padding:24px;
 }
+
 .container{
   width:100%;
   max-width:420px;
@@ -38,6 +39,7 @@ body{
   box-shadow:0 40px 80px rgba(0,0,0,.35);
   padding:32px;
 }
+
 .logo{text-align:center;margin-bottom:28px;}
 .logo-icon{
   width:48px;height:48px;margin:0 auto 10px;
@@ -46,9 +48,12 @@ body{
 }
 .logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
 .logo p{margin-top:4px;font-size:13px;color:var(--muted);}
+
 .field{margin-bottom:16px;}
 label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
+
 .input-wrap{position:relative;}
+
 input{
   width:100%;
   padding:12px 44px 12px 12px;
@@ -56,17 +61,6 @@ input{
   border:1px solid var(--border);
   font-size:14px;
 }
-.eye{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  cursor:pointer;
-  width:22px;
-  height:22px;
-}
-.eye svg{fill:#475569;}
-.eye.closed{opacity:.6;}
 
 .strength-bar{
   height:6px;
@@ -75,10 +69,10 @@ input{
   overflow:hidden;
   margin-top:6px;
 }
+
 .strength-fill{height:100%;width:0%;}
 .strength-text{font-size:12px;font-weight:700;margin-top:4px;}
 
-/* ✅ CORREÇÃO DEFINITIVA DOS TERMOS */
 .terms label{
   display:flex;
   align-items:flex-start;
@@ -88,7 +82,7 @@ input{
   margin:14px 0;
   cursor:pointer;
 }
-.terms input{margin-top:2px;}
+
 .terms a{
   color:var(--primary);
   font-weight:600;
@@ -99,154 +93,160 @@ button{
   width:100%;
   padding:14px;
   border-radius:12px;
-  background:linear-gradient(135deg,
-    var(--primary-dark) 0%,
-    var(--primary) 55%,
-    #7fffd4 100%
-  );
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary),#7fffd4);
   border:1px solid rgba(255,255,255,.4);
   color:#fff;
   font-weight:700;
   cursor:pointer;
 }
-button:disabled{opacity:.45;cursor:not-allowed;}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
 
 .switch{
   margin-top:18px;
   text-align:center;
   font-size:13px;
 }
-.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
+
+.switch a{
+  color:var(--primary);
+  font-weight:700;
+  cursor:pointer;
+}
+
 .hidden{display:none;}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-  <div class="logo">
-    <div class="logo-icon"></div>
-    <h1>AtlasPay</h1>
-    <p>Plataforma de pagamentos digitais</p>
+<div class="logo">
+  <div class="logo-icon"></div>
+  <h1>AtlasPay</h1>
+  <p>Plataforma de pagamentos digitais</p>
+</div>
+
+<!-- CADASTRO -->
+<div id="register">
+  <div class="field">
+    <label>Nome completo</label>
+    <input type="text" id="name" required>
   </div>
 
-  <!-- CADASTRO -->
-  <div id="register">
-    <div class="field">
-      <label>Nome completo</label>
-      <input type="text" id="name" placeholder="Digite seu nome completo">
-    </div>
-
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" id="email" placeholder="Digite seu e-mail aqui">
-    </div>
-
-    <div class="field">
-      <label>Senha</label>
-      <div class="input-wrap">
-        <input type="password" id="pass" placeholder="Crie sua melhor senha">
-        <span class="eye closed">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
-        </span>
-      </div>
-      <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
-      <div id="strengthText" class="strength-text"></div>
-    </div>
-
-    <div class="field">
-      <label>Confirmar senha</label>
-      <div class="input-wrap">
-        <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
-      </div>
-    </div>
-
-    <div class="terms">
-      <label>
-        <input type="checkbox" id="terms">
-        <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
-      </label>
-    </div>
-
-    <button id="createBtn" disabled>Criar conta</button>
-
-    <div class="switch">
-      Já tenho uma conta na AtlasPay?
-      <a onclick="showLogin()">Acesse agora</a>
-    </div>
+  <div class="field">
+    <label>E-mail</label>
+    <input type="email" id="email" required>
   </div>
 
-  <!-- LOGIN -->
-  <div id="login" class="hidden">
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" placeholder="Digite seu e-mail aqui">
+  <div class="field">
+    <label>Senha</label>
+    <input type="password" id="pass" required>
+    <div class="strength-bar">
+      <div id="strengthFill" class="strength-fill"></div>
     </div>
-
-    <div class="field">
-      <label>Senha</label>
-      <div class="input-wrap">
-        <input type="password" placeholder="Digite sua senha">
-      </div>
-    </div>
-
-    <button>Entrar</button>
-
-    <div class="switch">
-      Não tenho uma conta na AtlasPay?
-      <a onclick="showRegister()">Criar agora</a>
-    </div>
+    <div id="strengthText" class="strength-text"></div>
   </div>
+
+  <div class="field">
+    <label>Confirmar senha</label>
+    <input type="password" id="confirm" required>
+  </div>
+
+  <div class="terms">
+    <label>
+      <input type="checkbox" id="terms">
+      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
+    </label>
+  </div>
+
+  <button id="createBtn" disabled>Criar conta</button>
+
+  <div class="switch">
+    Já tenho uma conta? <a onclick="showLogin()">Entrar</a>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="hidden">
+  <div class="field">
+    <label>E-mail</label>
+    <input type="email">
+  </div>
+
+  <div class="field">
+    <label>Senha</label>
+    <input type="password">
+  </div>
+
+  <button>Entrar</button>
+
+  <div class="switch">
+    Não tenho conta? <a onclick="showRegister()">Criar agora</a>
+  </div>
+</div>
 
 </div>
 
 <script>
-function showLogin(){
-  register.classList.add('hidden');
-  login.classList.remove('hidden');
-}
-function showRegister(){
-  login.classList.add('hidden');
-  register.classList.remove('hidden');
-}
-
+const nameInput=document.getElementById('name');
+const emailInput=document.getElementById('email');
 const pass=document.getElementById('pass');
-const confirm=document.getElementById('confirm');
+const confirmPass=document.getElementById('confirm');
+const terms=document.getElementById('terms');
+const btn=document.getElementById('createBtn');
 const fill=document.getElementById('strengthFill');
 const text=document.getElementById('strengthText');
-const btn=document.getElementById('createBtn');
-const terms=document.getElementById('terms');
+
+function validar(){
+  btn.disabled = !(
+    nameInput.value.trim() &&
+    emailInput.value.trim() &&
+    pass.value &&
+    confirmPass.value &&
+    pass.value === confirmPass.value &&
+    terms.checked
+  );
+}
 
 pass.addEventListener('input',()=>{
   const v=pass.value;
   if(v.length<6){
-    fill.style.width='33%'; fill.style.background='var(--red)';
-    text.textContent='Senha fraca'; text.style.color='var(--red)';
+    fill.style.width='33%';
+    fill.style.background='var(--red)';
+    text.textContent='Senha fraca';
+    text.style.color='var(--red)';
   }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    fill.style.width='100%'; fill.style.background='var(--green)';
-    text.textContent='Senha forte'; text.style.color='var(--green)';
+    fill.style.width='100%';
+    fill.style.background='var(--green)';
+    text.textContent='Senha forte';
+    text.style.color='var(--green)';
   }else{
-    fill.style.width='66%'; fill.style.background='var(--orange)';
-    text.textContent='Senha média'; text.style.color='var(--orange)';
+    fill.style.width='66%';
+    fill.style.background='var(--orange)';
+    text.textContent='Senha média';
+    text.style.color='var(--orange)';
   }
   validar();
 });
 
-function validar(){
-  btn.disabled=!(
-    name.value.trim() &&
-    email.value.trim() &&
-    pass.value &&
-    confirm.value &&
-    pass.value===confirm.value &&
-    terms.checked
-  );
-}
-['name','email','confirm'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',validar);
+[nameInput,emailInput,confirmPass].forEach(el=>{
+  el.addEventListener('input',validar);
 });
 terms.addEventListener('change',validar);
+
+function showLogin(){
+  document.getElementById('register').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+}
+
+function showRegister(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('register').classList.remove('hidden');
+}
 </script>
 
 </body>
