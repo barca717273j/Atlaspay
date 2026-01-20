@@ -64,42 +64,7 @@ input{
   height:22px;
 }
 .eye svg{fill:#475569;}
-.eye.open{transform:translateY(-50%) scale(1.15);}
 .eye.closed{opacity:.6;}
-.strength-bar{
-  height:6px;
-  background:#e5e7eb;
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:6px;
-}
-.strength-fill{
-  height:100%;
-  width:0%;
-}
-.strength-text{
-  font-size:12px;
-  font-weight:700;
-  margin-top:4px;
-}
-.terms{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  color:#334155;
-  margin:14px 0;
-}
-.terms input{
-  width:16px;
-  height:16px;
-  margin:0;
-}
-.terms a{
-  color:var(--primary);
-  font-weight:600;
-  text-decoration:none;
-}
 button{
   width:100%;
   padding:14px;
@@ -154,8 +119,6 @@ button:disabled{
           <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
       </div>
-      <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
-      <div id="strengthText" class="strength-text"></div>
     </div>
 
     <div class="field">
@@ -168,12 +131,6 @@ button:disabled{
       </div>
     </div>
 
-    <div class="terms">
-      <input type="checkbox" id="terms">
-      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
-    </div>
-
-    <!-- BOTÃO AGORA CONTROLADO -->
     <button id="createBtn" disabled>Criar conta</button>
 
     <div class="switch">
@@ -182,43 +139,53 @@ button:disabled{
     </div>
   </div>
 
+  <!-- LOGIN -->
+  <div id="login" class="hidden">
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" placeholder="Digite seu e-mail aqui">
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" id="loginPass" placeholder="Digite sua senha">
+        <span class="eye closed" onclick="togglePass('loginPass', this)">
+          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="switch" style="margin-top:8px;">
+      <a>Esqueceu a senha?</a>
+    </div>
+
+    <button>Entrar</button>
+
+    <div class="switch">
+      Não tenho uma conta na AtlasPay?
+      <a onclick="showRegister()">Criar agora</a>
+    </div>
+  </div>
+
 </div>
 
 <script>
 function togglePass(id, el){
   const input=document.getElementById(id);
-  input.type=input.type==='password'?'text':'password';
-  el.classList.toggle('open');
+  input.type = input.type === 'password' ? 'text' : 'password';
+  el.classList.toggle('closed');
 }
 
 function showLogin(){
   document.getElementById('register').classList.add('hidden');
-  document.getElementById('login')?.classList.remove('hidden');
+  document.getElementById('login').classList.remove('hidden');
 }
 
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const passInput = document.getElementById('pass');
-const confirmInput = document.getElementById('confirm');
-const termsInput = document.getElementById('terms');
-const btn = document.getElementById('createBtn');
-
-function validarFormulario(){
-  const valido =
-    nameInput.value.trim() &&
-    emailInput.value.trim() &&
-    passInput.value &&
-    confirmInput.value &&
-    passInput.value === confirmInput.value &&
-    termsInput.checked;
-
-  btn.disabled = !valido;
+function showRegister(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('register').classList.remove('hidden');
 }
-
-[nameInput,emailInput,passInput,confirmInput].forEach(el=>{
-  el.addEventListener('input', validarFormulario);
-});
-termsInput.addEventListener('change', validarFormulario);
 </script>
 
 </body>
