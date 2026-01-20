@@ -6,7 +6,6 @@
 <title>AtlasPay</title>
 
 <style>
-/* ⚠️ DESIGN 100% INTACTO – NÃO TOQUEI */
 :root{
   --bg:#0b1020;
   --card:#f8fafc;
@@ -21,12 +20,20 @@
 }
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
 body{
-  margin:0;min-height:100vh;background:var(--bg);
-  display:flex;align-items:center;justify-content:center;padding:24px;
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
 }
 .container{
-  width:100%;max-width:420px;background:var(--card);
-  border-radius:18px;box-shadow:0 40px 80px rgba(0,0,0,.35);
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:0 40px 80px rgba(0,0,0,.35);
   padding:32px;
 }
 .logo{text-align:center;margin-bottom:28px;}
@@ -41,27 +48,73 @@ body{
 label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
 .input-wrap{position:relative;}
 input{
-  width:100%;padding:12px 44px 12px 12px;
-  border-radius:10px;border:1px solid var(--border);font-size:14px;
+  width:100%;
+  padding:12px 44px 12px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:14px;
 }
 .eye{
-  position:absolute;right:12px;top:50%;
-  transform:translateY(-50%);cursor:pointer;
-  width:22px;height:22px;transition:.25s;
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  width:22px;
+  height:22px;
 }
 .eye svg{fill:#475569;}
 .eye.open{transform:translateY(-50%) scale(1.15);}
 .eye.closed{opacity:.6;}
-.strength-bar{height:6px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:6px;}
-.strength-fill{height:100%;width:0%;transition:.3s;}
-.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
-.terms{display:flex;gap:6px;font-size:12px;margin:14px 0;}
-button{
-  width:100%;padding:14px;border:none;border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  color:#fff;font-weight:700;cursor:pointer;
+.strength-bar{
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:6px;
 }
-.switch{text-align:center;font-size:13px;margin-top:18px;}
+.strength-fill{
+  height:100%;
+  width:0%;
+}
+.strength-text{
+  font-size:12px;
+  font-weight:700;
+  margin-top:4px;
+}
+.terms{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  color:#334155;
+  margin:14px 0;
+}
+.terms input{
+  width:16px;
+  height:16px;
+  margin:0;
+}
+.terms a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.switch{
+  margin-top:18px;
+  text-align:center;
+  font-size:13px;
+}
 .switch a{color:var(--primary);font-weight:700;cursor:pointer;}
 .hidden{display:none;}
 </style>
@@ -70,124 +123,156 @@ button{
 <body>
 
 <div class="container">
+
   <div class="logo">
     <div class="logo-icon"></div>
     <h1>AtlasPay</h1>
     <p>Plataforma de pagamentos digitais</p>
   </div>
 
+  <!-- CADASTRO -->
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
-      <input id="regName" type="text">
+      <input type="text" id="regName" placeholder="Digite seu nome completo">
     </div>
 
     <div class="field">
       <label>E-mail</label>
-      <input id="regEmail" type="email">
+      <input type="email" id="regEmail" placeholder="Digite seu e-mail aqui">
     </div>
-
-    <!-- CPF invisível visualmente, mas REAL -->
-    <input id="regCPF" type="hidden">
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="pass">
-        <span class="eye closed" onclick="togglePass('pass',this)">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
+        <input type="password" id="pass" placeholder="Crie sua melhor senha">
+        <span class="eye closed" onclick="togglePass('pass', this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
+          </svg>
         </span>
       </div>
-      <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
+
+      <div class="strength-bar">
+        <div id="strengthFill" class="strength-fill"></div>
+      </div>
       <div id="strengthText" class="strength-text"></div>
     </div>
 
     <div class="field">
       <label>Confirmar senha</label>
       <div class="input-wrap">
-        <input type="password" id="confirm">
-        <span class="eye closed" onclick="togglePass('confirm',this)">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
+        <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
+        <span class="eye closed" onclick="togglePass('confirm', this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
+          </svg>
         </span>
       </div>
     </div>
 
+    <!-- TERMOS (AGORA OBRIGATÓRIO) -->
     <div class="terms">
-      <input id="terms" type="checkbox">
-      <span>Concordo com os Termos</span>
+      <input type="checkbox" id="terms">
+      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
     </div>
 
-    <button onclick="registerUser()">Criar conta</button>
+    <button onclick="criarConta()">Criar conta</button>
 
     <div class="switch">
-      Já tenho conta? <a onclick="showLogin()">Acesse</a>
+      Já tenho uma conta na AtlasPay?
+      <a onclick="showLogin()">Acesse agora</a>
     </div>
   </div>
 
+  <!-- LOGIN -->
   <div id="login" class="hidden">
     <div class="field">
       <label>E-mail</label>
-      <input id="loginEmail" type="email">
+      <input type="email" placeholder="Digite seu e-mail aqui">
     </div>
+
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="loginPass">
-        <span class="eye closed" onclick="togglePass('loginPass',this)">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
+        <input type="password" id="loginPass" placeholder="Digite sua senha">
+        <span class="eye closed" onclick="togglePass('loginPass', this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
+          </svg>
         </span>
       </div>
     </div>
-    <button onclick="loginUser()">Entrar</button>
+
+    <!-- ESQUECEU SENHA (ADICIONADO, SEM MEXER NO DESIGN) -->
+    <div class="switch" style="margin-top:8px;">
+      <a onclick="esqueceuSenha()">Esqueceu a senha?</a>
+    </div>
+
+    <button>Entrar</button>
+
     <div class="switch">
-      Não tenho conta? <a onclick="showRegister()">Criar</a>
+      Não tenho uma conta na AtlasPay?
+      <a onclick="showRegister()">Criar agora</a>
     </div>
   </div>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 <script>
-/* 🔐 SUPABASE – coloque suas chaves */
-const supabase = supabase.createClient(
-  'SUA_URL_SUPABASE',
-  'SUA_ANON_KEY'
-);
-
-/* 👁️ senha */
-function togglePass(id,el){
-  const i=document.getElementById(id);
-  i.type=i.type==='password'?'text':'password';
-  el.classList.toggle('open');
+function togglePass(id, el){
+  const input=document.getElementById(id);
+  const open=input.type==='password';
+  input.type=open?'text':'password';
+  el.classList.toggle('open', open);
+  el.classList.toggle('closed', !open);
 }
 
-/* 🔄 telas */
-function showLogin(){register.classList.add('hidden');login.classList.remove('hidden')}
-function showRegister(){login.classList.add('hidden');register.classList.remove('hidden')}
-
-/* 🧠 CADASTRO REAL */
-async function registerUser(){
-  if(!terms.checked) return;
-
-  const email=regEmail.value;
-  const password=pass.value;
-  const cpf=regCPF.value || crypto.randomUUID();
-
-  const {error}=await supabase.auth.signUp({
-    email,password,
-    options:{data:{cpf}}
-  });
-
-  if(!error) showLogin();
+function showLogin(){
+  document.getElementById('register').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+}
+function showRegister(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('register').classList.remove('hidden');
 }
 
-/* 🔐 LOGIN REAL */
-async function loginUser(){
-  await supabase.auth.signInWithPassword({
-    email:loginEmail.value,
-    password:loginPass.value
-  });
+/* OBRIGAR ACEITAR TERMOS */
+function criarConta(){
+  if(!document.getElementById('terms').checked){
+    return;
+  }
+  // cadastro real entra no próximo passo
 }
+
+/* ESQUECEU SENHA (placeholder realista) */
+function esqueceuSenha(){
+  // depois conecta com backend
+}
+
+const pass=document.getElementById('pass');
+const fill=document.getElementById('strengthFill');
+const text=document.getElementById('strengthText');
+
+pass.addEventListener('input',()=>{
+  const v=pass.value;
+  if(v.length<6){
+    fill.style.width='33%';
+    fill.style.background='var(--red)';
+    text.textContent='Senha fraca';
+    text.style.color='var(--red)';
+  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
+    fill.style.width='100%';
+    fill.style.background='var(--green)';
+    text.textContent='Senha forte';
+    text.style.color='var(--green)';
+  }else{
+    fill.style.width='66%';
+    fill.style.background='var(--orange)';
+    text.textContent='Senha média';
+    text.style.color='var(--orange)';
+  }
+});
 </script>
 
 </body>
