@@ -179,13 +179,19 @@ button{
       <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
     </div>
 <script>
+<script>
 function criarConta(){
   const termos = document.getElementById('terms');
 
   if(!termos.checked){
-    alert('Você precisa aceitar os Termos de Uso e a Política de Privacidade para criar a conta.');
+    alert('Você precisa aceitar os Termos de Uso e a Política de Privacidade.');
     return;
   }
+
+  alert('Conta liberada (frontend ok)');
+}
+</script>
+
 
   // A PARTIR DAQUI a conta pode ser criada
   // depois a gente liga com backend real
