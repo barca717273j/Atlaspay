@@ -18,7 +18,9 @@
   --orange:#f59e0b;
   --green:#22c55e;
 }
+
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
+
 body{
   margin:0;
   min-height:100vh;
@@ -28,6 +30,7 @@ body{
   justify-content:center;
   padding:24px;
 }
+
 .container{
   width:100%;
   max-width:420px;
@@ -36,6 +39,7 @@ body{
   box-shadow:0 40px 80px rgba(0,0,0,.35);
   padding:32px;
 }
+
 .logo{text-align:center;margin-bottom:28px;}
 .logo-icon{
   width:48px;height:48px;margin:0 auto 10px;
@@ -44,16 +48,29 @@ body{
 }
 .logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
 .logo p{margin-top:4px;font-size:13px;color:var(--muted);}
+
 .field{margin-bottom:16px;}
 label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
-.input-wrap{position:relative;}
+
 input{
   width:100%;
-  padding:12px 44px 12px 12px;
+  padding:12px;
   border-radius:10px;
   border:1px solid var(--border);
   font-size:14px;
 }
+
+input.error{
+  border-color:var(--red);
+}
+
+.error-text{
+  font-size:12px;
+  color:var(--red);
+  margin-top:4px;
+  display:none;
+}
+
 .strength-bar{
   height:6px;
   background:#e5e7eb;
@@ -63,13 +80,16 @@ input{
 }
 .strength-fill{height:100%;width:0%;}
 .strength-text{font-size:12px;font-weight:700;margin-top:4px;}
+
+.terms{
+  margin:14px 0;
+}
 .terms label{
   display:flex;
   align-items:flex-start;
   gap:10px;
   font-size:12px;
   color:#334155;
-  margin:14px 0;
   cursor:pointer;
 }
 .terms a{
@@ -77,36 +97,47 @@ input{
   font-weight:600;
   text-decoration:none;
 }
+
 button{
   width:100%;
   padding:14px;
   border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary),#7fffd4);
-  border:1px solid rgba(255,255,255,.4);
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border:none;
   color:#fff;
   font-weight:700;
   cursor:pointer;
+  transition:.3s;
 }
-button:disabled{opacity:.45;cursor:not-allowed;}
+button:disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+}
+button:not(:disabled):hover{
+  box-shadow:0 0 18px rgba(22,160,133,.55);
+}
+
 .switch{
   margin-top:18px;
   text-align:center;
   font-size:13px;
 }
 .switch a{color:var(--primary);font-weight:700;cursor:pointer;}
+
 .forgot{
-  display:block;
   text-align:right;
   font-size:12px;
   color:var(--primary);
   margin-top:6px;
   cursor:pointer;
 }
+
 .hidden{display:none;}
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <div class="logo">
@@ -119,26 +150,28 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 <div id="register">
   <div class="field">
     <label>Nome completo</label>
-    <input type="text" id="name" placeholder="Digite seu nome completo">
+    <input id="name" placeholder="Preencha seu nome aqui">
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
   <div class="field">
     <label>E-mail</label>
-    <input type="email" id="email" placeholder="Digite seu e-mail aqui">
+    <input id="email" type="email" placeholder="Digite seu e-mail aqui">
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
   <div class="field">
     <label>Senha</label>
-    <input type="password" id="pass" placeholder="Crie sua melhor senha">
-    <div class="strength-bar">
-      <div id="strengthFill" class="strength-fill"></div>
-    </div>
+    <input id="pass" type="password" placeholder="Crie sua senha">
+    <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
     <div id="strengthText" class="strength-text"></div>
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
   <div class="field">
     <label>Confirmar senha</label>
-    <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
+    <input id="confirm" type="password" placeholder="Confirme sua senha">
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
   <div class="terms">
@@ -160,13 +193,13 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 <div id="login" class="hidden">
   <div class="field">
     <label>E-mail</label>
-    <input type="email" placeholder="Digite seu e-mail aqui">
+    <input placeholder="Digite seu e-mail aqui">
   </div>
 
   <div class="field">
     <label>Senha</label>
     <input type="password" placeholder="Digite sua senha aqui">
-    <span class="forgot">Esqueceu a senha?</span>
+    <div class="forgot">Esqueceu a senha?</div>
   </div>
 
   <button>Entrar</button>
@@ -180,59 +213,39 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 </div>
 
 <script>
-const nameInput=document.getElementById('name');
-const emailInput=document.getElementById('email');
-const pass=document.getElementById('pass');
-const confirmPass=document.getElementById('confirm');
-const terms=document.getElementById('terms');
-const btn=document.getElementById('createBtn');
-const fill=document.getElementById('strengthFill');
-const text=document.getElementById('strengthText');
+const fields = document.querySelectorAll('#register input');
+const btn = document.getElementById('createBtn');
+const terms = document.getElementById('terms');
 
 function validar(){
-  btn.disabled = !(
-    nameInput.value.trim() &&
-    emailInput.value.trim() &&
-    pass.value &&
-    confirmPass.value &&
-    pass.value === confirmPass.value &&
-    terms.checked
-  );
+  let ok = true;
+
+  fields.forEach(input=>{
+    const error = input.nextElementSibling;
+    if(input.type !== 'checkbox' && !input.value){
+      input.classList.add('error');
+      error.style.display='block';
+      ok = false;
+    }else{
+      input.classList.remove('error');
+      error.style.display='none';
+    }
+  });
+
+  if(!terms.checked) ok=false;
+  btn.disabled = !ok;
 }
 
-pass.addEventListener('input',()=>{
-  const v=pass.value;
-  if(v.length<6){
-    fill.style.width='33%';
-    fill.style.background='var(--red)';
-    text.textContent='Senha fraca';
-    text.style.color='var(--red)';
-  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    fill.style.width='100%';
-    fill.style.background='var(--green)';
-    text.textContent='Senha forte';
-    text.style.color='var(--green)';
-  }else{
-    fill.style.width='66%';
-    fill.style.background='var(--orange)';
-    text.textContent='Senha média';
-    text.style.color='var(--orange)';
-  }
-  validar();
-});
-
-[nameInput,emailInput,confirmPass].forEach(el=>{
-  el.addEventListener('input',validar);
-});
+fields.forEach(i=>i.addEventListener('input',validar));
 terms.addEventListener('change',validar);
 
 function showLogin(){
-  document.getElementById('register').classList.add('hidden');
-  document.getElementById('login').classList.remove('hidden');
+  register.classList.add('hidden');
+  login.classList.remove('hidden');
 }
 function showRegister(){
-  document.getElementById('login').classList.add('hidden');
-  document.getElementById('register').classList.remove('hidden');
+  login.classList.add('hidden');
+  register.classList.remove('hidden');
 }
 </script>
 
