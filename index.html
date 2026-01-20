@@ -10,9 +10,8 @@
   --bg:#0b1020;
   --card:#f8fafc;
 
-  /* NOVA PALETA (FINTECH PROFISSIONAL) */
-  --primary:#16a085;        /* verde esmeralda */
-  --primary-dark:#0e6655;   /* verde petróleo */
+  --primary:#16a085;
+  --primary-dark:#0e6655;
 
   --text:#0f172a;
   --muted:#64748b;
@@ -77,24 +76,19 @@ input{
   margin-top:6px;
 }
 .strength-fill{height:100%;width:0%;}
-.strength-text{
-  font-size:12px;
-  font-weight:700;
-  margin-top:4px;
-}
+.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
 
-/* ✅ TERMOS AJUSTADOS (SEM BUG) */
-.terms{
+/* ✅ CORREÇÃO DEFINITIVA DOS TERMOS */
+.terms label{
   display:flex;
   align-items:flex-start;
-  gap:8px;
+  gap:10px;
   font-size:12px;
   color:#334155;
   margin:14px 0;
+  cursor:pointer;
 }
-.terms input{
-  margin-top:2px;
-}
+.terms input{margin-top:2px;}
 .terms a{
   color:var(--primary);
   font-weight:600;
@@ -105,16 +99,18 @@ button{
   width:100%;
   padding:14px;
   border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  background:linear-gradient(135deg,
+    var(--primary-dark) 0%,
+    var(--primary) 55%,
+    #7fffd4 100%
+  );
   border:1px solid rgba(255,255,255,.4);
   color:#fff;
   font-weight:700;
   cursor:pointer;
 }
-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
+button:disabled{opacity:.45;cursor:not-allowed;}
+
 .switch{
   margin-top:18px;
   text-align:center;
@@ -167,8 +163,10 @@ button:disabled{
     </div>
 
     <div class="terms">
-      <input type="checkbox" id="terms">
-      <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
+      <label>
+        <input type="checkbox" id="terms">
+        <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
+      </label>
     </div>
 
     <button id="createBtn" disabled>Criar conta</button>
@@ -179,52 +177,76 @@ button:disabled{
     </div>
   </div>
 
+  <!-- LOGIN -->
+  <div id="login" class="hidden">
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" placeholder="Digite seu e-mail aqui">
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" placeholder="Digite sua senha">
+      </div>
+    </div>
+
+    <button>Entrar</button>
+
+    <div class="switch">
+      Não tenho uma conta na AtlasPay?
+      <a onclick="showRegister()">Criar agora</a>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const pass = document.getElementById('pass');
-const confirm = document.getElementById('confirm');
-const fill = document.getElementById('strengthFill');
-const text = document.getElementById('strengthText');
-const btn = document.getElementById('createBtn');
-const terms = document.getElementById('terms');
+function showLogin(){
+  register.classList.add('hidden');
+  login.classList.remove('hidden');
+}
+function showRegister(){
+  login.classList.add('hidden');
+  register.classList.remove('hidden');
+}
+
+const pass=document.getElementById('pass');
+const confirm=document.getElementById('confirm');
+const fill=document.getElementById('strengthFill');
+const text=document.getElementById('strengthText');
+const btn=document.getElementById('createBtn');
+const terms=document.getElementById('terms');
 
 pass.addEventListener('input',()=>{
-  const v = pass.value;
-  if(v.length < 6){
-    fill.style.width='33%';
-    fill.style.background='var(--red)';
-    text.textContent='Senha fraca';
-    text.style.color='var(--red)';
-  }else if(/[A-Z]/.test(v) && /\d/.test(v)){
-    fill.style.width='100%';
-    fill.style.background='var(--green)';
-    text.textContent='Senha forte';
-    text.style.color='var(--green)';
+  const v=pass.value;
+  if(v.length<6){
+    fill.style.width='33%'; fill.style.background='var(--red)';
+    text.textContent='Senha fraca'; text.style.color='var(--red)';
+  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
+    fill.style.width='100%'; fill.style.background='var(--green)';
+    text.textContent='Senha forte'; text.style.color='var(--green)';
   }else{
-    fill.style.width='66%';
-    fill.style.background='var(--orange)';
-    text.textContent='Senha média';
-    text.style.color='var(--orange)';
+    fill.style.width='66%'; fill.style.background='var(--orange)';
+    text.textContent='Senha média'; text.style.color='var(--orange)';
   }
   validar();
 });
 
 function validar(){
-  btn.disabled = !(
-    document.getElementById('name').value.trim() &&
-    document.getElementById('email').value.trim() &&
+  btn.disabled=!(
+    name.value.trim() &&
+    email.value.trim() &&
     pass.value &&
     confirm.value &&
-    pass.value === confirm.value &&
+    pass.value===confirm.value &&
     terms.checked
   );
 }
-
 ['name','email','confirm'].forEach(id=>{
-  document.getElementById(id).addEventListener('input', validar);
+  document.getElementById(id).addEventListener('input',validar);
 });
-terms.addEventListener('change', validar);
+terms.addEventListener('change',validar);
 </script>
 
 </body>
