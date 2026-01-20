@@ -18,9 +18,7 @@
   --orange:#f59e0b;
   --green:#22c55e;
 }
-
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
-
 body{
   margin:0;
   min-height:100vh;
@@ -30,7 +28,6 @@ body{
   justify-content:center;
   padding:24px;
 }
-
 .container{
   width:100%;
   max-width:420px;
@@ -39,7 +36,6 @@ body{
   box-shadow:0 40px 80px rgba(0,0,0,.35);
   padding:32px;
 }
-
 .logo{text-align:center;margin-bottom:28px;}
 .logo-icon{
   width:48px;height:48px;margin:0 auto 10px;
@@ -48,12 +44,9 @@ body{
 }
 .logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
 .logo p{margin-top:4px;font-size:13px;color:var(--muted);}
-
 .field{margin-bottom:16px;}
 label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
-
 .input-wrap{position:relative;}
-
 input{
   width:100%;
   padding:12px 44px 12px 12px;
@@ -61,7 +54,6 @@ input{
   border:1px solid var(--border);
   font-size:14px;
 }
-
 .strength-bar{
   height:6px;
   background:#e5e7eb;
@@ -69,10 +61,8 @@ input{
   overflow:hidden;
   margin-top:6px;
 }
-
 .strength-fill{height:100%;width:0%;}
 .strength-text{font-size:12px;font-weight:700;margin-top:4px;}
-
 .terms label{
   display:flex;
   align-items:flex-start;
@@ -82,13 +72,11 @@ input{
   margin:14px 0;
   cursor:pointer;
 }
-
 .terms a{
   color:var(--primary);
   font-weight:600;
   text-decoration:none;
 }
-
 button{
   width:100%;
   padding:14px;
@@ -99,24 +87,21 @@ button{
   font-weight:700;
   cursor:pointer;
 }
-
-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
+button:disabled{opacity:.45;cursor:not-allowed;}
 .switch{
   margin-top:18px;
   text-align:center;
   font-size:13px;
 }
-
-.switch a{
+.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
+.forgot{
+  display:block;
+  text-align:right;
+  font-size:12px;
   color:var(--primary);
-  font-weight:700;
+  margin-top:6px;
   cursor:pointer;
 }
-
 .hidden{display:none;}
 </style>
 </head>
@@ -134,17 +119,17 @@ button:disabled{
 <div id="register">
   <div class="field">
     <label>Nome completo</label>
-    <input type="text" id="name" required>
+    <input type="text" id="name" placeholder="Digite seu nome completo">
   </div>
 
   <div class="field">
     <label>E-mail</label>
-    <input type="email" id="email" required>
+    <input type="email" id="email" placeholder="Digite seu e-mail aqui">
   </div>
 
   <div class="field">
     <label>Senha</label>
-    <input type="password" id="pass" required>
+    <input type="password" id="pass" placeholder="Crie sua melhor senha">
     <div class="strength-bar">
       <div id="strengthFill" class="strength-fill"></div>
     </div>
@@ -153,7 +138,7 @@ button:disabled{
 
   <div class="field">
     <label>Confirmar senha</label>
-    <input type="password" id="confirm" required>
+    <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
   </div>
 
   <div class="terms">
@@ -166,7 +151,8 @@ button:disabled{
   <button id="createBtn" disabled>Criar conta</button>
 
   <div class="switch">
-    Já tenho uma conta? <a onclick="showLogin()">Entrar</a>
+    Já tenho uma conta na AtlasPay?
+    <a onclick="showLogin()">Acesse agora</a>
   </div>
 </div>
 
@@ -174,18 +160,20 @@ button:disabled{
 <div id="login" class="hidden">
   <div class="field">
     <label>E-mail</label>
-    <input type="email">
+    <input type="email" placeholder="Digite seu e-mail aqui">
   </div>
 
   <div class="field">
     <label>Senha</label>
-    <input type="password">
+    <input type="password" placeholder="Digite sua senha aqui">
+    <span class="forgot">Esqueceu a senha?</span>
   </div>
 
   <button>Entrar</button>
 
   <div class="switch">
-    Não tenho conta? <a onclick="showRegister()">Criar agora</a>
+    Não tenho uma conta na AtlasPay?
+    <a onclick="showRegister()">Criar agora</a>
   </div>
 </div>
 
@@ -242,7 +230,6 @@ function showLogin(){
   document.getElementById('register').classList.add('hidden');
   document.getElementById('login').classList.remove('hidden');
 }
-
 function showRegister(){
   document.getElementById('login').classList.add('hidden');
   document.getElementById('register').classList.remove('hidden');
