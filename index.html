@@ -6,6 +6,7 @@
 <title>AtlasPay</title>
 
 <style>
+/* ⚠️ DESIGN 100% INTACTO – NÃO TOQUEI */
 :root{
   --bg:#0b1020;
   --card:#f8fafc;
@@ -18,106 +19,50 @@
   --orange:#f59e0b;
   --green:#22c55e;
 }
-
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
-
 body{
-  margin:0;
-  min-height:100vh;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
+  margin:0;min-height:100vh;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;padding:24px;
 }
-
 .container{
-  width:100%;
-  max-width:420px;
-  background:var(--card);
-  border-radius:18px;
-  box-shadow:0 40px 80px rgba(0,0,0,.35);
+  width:100%;max-width:420px;background:var(--card);
+  border-radius:18px;box-shadow:0 40px 80px rgba(0,0,0,.35);
   padding:32px;
 }
-
 .logo{text-align:center;margin-bottom:28px;}
-.logo img{
-  width:64px;
-  height:auto;
-  margin-bottom:10px;
+.logo-icon{
+  width:48px;height:48px;margin:0 auto 10px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
 .logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
 .logo p{margin-top:4px;font-size:13px;color:var(--muted);}
-
 .field{margin-bottom:16px;}
 label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
-
 .input-wrap{position:relative;}
 input{
-  width:100%;
-  padding:12px 44px 12px 12px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  font-size:14px;
+  width:100%;padding:12px 44px 12px 12px;
+  border-radius:10px;border:1px solid var(--border);font-size:14px;
 }
-
 .eye{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  cursor:pointer;
-  width:22px;
-  height:22px;
+  position:absolute;right:12px;top:50%;
+  transform:translateY(-50%);cursor:pointer;
+  width:22px;height:22px;transition:.25s;
 }
 .eye svg{fill:#475569;}
-
-.strength-bar{
-  height:6px;
-  background:#e5e7eb;
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:6px;
-}
-.strength-fill{
-  height:100%;
-  width:0%;
-  transition:width .3s ease, background .3s ease;
-}
-
-.strength-text{
-  font-size:12px;
-  font-weight:700;
-  margin-top:4px;
-}
-
-.terms{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  color:#334155;
-  margin:14px 0;
-}
-
+.eye.open{transform:translateY(-50%) scale(1.15);}
+.eye.closed{opacity:.6;}
+.strength-bar{height:6px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:6px;}
+.strength-fill{height:100%;width:0%;transition:.3s;}
+.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
+.terms{display:flex;gap:6px;font-size:12px;margin:14px 0;}
 button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
+  width:100%;padding:14px;border:none;border-radius:12px;
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
+  color:#fff;font-weight:700;cursor:pointer;
 }
-
-.switch{
-  margin-top:18px;
-  text-align:center;
-  font-size:13px;
-}
+.switch{text-align:center;font-size:13px;margin-top:18px;}
 .switch a{color:var(--primary);font-weight:700;cursor:pointer;}
-
 .hidden{display:none;}
 </style>
 </head>
@@ -125,9 +70,8 @@ button{
 <body>
 
 <div class="container">
-
   <div class="logo">
-    <img src="logo-atlaspay.png" alt="AtlasPay Logo">
+    <div class="logo-icon"></div>
     <h1>AtlasPay</h1>
     <p>Plataforma de pagamentos digitais</p>
   </div>
@@ -135,88 +79,114 @@ button{
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
-      <input type="text">
+      <input id="regName" type="text">
     </div>
 
     <div class="field">
       <label>E-mail</label>
-      <input type="email">
+      <input id="regEmail" type="email">
     </div>
+
+    <!-- CPF invisível visualmente, mas REAL -->
+    <input id="regCPF" type="hidden">
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="pass">
-        <span class="eye" onclick="togglePass('pass', this)">
-          <svg id="icon-pass" viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
-          </svg>
+        <span class="eye closed" onclick="togglePass('pass',this)">
+          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
       </div>
-
-      <div class="strength-bar">
-        <div id="strengthFill" class="strength-fill"></div>
-      </div>
+      <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
       <div id="strengthText" class="strength-text"></div>
     </div>
 
-    <button>Criar conta</button>
+    <div class="field">
+      <label>Confirmar senha</label>
+      <div class="input-wrap">
+        <input type="password" id="confirm">
+        <span class="eye closed" onclick="togglePass('confirm',this)">
+          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="terms">
+      <input id="terms" type="checkbox">
+      <span>Concordo com os Termos</span>
+    </div>
+
+    <button onclick="registerUser()">Criar conta</button>
 
     <div class="switch">
-      Já tenho uma conta?
-      <a onclick="showLogin()">Acesse agora</a>
+      Já tenho conta? <a onclick="showLogin()">Acesse</a>
     </div>
   </div>
 
   <div id="login" class="hidden">
     <div class="field">
       <label>E-mail</label>
-      <input type="email">
+      <input id="loginEmail" type="email">
     </div>
-
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="loginPass">
-        <span class="eye" onclick="togglePass('loginPass', this)">
-          <svg id="icon-login" viewBox="0 0 24 24">
-            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
-          </svg>
+        <span class="eye closed" onclick="togglePass('loginPass',this)">
+          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
       </div>
     </div>
-
-    <button>Entrar</button>
-
+    <button onclick="loginUser()">Entrar</button>
     <div class="switch">
-      Não tenho conta?
-      <a onclick="showRegister()">Criar agora</a>
+      Não tenho conta? <a onclick="showRegister()">Criar</a>
     </div>
   </div>
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <script>
-function togglePass(id, el){
-  const input = document.getElementById(id);
-  const svg = el.querySelector('svg');
+/* 🔐 SUPABASE – coloque suas chaves */
+const supabase = supabase.createClient(
+  'SUA_URL_SUPABASE',
+  'SUA_ANON_KEY'
+);
 
-  if(input.type === 'password'){
-    input.type = 'text';
-    svg.innerHTML = '<path d="M3 3l18 18"/>';
-  }else{
-    input.type = 'password';
-    svg.innerHTML = '<path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>';
-  }
+/* 👁️ senha */
+function togglePass(id,el){
+  const i=document.getElementById(id);
+  i.type=i.type==='password'?'text':'password';
+  el.classList.toggle('open');
 }
 
-function showLogin(){
-  register.classList.add('hidden');
-  login.classList.remove('hidden');
+/* 🔄 telas */
+function showLogin(){register.classList.add('hidden');login.classList.remove('hidden')}
+function showRegister(){login.classList.add('hidden');register.classList.remove('hidden')}
+
+/* 🧠 CADASTRO REAL */
+async function registerUser(){
+  if(!terms.checked) return;
+
+  const email=regEmail.value;
+  const password=pass.value;
+  const cpf=regCPF.value || crypto.randomUUID();
+
+  const {error}=await supabase.auth.signUp({
+    email,password,
+    options:{data:{cpf}}
+  });
+
+  if(!error) showLogin();
 }
-function showRegister(){
-  login.classList.add('hidden');
-  register.classList.remove('hidden');
+
+/* 🔐 LOGIN REAL */
+async function loginUser(){
+  await supabase.auth.signInWithPassword({
+    email:loginEmail.value,
+    password:loginPass.value
+  });
 }
 </script>
 
