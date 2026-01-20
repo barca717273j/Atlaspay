@@ -15,6 +15,8 @@
   --muted:#64748b;
   --border:#cbd5e1;
   --red:#ef4444;
+  --orange:#f59e0b;
+  --green:#22c55e;
 }
 
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
@@ -67,8 +69,24 @@ input.error{border-color:var(--red);}
   display:none;
 }
 
+/* BARRA DE FORÇA DA SENHA */
+.strength{
+  height:6px;
+  border-radius:6px;
+  background:#e5e7eb;
+  margin-top:6px;
+  overflow:hidden;
+}
+
+.strength-bar{
+  height:100%;
+  width:0%;
+  transition:.3s;
+}
+
+/* TERMOS */
 .terms{
-  margin:10px 0 6px;
+  margin:14px 0 10px;
 }
 
 .terms label{
@@ -93,15 +111,16 @@ input.error{border-color:var(--red);}
   display:none;
 }
 
+/* BOTÃO */
 button{
   width:100%;
-  padding:11px;
+  padding:13px;
   border-radius:10px;
   background:var(--primary);
   border:none;
   color:#fff;
-  font-weight:600;
-  font-size:14px;
+  font-weight:700;
+  font-size:16px; /* TEXTO MAIOR */
   cursor:pointer;
   transition:.25s;
 }
@@ -114,16 +133,6 @@ button:disabled{
 button:not(:disabled):hover{
   background:var(--primary-dark);
 }
-
-.switch{
-  margin-top:14px;
-  text-align:center;
-  font-size:12.5px;
-}
-
-.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
-
-.hidden{display:none;}
 </style>
 </head>
 
@@ -154,6 +163,7 @@ button:not(:disabled):hover{
   <div class="field">
     <label>Senha</label>
     <input id="pass" type="password" placeholder="Crie sua senha">
+    <div class="strength"><div class="strength-bar" id="strengthBar"></div></div>
     <div class="error-text">Campo obrigatório</div>
   </div>
 
@@ -163,14 +173,12 @@ button:not(:disabled):hover{
     <div class="error-text">Campo obrigatório</div>
   </div>
 
-  <!-- TERMOS SEM BUG -->
+  <!-- TERMOS ALINHADOS -->
   <div class="terms">
     <label>
       <input type="checkbox" id="terms">
       <span>
-        Concordo com os 
-        <a href="#">Termos de Uso</a> 
-        e a 
+        Concordo com os <a href="#">Termos de Uso</a> e a
         <a href="#">Política de Privacidade</a>
       </span>
     </label>
@@ -190,12 +198,34 @@ const inputs = document.querySelectorAll('#register input:not([type=checkbox])')
 const terms = document.getElementById('terms');
 const btn = document.getElementById('createBtn');
 const termsError = document.getElementById('termsError');
+const pass = document.getElementById('pass');
+const strengthBar = document.getElementById('strengthBar');
+
+function senhaForca(valor){
+  let forca = 0;
+  if(valor.length >= 6) forca++;
+  if(/[A-Z]/.test(valor)) forca++;
+  if(/[0-9]/.test(valor)) forca++;
+
+  if(forca === 1){
+    strengthBar.style.width = '33%';
+    strengthBar.style.background = 'var(--red)';
+  }else if(forca === 2){
+    strengthBar.style.width = '66%';
+    strengthBar.style.background = 'var(--orange)';
+  }else if(forca === 3){
+    strengthBar.style.width = '100%';
+    strengthBar.style.background = 'var(--green)';
+  }else{
+    strengthBar.style.width = '0%';
+  }
+}
 
 function validar(){
   let ok = true;
 
   inputs.forEach(input=>{
-    const error = input.nextElementSibling;
+    const error = input.parentElement.querySelector('.error-text');
     if(!input.value.trim()){
       input.classList.add('error');
       error.style.display='block';
@@ -218,6 +248,7 @@ function validar(){
 
 inputs.forEach(i=>i.addEventListener('input', validar));
 terms.addEventListener('change', validar);
+pass.addEventListener('input', e=>senhaForca(e.target.value));
 </script>
 
 </body>
