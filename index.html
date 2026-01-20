@@ -9,8 +9,11 @@
 :root{
   --bg:#0b1020;
   --card:#f8fafc;
-  --primary:#1d0e99;
-  --primary-dark:#0e0774;
+
+  /* NOVA PALETA (FINTECH PROFISSIONAL) */
+  --primary:#16a085;        /* verde esmeralda */
+  --primary-dark:#0e6655;   /* verde petróleo */
+
   --text:#0f172a;
   --muted:#64748b;
   --border:#cbd5e1;
@@ -73,32 +76,37 @@ input{
   overflow:hidden;
   margin-top:6px;
 }
-.strength-fill{
-  height:100%;
-  width:0%;
-}
+.strength-fill{height:100%;width:0%;}
 .strength-text{
   font-size:12px;
   font-weight:700;
   margin-top:4px;
 }
 
+/* ✅ TERMOS AJUSTADOS (SEM BUG) */
 .terms{
   display:flex;
-  gap:6px;
+  align-items:flex-start;
+  gap:8px;
   font-size:12px;
   color:#334155;
   margin:14px 0;
 }
-.terms input{margin:0;}
-.terms a{color:var(--primary);font-weight:600;text-decoration:none;}
+.terms input{
+  margin-top:2px;
+}
+.terms a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
 
 button{
   width:100%;
   padding:14px;
-  border:none;
   border-radius:12px;
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border:1px solid rgba(255,255,255,.4);
   color:#fff;
   font-weight:700;
   cursor:pointer;
@@ -143,7 +151,7 @@ button:disabled{
       <label>Senha</label>
       <div class="input-wrap">
         <input type="password" id="pass" placeholder="Crie sua melhor senha">
-        <span class="eye closed" onclick="togglePass('pass', this)">
+        <span class="eye closed">
           <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
       </div>
@@ -155,9 +163,6 @@ button:disabled{
       <label>Confirmar senha</label>
       <div class="input-wrap">
         <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
-        <span class="eye closed" onclick="togglePass('confirm', this)">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
-        </span>
       </div>
     </div>
 
@@ -174,53 +179,9 @@ button:disabled{
     </div>
   </div>
 
-  <!-- LOGIN -->
-  <div id="login" class="hidden">
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" placeholder="Digite seu e-mail aqui">
-    </div>
-
-    <div class="field">
-      <label>Senha</label>
-      <div class="input-wrap">
-        <input type="password" id="loginPass" placeholder="Digite sua senha">
-        <span class="eye closed" onclick="togglePass('loginPass', this)">
-          <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
-        </span>
-      </div>
-    </div>
-
-    <div class="switch" style="margin-top:8px;">
-      <a>Esqueceu a senha?</a>
-    </div>
-
-    <button>Entrar</button>
-
-    <div class="switch">
-      Não tenho uma conta na AtlasPay?
-      <a onclick="showRegister()">Criar agora</a>
-    </div>
-  </div>
-
 </div>
 
 <script>
-function togglePass(id, el){
-  const input=document.getElementById(id);
-  input.type = input.type === 'password' ? 'text' : 'password';
-  el.classList.toggle('closed');
-}
-
-function showLogin(){
-  document.getElementById('register').classList.add('hidden');
-  document.getElementById('login').classList.remove('hidden');
-}
-function showRegister(){
-  document.getElementById('login').classList.add('hidden');
-  document.getElementById('register').classList.remove('hidden');
-}
-
 const pass = document.getElementById('pass');
 const confirm = document.getElementById('confirm');
 const fill = document.getElementById('strengthFill');
