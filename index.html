@@ -134,21 +134,22 @@ button:disabled{
     <p>Plataforma de pagamentos digitais</p>
   </div>
 
+  <!-- CADASTRO -->
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" placeholder="Digite seu nome completo">
     </div>
 
     <div class="field">
       <label>E-mail</label>
-      <input type="email" id="email" required>
+      <input type="email" id="email" placeholder="Digite seu e-mail aqui">
     </div>
 
     <div class="field">
       <label>Senha</label>
       <div class="input-wrap">
-        <input type="password" id="pass" required>
+        <input type="password" id="pass" placeholder="Crie sua melhor senha">
         <span class="eye closed" onclick="togglePass('pass', this)">
           <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
@@ -160,7 +161,7 @@ button:disabled{
     <div class="field">
       <label>Confirmar senha</label>
       <div class="input-wrap">
-        <input type="password" id="confirm" required>
+        <input type="password" id="confirm" placeholder="Confirme sua senha aqui">
         <span class="eye closed" onclick="togglePass('confirm', this)">
           <svg viewBox="0 0 24 24"><path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/></svg>
         </span>
@@ -172,29 +173,27 @@ button:disabled{
       <span>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></span>
     </div>
 
+    <!-- BOTÃO AGORA CONTROLADO -->
     <button id="createBtn" disabled>Criar conta</button>
+
+    <div class="switch">
+      Já tenho uma conta na AtlasPay?
+      <a onclick="showLogin()">Acesse agora</a>
+    </div>
   </div>
 
 </div>
 
 <script>
 function togglePass(id, el){
-  const i=document.getElementById(id);
-  i.type=i.type==='password'?'text':'password';
+  const input=document.getElementById(id);
+  input.type=input.type==='password'?'text':'password';
   el.classList.toggle('open');
 }
 
-const fields = ['name','email','pass','confirm','terms'];
-const btn = document.getElementById('createBtn');
-
-function validar(){
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  const pass = passInput.value;
-  const confirm = confirmInput.value;
-  const terms = termsInput.checked;
-
-  btn.disabled = !(name && email && pass && confirm && pass === confirm && terms);
+function showLogin(){
+  document.getElementById('register').classList.add('hidden');
+  document.getElementById('login')?.classList.remove('hidden');
 }
 
 const nameInput = document.getElementById('name');
@@ -202,11 +201,24 @@ const emailInput = document.getElementById('email');
 const passInput = document.getElementById('pass');
 const confirmInput = document.getElementById('confirm');
 const termsInput = document.getElementById('terms');
+const btn = document.getElementById('createBtn');
 
-[nameInput,emailInput,passInput,confirmInput,termsInput].forEach(el=>{
-  el.addEventListener('input', validar);
-  el.addEventListener('change', validar);
+function validarFormulario(){
+  const valido =
+    nameInput.value.trim() &&
+    emailInput.value.trim() &&
+    passInput.value &&
+    confirmInput.value &&
+    passInput.value === confirmInput.value &&
+    termsInput.checked;
+
+  btn.disabled = !valido;
+}
+
+[nameInput,emailInput,passInput,confirmInput].forEach(el=>{
+  el.addEventListener('input', validarFormulario);
 });
+termsInput.addEventListener('change', validarFormulario);
 </script>
 
 </body>
