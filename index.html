@@ -1,249 +1,222 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AtlasPay</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-:root {
-  --azul1:#0e0774;
-  --azul2:#1d0e99;
-  --bg:#f4f6fb;
-  --texto:#1c1c1c;
+:root{
+  --bg:#0b1020;
+  --card:#f8fafc;
+  --primary:#1d0e99;
+  --primary-dark:#0e0774;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#cbd5e1;
+  --red:#ef4444;
+  --orange:#f59e0b;
+  --green:#22c55e;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
+
 body{
   margin:0;
-  background:linear-gradient(135deg,var(--azul1),var(--azul2));
   min-height:100vh;
+  background:var(--bg);
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  padding:24px;
 }
-.card{
-  background:#fff;
+
+.container{
   width:100%;
   max-width:420px;
-  border-radius:14px;
-  padding:28px;
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:0 40px 80px rgba(0,0,0,.35);
+  padding:32px;
 }
-.logo{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
+
+.logo{text-align:center;margin-bottom:28px;}
+.logo img{
+  width:64px;
+  height:auto;
+  margin-bottom:10px;
 }
-.logo svg{
-  width:72px;
-}
-h1{
-  margin:0;
-  font-size:22px;
-}
-.subtitle{
-  font-size:14px;
-  color:#666;
-}
-label{
-  display:block;
-  margin-top:14px;
-  font-size:14px;
-}
+.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
+.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
+
+.field{margin-bottom:16px;}
+label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
+
+.input-wrap{position:relative;}
 input{
   width:100%;
-  padding:12px;
-  margin-top:6px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:15px;
+  padding:12px 44px 12px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:14px;
 }
-.password-wrapper{
-  position:relative;
-}
+
 .eye{
   position:absolute;
   right:12px;
   top:50%;
   transform:translateY(-50%);
   cursor:pointer;
+  width:22px;
+  height:22px;
 }
-.eye svg{width:22px;fill:#555}
-.strength{
-  display:flex;
-  gap:6px;
+.eye svg{fill:#475569;}
+
+.strength-bar{
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
   margin-top:6px;
 }
-.bar{
-  flex:1;
-  height:6px;
-  background:#ddd;
-  border-radius:6px;
+.strength-fill{
+  height:100%;
+  width:0%;
+  transition:width .3s ease, background .3s ease;
 }
+
+.strength-text{
+  font-size:12px;
+  font-weight:700;
+  margin-top:4px;
+}
+
 .terms{
   display:flex;
   align-items:center;
-  gap:8px;
-  margin-top:14px;
-  font-size:14px;
+  gap:6px;
+  font-size:12px;
+  color:#334155;
+  margin:14px 0;
 }
+
 button{
-  margin-top:18px;
   width:100%;
   padding:14px;
   border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,var(--azul1),var(--azul2));
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   color:#fff;
-  font-size:16px;
+  font-weight:700;
   cursor:pointer;
 }
+
 .switch{
+  margin-top:18px;
   text-align:center;
-  margin-top:14px;
-  font-size:14px;
+  font-size:13px;
 }
-.switch span{
-  color:var(--azul2);
-  cursor:pointer;
-  font-weight:600;
-}
-.hidden{display:none}
-.error{
-  margin-top:10px;
-  color:#c00;
-  font-size:14px;
-}
+.switch a{color:var(--primary);font-weight:700;cursor:pointer;}
+
+.hidden{display:none;}
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
   <div class="logo">
-    <!-- LOGO INTEGRADA (INLINE) -->
-    <svg viewBox="0 0 500 550">
-      <path d="M251.5 15L35.5 442.5H127L158.5 379L251.5 187L315 316L400 442.5H491.5L251.5 15Z" fill="url(#g)"/>
-      <defs>
-        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#0e0774"/>
-          <stop offset="100%" stop-color="#1d0e99"/>
-        </linearGradient>
-      </defs>
-    </svg>
+    <img src="logo-atlaspay.png" alt="AtlasPay Logo">
     <h1>AtlasPay</h1>
-    <div class="subtitle">Plataforma de pagamentos digitais</div>
+    <p>Plataforma de pagamentos digitais</p>
   </div>
 
-  <!-- CADASTRO -->
   <div id="register">
-    <label>Nome completo</label>
-    <input id="name" placeholder="Digite seu nome completo"/>
+    <div class="field">
+      <label>Nome completo</label>
+      <input type="text">
+    </div>
 
-    <label>E-mail</label>
-    <input id="email" placeholder="Digite seu e-mail"/>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email">
+    </div>
 
-    <label>Senha</label>
-    <div class="password-wrapper">
-      <input id="password" type="password" placeholder="Crie sua melhor senha" oninput="checkStrength()"/>
-      <div class="eye" onclick="togglePassword('password',this)">
-        <svg viewBox="0 0 24 24"><path d="M12 5C7 5 3 12 3 12s4 7 9 7 9-7 9-7-4-7-9-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" id="pass">
+        <span class="eye" onclick="togglePass('pass', this)">
+          <svg id="icon-pass" viewBox="0 0 24 24">
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
+          </svg>
+        </span>
       </div>
+
+      <div class="strength-bar">
+        <div id="strengthFill" class="strength-fill"></div>
+      </div>
+      <div id="strengthText" class="strength-text"></div>
     </div>
 
-    <div class="strength">
-      <div class="bar" id="b1"></div>
-      <div class="bar" id="b2"></div>
-      <div class="bar" id="b3"></div>
+    <button>Criar conta</button>
+
+    <div class="switch">
+      Já tenho uma conta?
+      <a onclick="showLogin()">Acesse agora</a>
     </div>
-
-    <label>Confirmar senha</label>
-    <input id="confirm" type="password" placeholder="Confirme sua senha"/>
-
-    <div class="terms">
-      <input type="checkbox" id="terms"/>
-      <span>Concordo com os <b>Termos de Uso</b> e <b>Política de Privacidade</b></span>
-    </div>
-
-    <button onclick="register()">Criar conta</button>
-    <div class="switch">Já tem conta? <span onclick="toggle()">Acesse agora</span></div>
-    <div class="error" id="error"></div>
   </div>
 
-  <!-- LOGIN -->
   <div id="login" class="hidden">
-    <label>E-mail</label>
-    <input id="loginEmail" placeholder="Digite seu e-mail"/>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email">
+    </div>
 
-    <label>Senha</label>
-    <div class="password-wrapper">
-      <input id="loginPassword" type="password"/>
-      <div class="eye" onclick="togglePassword('loginPassword',this)">
-        <svg viewBox="0 0 24 24"><path d="M12 5C7 5 3 12 3 12s4 7 9 7 9-7 9-7-4-7-9-7z"/></svg>
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <input type="password" id="loginPass">
+        <span class="eye" onclick="togglePass('loginPass', this)">
+          <svg id="icon-login" viewBox="0 0 24 24">
+            <path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>
+          </svg>
+        </span>
       </div>
     </div>
 
-    <button onclick="login()">Entrar</button>
-    <div class="switch">Não tem conta? <span onclick="toggle()">Crie agora</span></div>
-    <div class="error" id="loginError"></div>
+    <button>Entrar</button>
+
+    <div class="switch">
+      Não tenho conta?
+      <a onclick="showRegister()">Criar agora</a>
+    </div>
   </div>
 
 </div>
 
 <script>
-const SUPABASE_URL = "COLE_AQUI_SUA_URL";
-const SUPABASE_ANON_KEY = "COLE_AQUI_SUA_ANON_KEY";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+function togglePass(id, el){
+  const input = document.getElementById(id);
+  const svg = el.querySelector('svg');
 
-function toggle(){
-  document.getElementById("register").classList.toggle("hidden");
-  document.getElementById("login").classList.toggle("hidden");
+  if(input.type === 'password'){
+    input.type = 'text';
+    svg.innerHTML = '<path d="M3 3l18 18"/>';
+  }else{
+    input.type = 'password';
+    svg.innerHTML = '<path d="M12 5C5 5 1 12 1 12s4 7 11 7 11-7 11-7S19 5 12 5z"/>';
+  }
 }
 
-function togglePassword(id,el){
-  const i=document.getElementById(id);
-  i.type=i.type==="password"?"text":"password";
+function showLogin(){
+  register.classList.add('hidden');
+  login.classList.remove('hidden');
 }
-
-function checkStrength(){
-  const p=document.getElementById("password").value;
-  const b1=document.getElementById("b1");
-  const b2=document.getElementById("b2");
-  const b3=document.getElementById("b3");
-  b1.style.background=b2.style.background=b3.style.background="#ddd";
-  if(p.length>=6)b1.style.background="red";
-  if(p.length>=8)b2.style.background="orange";
-  if(p.length>=10)b3.style.background="green";
-}
-
-async function register(){
-  const error=document.getElementById("error");
-  error.innerText="";
-  if(!terms.checked)return error.innerText="Aceite os termos para continuar.";
-  if(password.value!==confirm.value)return error.innerText="As senhas não coincidem.";
-
-  const { error:err } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-    options:{ data:{ name: name.value } }
-  });
-
-  if(err) error.innerText=err.message;
-  else alert("Conta criada com sucesso!");
-}
-
-async function login(){
-  const e=document.getElementById("loginError");
-  e.innerText="";
-  const { error } = await supabase.auth.signInWithPassword({
-    email: loginEmail.value,
-    password: loginPassword.value
-  });
-  if(error)e.innerText=error.message;
-  else alert("Login realizado!");
+function showRegister(){
+  login.classList.add('hidden');
+  register.classList.remove('hidden');
 }
 </script>
 
