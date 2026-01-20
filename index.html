@@ -7,10 +7,12 @@
 
 <style>
 :root{
-  --bg:#0b1020;
+  --bg:#090e1a;
   --card:#f8fafc;
-  --primary:#16a085;
-  --primary-dark:#0e6655;
+
+  --primary:#138f7a;
+  --primary-dark:#0a5f52;
+
   --text:#0f172a;
   --muted:#64748b;
   --border:#cbd5e1;
@@ -36,61 +38,59 @@ body{
   max-width:420px;
   background:var(--card);
   border-radius:18px;
-  box-shadow:0 40px 80px rgba(0,0,0,.35);
-  padding:32px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45);
+  padding:28px;
 }
 
-.logo{text-align:center;margin-bottom:28px;}
+.logo{text-align:center;margin-bottom:22px;}
 .logo-icon{
-  width:48px;height:48px;margin:0 auto 10px;
+  width:46px;height:46px;margin:0 auto 8px;
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
-.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
-.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
+.logo h1{margin:0;font-size:21px;font-weight:700;color:var(--text);}
+.logo p{margin-top:4px;font-size:12px;color:var(--muted);}
 
-.field{margin-bottom:16px;}
-label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
+.field{margin-bottom:14px;}
+label{font-size:12.5px;color:var(--text);display:block;margin-bottom:5px;}
 
 input{
   width:100%;
-  padding:12px;
+  padding:11px 12px;
   border-radius:10px;
   border:1px solid var(--border);
   font-size:14px;
 }
 
-input.error{
-  border-color:var(--red);
-}
+input.error{border-color:var(--red);}
 
 .error-text{
-  font-size:12px;
+  font-size:11.5px;
   color:var(--red);
   margin-top:4px;
   display:none;
 }
 
 .strength-bar{
-  height:6px;
+  height:5px;
   background:#e5e7eb;
   border-radius:6px;
   overflow:hidden;
   margin-top:6px;
 }
 .strength-fill{height:100%;width:0%;}
-.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
+.strength-text{font-size:11.5px;font-weight:700;margin-top:4px;}
 
 .terms{
-  margin:14px 0;
+  margin:10px 0 14px;
 }
 .terms label{
   display:flex;
   align-items:flex-start;
-  gap:10px;
-  font-size:12px;
+  gap:8px;
+  font-size:11.5px;
   color:#334155;
-  cursor:pointer;
+  line-height:1.4;
 }
 .terms a{
   color:var(--primary);
@@ -100,33 +100,34 @@ input.error{
 
 button{
   width:100%;
-  padding:14px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  padding:11px;
+  border-radius:10px;
+  background:var(--primary);
   border:none;
   color:#fff;
-  font-weight:700;
+  font-weight:600;
+  font-size:14px;
   cursor:pointer;
-  transition:.3s;
+  transition:.25s;
 }
 button:disabled{
   background:#9ca3af;
   cursor:not-allowed;
 }
 button:not(:disabled):hover{
-  box-shadow:0 0 18px rgba(22,160,133,.55);
+  background:var(--primary-dark);
 }
 
 .switch{
-  margin-top:18px;
+  margin-top:14px;
   text-align:center;
-  font-size:13px;
+  font-size:12.5px;
 }
 .switch a{color:var(--primary);font-weight:700;cursor:pointer;}
 
 .forgot{
   text-align:right;
-  font-size:12px;
+  font-size:11.5px;
   color:var(--primary);
   margin-top:6px;
   cursor:pointer;
@@ -213,27 +214,27 @@ button:not(:disabled):hover{
 </div>
 
 <script>
-const fields = document.querySelectorAll('#register input');
-const btn = document.getElementById('createBtn');
-const terms = document.getElementById('terms');
+const fields=document.querySelectorAll('#register input');
+const btn=document.getElementById('createBtn');
+const terms=document.getElementById('terms');
 
 function validar(){
-  let ok = true;
-
+  let ok=true;
   fields.forEach(input=>{
-    const error = input.nextElementSibling;
-    if(input.type !== 'checkbox' && !input.value){
-      input.classList.add('error');
-      error.style.display='block';
-      ok = false;
-    }else{
-      input.classList.remove('error');
-      error.style.display='none';
+    if(input.type!=='checkbox'){
+      const error=input.nextElementSibling;
+      if(!input.value){
+        input.classList.add('error');
+        error.style.display='block';
+        ok=false;
+      }else{
+        input.classList.remove('error');
+        error.style.display='none';
+      }
     }
   });
-
   if(!terms.checked) ok=false;
-  btn.disabled = !ok;
+  btn.disabled=!ok;
 }
 
 fields.forEach(i=>i.addEventListener('input',validar));
