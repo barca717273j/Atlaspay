@@ -1,99 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AtlasPay</title>
 
 <style>
 :root{
-  --bg:#0b1020;
-  --card:#f8fafc;
-  --primary:#16a085;
-  --primary-dark:#0e6655;
-  --text:#0f172a;
-  --muted:#64748b;
-  --border:#cbd5e1;
-  --red:#ef4444;
-  --orange:#f59e0b;
-  --green:#22c55e;
+  --primary:#111827;
+  --secondary:#1f2933;
+  --border:#d1d5db;
+  --error:#dc2626;
+  --success:#16a34a;
+  --warning:#f59e0b;
 }
 
-*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
+*{
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
 
 body{
   margin:0;
-  min-height:100vh;
-  background:var(--bg);
+  background:#fff;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:24px;
+  align-items:center;
+  min-height:100vh;
 }
 
 .container{
   width:100%;
   max-width:420px;
-  background:var(--card);
-  border-radius:18px;
-  box-shadow:0 40px 80px rgba(0,0,0,.35);
-  padding:32px;
+  padding:24px;
 }
 
-.logo{text-align:center;margin-bottom:24px;}
-.logo-icon{
-  width:48px;height:48px;margin:0 auto 10px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
+h1{
+  text-align:center;
+  margin-bottom:20px;
 }
-.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
-.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
 
-.field{margin-bottom:16px;}
-label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
+.input-group{
+  margin-bottom:14px;
+}
 
-input{
+.input-group label{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.input-group input{
   width:100%;
-  padding:12px;
-  border-radius:10px;
+  padding:10px;
   border:1px solid var(--border);
+  border-radius:6px;
   font-size:14px;
 }
 
-input.error{border-color:var(--red);}
+.input-group input.error{
+  border-color:var(--error);
+}
 
 .error-text{
-  font-size:12px;
-  color:var(--red);
-  margin-top:4px;
+  font-size:11px;
+  color:var(--error);
+  margin-top:3px;
   display:none;
 }
 
-.strength-bar{
-  height:6px;
-  background:#e5e7eb;
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:6px;
+.strength{
+  font-size:12px;
+  margin-top:4px;
 }
-.strength-fill{height:100%;width:0%;}
-.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
 
+.fraca{ color:var(--error); }
+.media{ color:var(--warning); }
+.forte{ color:var(--success); }
+
+button{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  background:#9ca3af;
+  color:#fff;
+  cursor:not-allowed;
+}
+
+button.active{
+  background:var(--primary);
+  cursor:pointer;
+}
+
+.login-box{
+  margin-top:28px;
+  border-top:1px solid var(--border);
+  padding-top:20px;
+}
+
+.login-box a{
+  font-size:13px;
+  display:block;
+  text-align:center;
+  margin-top:8px;
+  color:var(--primary);
+  text-decoration:none;
+}
+
+/* ===== TERMOS (CORRIGIDO PARA SAFARI iOS) ===== */
 .terms{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
+  display:grid;
+  grid-template-columns:18px 1fr;
+  column-gap:10px;
   margin:14px 0;
   font-size:12px;
-  color:#334155;
+  color:#374151;
 }
 
 .terms input{
-  margin-top:2px;
+  margin-top:3px;
 }
 
-.terms-text{
+.terms p{
+  margin:0;
   line-height:1.4;
+  word-break:break-word;
 }
 
 .terms a{
@@ -101,47 +134,6 @@ input.error{border-color:var(--red);}
   font-weight:600;
   text-decoration:none;
 }
-
-button{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-  border:none;
-  color:#fff;
-  font-weight:700;
-  font-size:18px;
-  cursor:pointer;
-}
-
-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
-.switch{
-  margin-top:18px;
-  text-align:center;
-  font-size:13px;
-}
-.switch a{
-  color:var(--primary);
-  font-weight:700;
-  cursor:pointer;
-}
-
-.forgot{
-  text-align:right;
-  font-size:12px;
-  margin-top:6px;
-}
-.forgot a{
-  color:var(--primary);
-  text-decoration:none;
-  font-weight:600;
-}
-
-.hidden{display:none;}
 </style>
 </head>
 
@@ -149,146 +141,118 @@ button:disabled{
 
 <div class="container">
 
-<div class="logo">
-  <div class="logo-icon"></div>
-  <h1>AtlasPay</h1>
-  <p>Plataforma de pagamentos digitais</p>
-</div>
+  <h1>Criar Conta</h1>
 
-<!-- CADASTRO -->
-<div id="register">
-
-  <div class="field">
+  <div class="input-group">
     <label>Nome completo</label>
-    <input id="name" placeholder="Preencha seu nome aqui">
+    <input type="text" id="name" />
     <div class="error-text">Campo obrigatório</div>
   </div>
 
-  <div class="field">
+  <div class="input-group">
     <label>E-mail</label>
-    <input id="email" type="email" placeholder="Digite seu e-mail aqui">
+    <input type="email" id="email" />
     <div class="error-text">Campo obrigatório</div>
   </div>
 
-  <div class="field">
+  <div class="input-group">
     <label>Senha</label>
-    <input id="pass" type="password" placeholder="Crie sua senha">
-    <div class="strength-bar">
-      <div id="strengthFill" class="strength-fill"></div>
-    </div>
-    <div id="strengthText" class="strength-text"></div>
+    <input type="password" id="password" />
+    <div class="strength" id="strength"></div>
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
-  <div class="field">
+  <div class="input-group">
     <label>Confirmar senha</label>
-    <input id="confirm" type="password" placeholder="Confirme sua senha">
-    <div class="error-text">As senhas não conferem</div>
+    <input type="password" id="confirm" />
+    <div class="error-text">Campo obrigatório</div>
   </div>
 
-  <!-- TERMOS CORRIGIDOS DEFINITIVAMENTE -->
+  <!-- TERMOS ARRUMADOS -->
   <div class="terms">
-    <input type="checkbox" id="terms">
-    <div class="terms-text">
+    <input type="checkbox" id="terms" />
+    <p>
       Concordo com os
       <a href="#">Termos de Uso</a> e
       <a href="#">Política de Privacidade</a>
+    </p>
+  </div>
+
+  <button id="btn">Criar conta</button>
+
+  <!-- LOGIN -->
+  <div class="login-box">
+    <h1>Entrar</h1>
+
+    <div class="input-group">
+      <label>E-mail</label>
+      <input type="email" />
     </div>
-  </div>
 
-  <button id="createBtn" disabled>Criar conta</button>
-
-  <div class="switch">
-    Já tenho conta? <a onclick="showLogin()">Entrar</a>
-  </div>
-</div>
-
-<!-- LOGIN -->
-<div id="login" class="hidden">
-
-  <div class="field">
-    <label>E-mail</label>
-    <input type="email" placeholder="Digite seu e-mail aqui">
-  </div>
-
-  <div class="field">
-    <label>Senha</label>
-    <input type="password" placeholder="Digite sua senha">
-    <div class="forgot">
-      <a href="#">Esqueci minha senha</a>
+    <div class="input-group">
+      <label>Senha</label>
+      <input type="password" />
     </div>
-  </div>
 
-  <button>Entrar</button>
+    <button class="active">Entrar</button>
 
-  <div class="switch">
-    Não tenho conta? <a onclick="showRegister()">Criar agora</a>
+    <a href="#">Esqueceu a senha?</a>
+    <a href="#">Não tem conta? Crie uma agora</a>
   </div>
-</div>
 
 </div>
 
 <script>
-const nameInput=document.getElementById('name');
-const emailInput=document.getElementById('email');
-const pass=document.getElementById('pass');
-const confirm=document.getElementById('confirm');
-const fill=document.getElementById('strengthFill');
-const text=document.getElementById('strengthText');
-const btn=document.getElementById('createBtn');
-const terms=document.getElementById('terms');
+const inputs = document.querySelectorAll("input");
+const btn = document.getElementById("btn");
+const strength = document.getElementById("strength");
 
-function showError(input,show){
-  const error=input.nextElementSibling;
-  input.classList.toggle('error',show);
-  if(error) error.style.display=show?'block':'none';
-}
+function validate(){
+  let valid = true;
 
-function validar(){
-  const okName=nameInput.value.trim();
-  const okEmail=emailInput.value.trim();
-  const okPass=pass.value;
-  const okConfirm=confirm.value && pass.value===confirm.value;
+  inputs.forEach(input=>{
+    if(input.type !== "checkbox" && input.value.trim()===""){
+      input.classList.add("error");
+      input.nextElementSibling?.style.setProperty("display","block");
+      valid=false;
+    }else{
+      input.classList.remove("error");
+      if(input.nextElementSibling?.classList.contains("error-text")){
+        input.nextElementSibling.style.display="none";
+      }
+    }
+  });
 
-  showError(nameInput,!okName);
-  showError(emailInput,!okEmail);
-  showError(confirm,confirm.value && !okConfirm);
-
-  btn.disabled=!(okName && okEmail && okPass && okConfirm && terms.checked);
-}
-
-[nameInput,emailInput,pass,confirm].forEach(i=>{
-  i.addEventListener('input',validar);
-});
-terms.addEventListener('change',validar);
-
-pass.addEventListener('input',()=>{
-  const v=pass.value;
-  if(v.length<6){
-    fill.style.width='33%';
-    fill.style.background='var(--red)';
-    text.textContent='Senha fraca';
-    text.style.color='var(--red)';
-  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    fill.style.width='100%';
-    fill.style.background='var(--green)';
-    text.textContent='Senha forte';
-    text.style.color='var(--green)';
-  }else{
-    fill.style.width='66%';
-    fill.style.background='var(--orange)';
-    text.textContent='Senha média';
-    text.style.color='var(--orange)';
+  if(!document.getElementById("terms").checked){
+    valid=false;
   }
+
+  if(valid){
+    btn.classList.add("active");
+    btn.disabled=false;
+  }else{
+    btn.classList.remove("active");
+    btn.disabled=true;
+  }
+}
+
+document.getElementById("password").addEventListener("input",e=>{
+  const v = e.target.value;
+  if(v.length < 6){
+    strength.textContent="Senha fraca";
+    strength.className="strength fraca";
+  }else if(v.length < 10){
+    strength.textContent="Senha média";
+    strength.className="strength media";
+  }else{
+    strength.textContent="Senha forte";
+    strength.className="strength forte";
+  }
+  validate();
 });
 
-function showLogin(){
-  register.classList.add('hidden');
-  login.classList.remove('hidden');
-}
-function showRegister(){
-  login.classList.add('hidden');
-  register.classList.remove('hidden');
-}
+inputs.forEach(i=>i.addEventListener("input",validate));
+document.getElementById("terms").addEventListener("change",validate);
 </script>
 
 </body>
