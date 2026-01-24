@@ -294,37 +294,74 @@ function showRegister(){
 <script type="module">
 import { supabase } from './auth.js'
 
-const btn = document.getElementById('createBtn')
+const nameInput = document.getElementById('name')
+const emailInput = document.getElementById('email')
+const pass = document.getElementById('password')
+const confirm = document.getElementById('confirm')
+const terms = document.getElementById('terms')
+const btn = document.querySelector('#register button')
+const fill = document.getElementById('strengthFill')
+const text = document.getElementById('strengthText')
 
-btn.addEventListener('click', async () => {
+function validar() {
+  const ok =
+    nameInput.value.trim() &&
+    emailInput.value.trim() &&
+    pass.value &&
+    confirm.value &&
+    pass.value === confirm.value &&
+    terms.checked
 
-  const email = document.getElementById('email').value
-  const password = document.getElementById('pass').value
+  btn.disabled = !ok
+}
 
-  if (!email || !password) {
-    alert('Preencha email e senha')
-    return
+;[nameInput, emailInput, pass, confirm].forEach(i =>
+  i.addEventListener('input', validar)
+)
+terms.addEventListener('change', validar)
+
+// 🔐 força da senha
+pass.addEventListener('input', () => {
+  const v = pass.value
+
+  if (v.length < 6) {
+    fill.style.width = '33%'
+    fill.style.background = 'var(--red)'
+    text.textContent = 'Senha fraca'
+    text.style.color = 'var(--red)'
+  } else if (/[A-Z]/.test(v) && /\d/.test(v)) {
+    fill.style.width = '100%'
+    fill.style.background = 'var(--green)'
+    text.textContent = 'Senha forte'
+    text.style.color = 'var(--green)'
+  } else {
+    fill.style.width = '66%'
+    fill.style.background = 'var(--orange)'
+    text.textContent = 'Senha média'
+    text.style.color = 'var(--orange)'
   }
+})
+
+// 🚀 criar usuário REAL
+btn.addEventListener('click', async () => {
+  btn.disabled = true
 
   const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password
+    email: emailInput.value,
+    password: pass.value
   })
 
   if (error) {
     alert(error.message)
-  } else {
-    alert('Usuário criado com sucesso!')
-    console.log(data)
+    btn.disabled = false
+    return
   }
 
+  alert('Usuário criado com sucesso!')
+  console.log(data)
 })
 </script>
-<script type="module">
-import { supabase } from './auth.js'
 
-alert('Supabase conectado com sucesso')
 </script>
-
 </body>
 </html>
