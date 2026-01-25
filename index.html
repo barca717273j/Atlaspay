@@ -223,6 +223,30 @@ function showRegister(){
   import { supabase } from './auth.js'
   console.log('Supabase conectado:', supabase)
 </script>
+<script type="module">
+import { supabase } from './auth.js'
+
+document.getElementById('createBtn').addEventListener('click', async () => {
+
+  const email = document.getElementById('email').value
+  const password = document.getElementById('password').value
+  const name = document.getElementById('name').value
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { nome: name }
+    }
+  })
+
+  if (error) {
+    alert(error.message)
+  } else {
+    alert('Conta criada com sucesso!')
+  }
+})
+</script>
 
 </body>
 </html>
