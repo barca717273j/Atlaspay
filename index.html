@@ -219,6 +219,10 @@ function showRegister(){
   register.classList.remove('hidden')
 }
 </script>
+<script type="module">
+  import { supabase } from './auth.js'
+  console.log('Supabase conectado:', supabase)
+</script>
 
 </body>
 </html>
