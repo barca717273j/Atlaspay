@@ -14,8 +14,9 @@
   --text:#0f172a;
   --muted:#64748b;
   --border:#cbd5e1;
+  --red:#ef4444;
+  --orange:#f59e0b;
   --green:#22c55e;
-  --danger:#ef4444;
 }
 
 *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif;}
@@ -34,97 +35,118 @@ body{
   width:100%;
   max-width:420px;
   background:var(--card);
-  border-radius:20px;
-  padding:32px;
+  border-radius:18px;
   box-shadow:0 40px 80px rgba(0,0,0,.35);
+  padding:32px;
 }
 
 .logo{text-align:center;margin-bottom:24px;}
-.logo h1{margin:0;font-size:22px;}
-.logo p{font-size:13px;color:var(--muted);}
+.logo-icon{
+  width:48px;height:48px;margin:0 auto 10px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
+}
+.logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
+.logo p{margin-top:4px;font-size:13px;color:var(--muted);}
 
-.field{margin-bottom:14px;}
-label{font-size:13px;margin-bottom:6px;display:block;}
+.field{margin-bottom:16px;}
+label{font-size:13px;color:var(--text);display:block;margin-bottom:6px;}
+
 input{
   width:100%;
   padding:12px;
   border-radius:10px;
   border:1px solid var(--border);
+  font-size:14px;
 }
+
+input.error{border-color:var(--red);}
+.error-text{font-size:12px;color:var(--red);margin-top:4px;display:none;}
+
+.strength-bar{
+  height:6px;background:#e5e7eb;
+  border-radius:6px;overflow:hidden;margin-top:6px;
+}
+.strength-fill{height:100%;width:0%;}
+.strength-text{font-size:12px;font-weight:700;margin-top:4px;}
 
 .terms{
   display:flex;
+  align-items:flex-start;
   gap:10px;
-  font-size:12px;
   margin:14px 0;
+  font-size:12px;
+  color:#334155;
 }
+.terms input{width:auto;margin-top:3px;}
+.terms a{color:var(--primary-dark);font-weight:600;text-decoration:none;}
 
 .hidden{display:none;}
 
-.switch{
-  text-align:center;
-  margin-top:16px;
-  font-size:13px;
-}
-.switch a{color:var(--primary-dark);font-weight:700;cursor:pointer}
-
-/* BOTÃO CIRCULAR */
-.hold-btn{
-  width:100%;
+/* 🔘 BOTÃO PREMIUM */
+.hold-wrapper{
   display:flex;
   justify-content:center;
-  margin-top:10px;
+  margin-top:12px;
 }
 
-.circle{
-  width:160px;
-  height:160px;
+.hold-btn{
+  width:120px;
+  height:120px;
   border-radius:50%;
   background:#0f172a;
+  position:relative;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  color:white;
-  position:relative;
   cursor:pointer;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
 }
 
-.circle svg{
+.hold-btn svg{
   position:absolute;
-  top:0;left:0;
+  inset:0;
   transform:rotate(-90deg);
 }
 
-.circle text{
+.hold-btn circle{
+  fill:none;
+  stroke:url(#grad);
+  stroke-width:6;
+  stroke-linecap:round;
+  stroke-dasharray:339;
+  stroke-dashoffset:339;
+  transition:stroke-dashoffset .1s linear;
+}
+
+.hold-btn span{
+  color:var(--primary);
   font-size:12px;
-  fill:white;
+  font-weight:700;
+  text-align:center;
+  line-height:1.2;
 }
 
-.circle span{
-  font-size:14px;
-  opacity:.7;
-}
-
-/* NOTIFICAÇÃO */
+/* 🔔 NOTIFICAÇÃO PREMIUM */
 .toast{
   position:fixed;
-  top:20px;
-  right:20px;
-  background:linear-gradient(135deg,#0e6655,#1fffd5);
-  color:#033;
+  top:24px;
+  right:24px;
+  background:#020617;
+  color:#e5e7eb;
   padding:14px 18px;
   border-radius:12px;
   font-size:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-  display:flex;
-  gap:8px;
-  align-items:center;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  border-left:4px solid var(--primary);
   opacity:0;
   transform:translateY(-10px);
-  transition:.3s;
+  transition:.35s ease;
 }
-.toast.show{opacity:1;transform:translateY(0);}
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
 
@@ -132,81 +154,74 @@ input{
 
 <div class="container">
   <div class="logo">
+    <div class="logo-icon"></div>
     <h1>AtlasPay</h1>
     <p>Plataforma de pagamentos digitais</p>
   </div>
 
-  <!-- REGISTRO -->
   <div id="register">
     <div class="field">
       <label>Nome completo</label>
       <input id="name">
+      <div class="error-text">Campo obrigatório</div>
     </div>
+
     <div class="field">
       <label>E-mail</label>
-      <input id="email">
+      <input id="email" type="email">
+      <div class="error-text">Campo obrigatório</div>
     </div>
+
     <div class="field">
       <label>Senha</label>
       <input id="pass" type="password">
+      <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
+      <div id="strengthText" class="strength-text"></div>
+    </div>
+
+    <div class="field">
+      <label>Confirmar senha</label>
+      <input id="confirm" type="password">
+      <div class="error-text">As senhas não conferem</div>
     </div>
 
     <div class="terms">
       <input type="checkbox" id="terms">
-      <div>Concordo com os <b>Termos</b> e <b>Privacidade</b></div>
+      <div>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></div>
     </div>
 
-    <div class="hold-btn">
-      <div class="circle" id="holdBtn">
-        <svg width="160" height="160">
-          <circle cx="80" cy="80" r="72" stroke="#1fffd5" stroke-width="6" fill="none"
-          stroke-dasharray="452" stroke-dashoffset="452" id="progress"/>
+    <div class="hold-wrapper">
+      <div class="hold-btn" id="holdBtn">
+        <svg viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1fffd5"/>
+              <stop offset="100%" stop-color="#0e6655"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="54" id="progress"/>
         </svg>
-        <b>CRIAR CONTA</b>
-        <span>Segure 3 segundos</span>
+        <span>CRIAR<br>CONTA</span>
       </div>
-    </div>
-
-    <div class="switch">
-      Já tenho conta? <a onclick="showLogin()">Entrar</a>
-    </div>
-  </div>
-
-  <!-- LOGIN -->
-  <div id="login" class="hidden">
-    <div class="field">
-      <label>E-mail</label>
-      <input id="loginEmail">
-    </div>
-    <div class="field">
-      <label>Senha</label>
-      <input id="loginPass" type="password">
-    </div>
-
-    <button onclick="login()">Entrar</button>
-
-    <div class="switch">
-      Não tenho conta? <a onclick="showRegister()">Criar agora</a>
     </div>
   </div>
 </div>
 
 <div id="toast" class="toast"></div>
 
-<script type="module">
-import { supabase } from './auth.js'
-
-let timer, progress = document.getElementById('progress')
-let hold = 0
+<script>
+const progress = document.getElementById('progress')
+const btn = document.getElementById('holdBtn')
+const terms = document.getElementById('terms')
+let hold = 0, timer
 
 function toast(msg){
   const t = document.getElementById('toast')
-  t.innerHTML = `✅ <b>${msg}</b>`
+  t.innerHTML = `✔ ${msg}`
   t.classList.add('show')
   setTimeout(()=>t.classList.remove('show'),3000)
 }
 
-const btn = document.getElementById('holdBtn')
 btn.addEventListener('mousedown', start)
 btn.addEventListener('touchstart', start)
 btn.addEventListener('mouseup', reset)
@@ -214,13 +229,13 @@ btn.addEventListener('mouseleave', reset)
 btn.addEventListener('touchend', reset)
 
 function start(){
-  if(!terms.checked) return toast('Aceite os termos primeiro')
+  if(!terms.checked) return toast('Aceite os termos para continuar')
   timer = setInterval(()=>{
-    hold+=1
-    progress.style.strokeDashoffset = 452 - (hold/30)*452
+    hold++
+    progress.style.strokeDashoffset = 339 - (hold/30)*339
     if(hold>=30){
       reset()
-      createAccount()
+      document.getElementById('createBtn')?.click()
     }
   },100)
 }
@@ -228,30 +243,27 @@ function start(){
 function reset(){
   clearInterval(timer)
   hold=0
-  progress.style.strokeDashoffset=452
+  progress.style.strokeDashoffset=339
 }
+</script>
 
-async function createAccount(){
+<script type="module">
+import { supabase } from './auth.js'
+
+document.getElementById('createBtn').addEventListener('click', async ()=>{
+  const email = emailInput.value
+  const password = pass.value
+  const name = nameInput.value
+
   const { error } = await supabase.auth.signUp({
-    email: email.value,
-    password: pass.value,
-    options:{ data:{ nome:name.value } }
+    email,
+    password,
+    options:{ data:{ nome:name } }
   })
+
   if(error) toast(error.message)
   else toast('Conta criada com sucesso')
-}
-
-window.showLogin=()=>{register.classList.add('hidden');login.classList.remove('hidden')}
-window.showRegister=()=>{login.classList.add('hidden');register.classList.remove('hidden')}
-
-window.login=async ()=>{
-  const { error } = await supabase.auth.signInWithPassword({
-    email: loginEmail.value,
-    password: loginPass.value
-  })
-  if(error) toast(error.message)
-  else toast('Bem-vindo à AtlasPay')
-}
+})
 </script>
 
 </body>
