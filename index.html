@@ -9,8 +9,8 @@
 :root{
   --bg:#0b1020;
   --card:#f8fafc;
-  --primary:#1ee9b6;
-  --primary-dark:#0f766e;
+  --primary:#1fffd5;
+  --primary-dark:#0e6655;
   --text:#0f172a;
   --muted:#64748b;
   --border:#cbd5e1;
@@ -46,7 +46,6 @@ body{
   background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   clip-path:polygon(50% 0%,0% 100%,22% 100%,50% 45%,78% 100%,100% 100%);
 }
-
 .logo h1{margin:0;font-size:22px;font-weight:700;color:var(--text);}
 .logo p{margin-top:4px;font-size:13px;color:var(--muted);}
 
@@ -65,128 +64,120 @@ input.error{border-color:var(--red);}
 .error-text{font-size:12px;color:var(--red);margin-top:4px;display:none;}
 
 .strength-bar{
-  height:6px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:6px;
+  height:6px;background:#e5e7eb;
+  border-radius:6px;overflow:hidden;margin-top:6px;
 }
 .strength-fill{height:100%;width:0%;}
 .strength-text{font-size:12px;font-weight:700;margin-top:4px;}
 
 .terms{
-  display:flex;gap:10px;margin:14px 0;font-size:12px;color:#334155;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:14px 0;
+  font-size:12px;
+  color:#334155;
 }
-.terms input{margin-top:3px;}
-.terms a{color:var(--primary-dark);font-weight:700;text-decoration:none;}
+.terms input{width:auto;margin-top:3px;}
+.terms a{color:var(--primary-dark);font-weight:600;text-decoration:none;}
+
+button{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  border:none;
+  color:#033;
+  font-weight:800;
+  font-size:18px;
+  cursor:pointer;
+}
+button:disabled{opacity:.45;cursor:not-allowed;}
+
+.switch{margin-top:18px;text-align:center;font-size:13px;}
+.switch a{color:var(--primary-dark);font-weight:700;cursor:pointer;}
 
 .hidden{display:none;}
 
-/* 🔥 BOTÃO DIGITAL */
-.fingerprint-btn{
-  width:72px;
-  height:72px;
-  margin:20px auto 0;
-  border-radius:50%;
-  background:radial-gradient(circle,var(--primary),var(--primary-dark));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  color:#0b1020;
-  cursor:pointer;
-  box-shadow:0 0 0 rgba(30,233,182,.7);
-  transition:.3s;
-}
-
-.fingerprint-btn.disabled{
-  opacity:.4;
-  pointer-events:none;
-}
-
-.fingerprint-btn:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 25px rgba(30,233,182,.8);
-}
-
-/* 🔔 TOAST */
+/* NOTIFICAÇÃO */
 .toast{
   position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
+  top:20px;
+  right:20px;
   background:#0f172a;
   color:#fff;
-  padding:14px 22px;
-  border-radius:12px;
+  padding:14px 18px;
+  border-radius:10px;
   font-size:14px;
-  display:none;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  opacity:0;
+  transform:translateY(-10px);
+  transition:.3s;
 }
-.toast.show{display:block;}
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-
-<div class="logo">
-  <div class="logo-icon"></div>
-  <h1>AtlasPay</h1>
-  <p>Plataforma de pagamentos digitais</p>
-</div>
-
-<div id="register">
-
-  <div class="field">
-    <label>Nome completo</label>
-    <input id="name" placeholder="Preencha seu nome aqui">
-    <div class="error-text">Campo obrigatório</div>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <h1>AtlasPay</h1>
+    <p>Plataforma de pagamentos digitais</p>
   </div>
 
-  <div class="field">
-    <label>E-mail</label>
-    <input id="email" type="email" placeholder="Digite seu e-mail aqui">
-    <div class="error-text">Campo obrigatório</div>
+  <div id="register">
+    <div class="field">
+      <label>Nome completo</label>
+      <input id="name" placeholder="Preencha seu nome aqui">
+      <div class="error-text">Campo obrigatório</div>
+    </div>
+
+    <div class="field">
+      <label>E-mail</label>
+      <input id="email" type="email" placeholder="Digite seu e-mail aqui">
+      <div class="error-text">Campo obrigatório</div>
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <input id="pass" type="password" placeholder="Crie sua senha">
+      <div class="strength-bar">
+        <div id="strengthFill" class="strength-fill"></div>
+      </div>
+      <div id="strengthText" class="strength-text"></div>
+    </div>
+
+    <div class="field">
+      <label>Confirmar senha</label>
+      <input id="confirm" type="password" placeholder="Confirme sua senha">
+      <div class="error-text">As senhas não conferem</div>
+    </div>
+
+    <div class="terms">
+      <input type="checkbox" id="terms">
+      <div>Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></div>
+    </div>
+
+    <button id="createBtn" disabled>Criar conta</button>
   </div>
-
-  <div class="field">
-    <label>Senha</label>
-    <input id="pass" type="password" placeholder="Crie sua senha">
-    <div class="strength-bar"><div id="strengthFill" class="strength-fill"></div></div>
-    <div id="strengthText" class="strength-text"></div>
-  </div>
-
-  <div class="field">
-    <label>Confirmar senha</label>
-    <input id="confirm" type="password" placeholder="Confirme sua senha">
-    <div class="error-text">As senhas não conferem</div>
-  </div>
-
-  <div class="terms">
-    <input type="checkbox" id="terms">
-    <div>Concordo com os <a href="#">Termos</a> e <a href="#">Privacidade</a></div>
-  </div>
-
-  <div id="createBtn" class="fingerprint-btn disabled">✅</div>
-</div>
-
 </div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-const nameInput = name
-const emailInput = email
+const nameInput = document.getElementById('name')
+const emailInput = document.getElementById('email')
 const pass = document.getElementById('pass')
-const confirm = document.getElementById('confirm')
-const fill = strengthFill
-const text = strengthText
-const btn = createBtn
+const confirmPass = document.getElementById('confirm')
+const fill = document.getElementById('strengthFill')
+const text = document.getElementById('strengthText')
+const btn = document.getElementById('createBtn')
 const terms = document.getElementById('terms')
-const toast = document.getElementById('toast')
-
-function showToast(msg){
-  toast.textContent = msg
-  toast.classList.add('show')
-  setTimeout(()=>toast.classList.remove('show'),3000)
-}
 
 function showError(input, show){
   const error = input.nextElementSibling
@@ -195,43 +186,66 @@ function showError(input, show){
 }
 
 function validar(){
-  const ok = nameInput.value && emailInput.value && pass.value &&
-             confirm.value === pass.value && terms.checked
-  btn.classList.toggle('disabled', !ok)
+  const okName = nameInput.value.trim()
+  const okEmail = emailInput.value.trim()
+  const okPass = pass.value
+  const okConfirm = confirmPass.value && pass.value === confirmPass.value
+
+  showError(nameInput, !okName)
+  showError(emailInput, !okEmail)
+  showError(confirmPass, confirmPass.value && !okConfirm)
+
+  btn.disabled = !(okName && okEmail && okPass && okConfirm && terms.checked)
 }
 
-[nameInput,emailInput,pass,confirm].forEach(i=>i.addEventListener('input', validar))
+[nameInput,emailInput,pass,confirmPass].forEach(i=>{
+  i.addEventListener('input', validar)
+})
 terms.addEventListener('change', validar)
 
-pass.addEventListener('input',()=>{
-  const v=pass.value
-  if(v.length<6){
-    fill.style.width='33%';fill.style.background='var(--red)'
-    text.textContent='Senha fraca';text.style.color='var(--red)'
-  }else if(/[A-Z]/.test(v)&&/\d/.test(v)){
-    fill.style.width='100%';fill.style.background='var(--green)'
-    text.textContent='Senha forte';text.style.color='var(--green)'
+pass.addEventListener('input', ()=>{
+  const v = pass.value
+  if(v.length < 6){
+    fill.style.width='33%'
+    fill.style.background='var(--red)'
+    text.textContent='Senha fraca'
+  }else if(/[A-Z]/.test(v) && /\d/.test(v)){
+    fill.style.width='100%'
+    fill.style.background='var(--green)'
+    text.textContent='Senha forte'
   }else{
-    fill.style.width='66%';fill.style.background='var(--orange)'
-    text.textContent='Senha média';text.style.color='var(--orange)'
+    fill.style.width='66%'
+    fill.style.background='var(--orange)'
+    text.textContent='Senha média'
   }
 })
+
+function toast(msg){
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'),3000)
+}
 </script>
 
 <script type="module">
 import { supabase } from './auth.js'
 
-createBtn.addEventListener('click', async ()=>{
+document.getElementById('createBtn').addEventListener('click', async ()=>{
+  const email = document.getElementById('email').value
+  const password = document.getElementById('pass').value
+  const name = document.getElementById('name').value
+
   const { error } = await supabase.auth.signUp({
-    email: email.value,
-    password: pass.value,
-    options:{ data:{ nome:name.value } }
+    email,
+    password,
+    options:{ data:{ nome:name } }
   })
 
   if(error){
-    showToast(error.message)
+    toast(error.message)
   }else{
-    showToast('Conta criada com sucesso 🎉')
+    toast('Conta criada com sucesso 🎉')
   }
 })
 </script>
