@@ -2,7 +2,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // 🔑 COLE AQUI OS DADOS DO SEU SUPABASE
 const supabaseUrl = 'https://vkfuvijagxwkmuposbya.supabase.co'
-const supabaseAnonKey = 'let { data, error } = await supabase.auth.signUp({
+const supabaseAnonKey = 'const supabaseKey = process.env.SUPABASE_KEY
   email: 'someone@email.com',
   password: 'NZhJDpVUycblxRxGfVEv'
 })'
