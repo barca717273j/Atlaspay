@@ -247,6 +247,18 @@ document.getElementById('createBtn').addEventListener('click', async () => {
   }
 })
 </script>
+<script type="module">
+import { supabase } from './auth.js'
+
+const { data, error } = await supabase.auth.getSession()
+
+if (error) {
+  alert('ERRO ao conectar Supabase')
+  console.error(error)
+} else {
+  console.log('Supabase conectado com sucesso', data)
+}
+</script>
 
 </body>
 </html>
