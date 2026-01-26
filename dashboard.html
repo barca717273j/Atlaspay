@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AtlasPay | Dashboard</title>
+
+<style>
+:root{
+  --bg:#0b1020;
+  --sidebar:#0f172a;
+  --card:#ffffff;
+  --primary:#1fffd5;
+  --text:#0f172a;
+  --muted:#64748b;
+}
+
+*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+
+body{
+  margin:0;
+  display:flex;
+  min-height:100vh;
+  background:#eef2f7;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:var(--sidebar);
+  color:#fff;
+  padding:20px;
+}
+
+.sidebar h2{
+  margin:0 0 30px;
+  font-size:20px;
+  color:var(--primary);
+}
+
+.menu a{
+  display:block;
+  padding:12px;
+  border-radius:8px;
+  color:#cbd5e1;
+  text-decoration:none;
+  margin-bottom:6px;
+}
+
+.menu a:hover{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:24px;
+}
+
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.user{
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* KPIs */
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.card h3{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.card strong{
+  font-size:24px;
+  color:var(--text);
+}
+</style>
+</head>
+
+<body>
+
+<!-- PROTEÇÃO -->
+<script type="module" src="./guard.js"></script>
+
+<div class="sidebar">
+  <h2>AtlasPay</h2>
+  <div class="menu">
+    <a href="#">Dashboard</a>
+    <a href="#">Vendas</a>
+    <a href="#">Produtos</a>
+    <a href="#">Financeiro</a>
+    <a href="#">Afiliados</a>
+    <a href="#">Relatórios</a>
+    <a href="#">Configurações</a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <h1>Visão Geral</h1>
+    <div class="user" id="userEmail"></div>
+  </div>
+
+  <div class="kpis">
+    <div class="card">
+      <h3>Faturamento total</h3>
+      <strong>R$ 0,00</strong>
+    </div>
+    <div class="card">
+      <h3>Vendas</h3>
+      <strong>0</strong>
+    </div>
+    <div class="card">
+      <h3>Saldo disponível</h3>
+      <strong>R$ 0,00</strong>
+    </div>
+    <div class="card">
+      <h3>Saques pendentes</h3>
+      <strong>R$ 0,00</strong>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./dashboard.js"></script>
+
+</body>
+</html>
