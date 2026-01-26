@@ -12,11 +12,14 @@ btn.addEventListener('click', async () => {
     password
   })
 
-  if (error) {
-    alert(error.message)
-  } else {
-    alert('Conta criada com sucesso!')
-    console.log(data)
-  }
+  if(error){
+  toast(error.message)
+}else{
+  toast('Conta criada com sucesso ✅')
+  setTimeout(() => {
+    window.location.href = './dashboard.html'
+  }, 1200)
+}
+
 })
 </script>
