@@ -186,6 +186,20 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 
     <button id="loginBtn">Entrar</button>
 
+    const { error } = await supabase.auth.signInWithPassword({
+  email,
+  password
+})
+
+if(error){
+  toast(error.message)
+}else{
+  toast('Bem-vindo de volta ✅')
+  setTimeout(()=>{
+    window.location.href = './dashboard.html'
+  },1000)
+}
+
     <div class="switch">
       Não tenho conta? <a onclick="showRegister()">Criar conta</a>
     </div>
